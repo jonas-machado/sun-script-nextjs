@@ -1,5 +1,7 @@
 import Navbar from "../components/navbar/Navbar";
 import getCurrentUser from "../actions/getCurrentUser";
+import { AnimatePresence } from "framer-motion";
+
 
 export default async function RootLayout({
   children,

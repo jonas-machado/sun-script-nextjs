@@ -188,6 +188,7 @@ function ConfigForm({
       idLivre: id,
       idOnu: onuId,
       cliente: cliente,
+      id: currentUser!.id
     }).catch(err => { console.log(err) })
     setpppoeText(pppoeText().join("\n"))
     setpppoeText2(pppoeText2().join("\n"))
@@ -274,7 +275,7 @@ function ConfigForm({
   };
   return (
     <div>
-      <section className="md:grid md:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
+      <section className="lg:grid lg:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
         <form className="row-span-2 h-full z-10" onSubmit={handleConfigSubmit}>
           <div className=" flex flex-col bg-black opacity-95 border-gray-900 border-2 rounded-xl p-6 space-y-5">
             <h1 className="text-white flex justify-center text-xl bg-gray-900 rounded-md p-1">
@@ -497,7 +498,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="md:h-full min-h-[400px] md:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black sm:text-sm text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black sm:text-md text-white p-4 z-0"
             value={configText}
             autoComplete="false"
             spellCheck="false"
@@ -508,7 +509,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="md:h-full min-h-[400px] md:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black sm:text-md text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black sm:text-md text-white p-4 z-0"
             value={cadastroTextArea}
             spellCheck="false"
             onChange={(e) => setCadastroText(e.target.value)}
@@ -519,7 +520,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="md:h-full min-h-[400px] md:min-h-0 border-2 w-full text-xl rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black  text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full text-xl rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black  text-white p-4 z-0"
             value={pppoeTextArea}
             spellCheck="false"
             onChange={(e) => setpppoeText(e.target.value)}
@@ -530,7 +531,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="md:h-full min-h-[400px] md:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-xl text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-xl text-white p-4 z-0"
             defaultValue={""}
             spellCheck="false"
             value={pppoeTextArea2}

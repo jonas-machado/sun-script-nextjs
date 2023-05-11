@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Popover, Transition, Menu, Disclosure } from "@headlessui/react";
 import {
   MapIcon,
@@ -18,6 +18,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { User } from "@prisma/client";
+import Modal from "../modals/Modal";
 
 const mapas = [
   {

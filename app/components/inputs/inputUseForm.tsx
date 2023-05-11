@@ -21,7 +21,7 @@ const InputUseForm = ({
     required,
 }: input) => {
     return (
-        <div className={` mt-1 relative rounded-md shadow-sm ${error[id] ? "shadow-[0px_0px_10px] shadow-red-600" : ""}`}>
+        <div className={` mt-1 relative rounded-md ${error[id] ? "shadow-[0px_0px_10px] shadow-red-600" : ""}`}>
 
             <input
                 type="text"

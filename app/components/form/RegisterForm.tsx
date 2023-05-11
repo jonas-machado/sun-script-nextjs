@@ -34,17 +34,23 @@ export default function RegisterForm({ isVisible }: any) {
       hideProgressBar: false,
     });
 
-  const schema: ZodType<FieldValues> = z
+  const schema = z
     .object({
       email: z.string().email({ message: "Email inválido" }),
-      password: z.string().max(20),
-      confirmPassword: z.string().max(20),
-      name: z.string().max(40),
+      password: z.string({
+        required_error: "Preencha os campos"
+      }),
+      confirmPassword: z.string({
+        required_error: "Preencha os campos"
+      }),
+      name: z.string({
+        required_error: "Preencha os campos"
+      }),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: "Senhas diferentes",
       path: ["confirmPassword"],
-    });
+    })
 
   const {
     register,
@@ -106,10 +112,18 @@ export default function RegisterForm({ isVisible }: any) {
 
   return (
     <>
-      <div
+      <motion.div
         key="reg"
         id="container"
         className={`bg-black py-1 px-6 rounded-md bg-opacity-50 shadow-[0px_0px_40px] shadow-black w-[40rem]`}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.2,
+          delay: 0.3,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        exit={{ opacity: 0 }}
       >
         <h1 className="text-center text-4xl my-2">Cadastro</h1>
 
@@ -162,16 +176,16 @@ export default function RegisterForm({ isVisible }: any) {
             />
           </div>
         </form>
-        <div className=" w-full flex whitespace-nowrap mt-3 mb-3">
+        <div className=" w-full flex whitespace-nowrap mt-3 mb-2">
           <Link
             href="/"
-            className="font-sans w-full text-sm ml-6 font-bold hover:text-gray-200 cursor-pointer text-gray-400 "
+            className="font-sans w-full text-sm ml-2 font-bold hover:text-gray-200 cursor-pointer text-gray-400 "
           >
             Já tem uma conta? <b>Clique aqui!</b>
           </Link>
         </div>
         <ToastContainer />
-      </div>
+      </motion.div>
     </>
   );
 }

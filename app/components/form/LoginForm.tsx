@@ -81,7 +81,16 @@ export default function LoginForm({ currentUser }: LoginProps) {
 
   return (
     <>
-      <div key="login" id="container" className="bg-black py-1 px-6 rounded-md bg-opacity-50 shadow-[0px_0px_40px] shadow-black w-[25rem]">
+      <motion.div key="login" id="container" className="bg-black py-1 px-6 rounded-md bg-opacity-50 shadow-[0px_0px_40px] shadow-black w-[25rem]"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.2,
+          delay: 0.3,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        exit={{ opacity: 0 }}
+      >
         <h1 className="text-center text-5xl mb-4">Login</h1>
         <form onSubmit={handleSubmit(handleClickLogin)}>
           <InputUseForm
@@ -117,7 +126,7 @@ export default function LoginForm({ currentUser }: LoginProps) {
           </Link>
         </div>
 
-      </div>
+      </motion.div>
       <ToastContainer />
     </>
   );

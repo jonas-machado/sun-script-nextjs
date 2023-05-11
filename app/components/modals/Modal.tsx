@@ -1,10 +1,18 @@
 "use client";
 
-import { useState, useRef, Fragment } from "react";
+import { useState, useRef, Fragment, Children } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { User } from "@prisma/client";
+import Image from "next/image";
 
-const Modal = () => {
+interface ModalProp {
+  isOpen: boolean,
+  currentUser: User | null
+}
+
+const Modal = ({ isOpen, currentUser }: ModalProp) => {
   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);
@@ -26,7 +34,7 @@ const Modal = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-black bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -40,43 +48,61 @@ const Modal = () => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                  <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <ExclamationTriangleIcon
-                        className="h-6 w-6 text-red-600"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                      <Dialog.Title
-                        as="h3"
-                        className="text-base font-semibold leading-6 text-gray-900"
-                      >
-                        Deactivate account
-                      </Dialog.Title>
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          Are you sure you want to deactivate your account? All
-                          of your data will be permanently removed. This action
-                          cannot be undone.
-                        </p>
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-1/3">
+                <div className="bg-gray-800 px-4 pb-4 pt-5 sm:p-6 sm:pb-4 w-full">
+                  <div className="sm:flex sm:items-start w-full">
+                    <div className="w-full">
+                      <div className="px-4 sm:px-0">
+                        <h1 className="text-4xl text-center font-semibold leading-7 text-gray-200">Perfil</h1>
+                      </div>
+                      <div className="mt-6 border-t border-gray-100">
+                        <dl className="divide-y divide-gray-100">
+                          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-medium leading-6 text-gray-400">Nome completo</dt>
+                            <dd className="mt-1 text-sm leading-6 text-gray-200 sm:col-span-2 sm:mt-0">{currentUser?.name}</dd>
+                          </div>
+                          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-medium leading-6 text-gray-400">Cargo</dt>
+                            <dd className="mt-1 text-sm leading-6 text-gray-200 sm:col-span-2 sm:mt-0">...</dd>
+                          </div>
+                          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-medium leading-6 text-gray-400">Email address</dt>
+                            <dd className="mt-1 text-sm leading-6 text-gray-200 sm:col-span-2 sm:mt-0">{currentUser?.email}</dd>
+                          </div>
+
+                          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-medium leading-6 text-gray-400">Imagem de perfil</dt>
+                            <dd className="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                              <Image
+                                className="rounded-lg "
+                                src={
+                                  currentUser?.image
+                                    ? currentUser?.image!
+                                    : `/images/Default-user-picture.webp`
+                                }
+                                height={250}
+                                width={250}
+                                alt="user picture"
+                              />
+                            </dd>
+                          </div>
+                        </dl>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                    className="inline-flex w-full justify-center rounded-md bg-purple-800
+                    px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-purple-600 sm:ml-3 sm:w-auto"
                     onClick={() => setOpen(false)}
                   >
                     Deactivate
                   </button>
                   <button
                     type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-gray-100 shadow-sm hover:bg-gray-900 transition sm:mt-0 sm:w-auto"
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >

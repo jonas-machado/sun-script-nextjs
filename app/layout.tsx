@@ -2,6 +2,7 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 import getCurrentUser from "./actions/getCurrentUser";
 const font = Nunito({ subsets: ["latin"] });
+import { AnimatePresence } from "framer-motion";
 
 export const metadata = {
   title: "Sun Script",

@@ -11,16 +11,17 @@ generator client {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   image          String?
-  email          String    @unique
-  emailVerified  DateTime  @default(now())
+  email          String       @unique
+  emailVerified  DateTime     @default(now())
   hashedPassword String
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
   sessions       Session[]
   accounts       Account[]
+  configured     Configured[]
 }
 
 model Account {
@@ -84,6 +85,7 @@ model OltDatacom {
 
 model Configured {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
   serial    String   @unique
   olt       String
   pon       String
@@ -92,4 +94,5 @@ model Configured {
   cliente   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 }
