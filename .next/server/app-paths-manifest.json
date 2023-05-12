@@ -1,5 +1,4 @@
 {
   "/page": "app/page.js",
-  "/ss/config/automatic/page": "app/ss/config/automatic/page.js",
   "/ss/config/manual/page": "app/ss/config/manual/page.js"
 }

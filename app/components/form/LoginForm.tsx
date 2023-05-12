@@ -91,7 +91,7 @@ export default function LoginForm({ currentUser }: LoginProps) {
         }}
         exit={{ opacity: 0 }}
       >
-        <h1 className="text-center text-5xl mb-4">Login</h1>
+        <h1 className="text-center text-5xl mb-4 text-gray-200">Login</h1>
         <form onSubmit={handleSubmit(handleClickLogin)}>
           <InputUseForm
             id="email"
@@ -119,7 +119,7 @@ export default function LoginForm({ currentUser }: LoginProps) {
         </form>
         <div className="my-2 ">
           <Link
-            className={`ml-2 cursor-pointer`}
+            className={`ml-2 cursor-pointer text-gray-200`}
             href="/register"
           >
             Não tem conta? <b>Cadastre-se</b>

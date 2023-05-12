@@ -21,11 +21,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/ss/config/manual/page.js"
-    ],
-    "/ss/config/automatic/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/ss/config/automatic/page.js"
     ]
   }
 }

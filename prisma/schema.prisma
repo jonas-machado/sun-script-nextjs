@@ -79,6 +79,7 @@ model OltIntelbras {
 model OltDatacom {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   olt       String
+    vlan      Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -95,4 +96,11 @@ model Configured {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model Schedule {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  company String
+  link  String
+  month Int
 }

@@ -3,11 +3,8 @@ import { getOlt } from "@/app/actions/getOlt";
 import ConfigForm from "@/app/components/form/ConfigForm";
 import { Listbox, Transition, RadioGroup } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-//import { motion } from "framer-motion";
 import Image from "next/image";
 import getCurrentUser from "../../../actions/getCurrentUser";
-import { User } from "@prisma/client";
-import PageWrapper from "@/app/lib/pageWrapper";
 
 export default async function ConfigPage() {
   const currentUser = await getCurrentUser();

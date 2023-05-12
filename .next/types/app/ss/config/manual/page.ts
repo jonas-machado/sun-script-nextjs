@@ -1,4 +1,4 @@
-// File: C:\Users\jonas\OneDrive\Área de Trabalho\Scripts\NextJS\sun-script-latest\app\ss\config\manual\page.tsx
+// File: /home/jonas.alves/Documentos/script/sun-script-nextjs/app/ss/config/manual/page.tsx
 import * as entry from '../../../../../../app/ss/config/manual/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

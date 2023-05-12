@@ -4,7 +4,6 @@ import React, { Fragment, useState, useEffect } from "react";
 //import io from "socket.io-client";
 import { Listbox, Transition, RadioGroup } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-//import { motion } from "framer-motion";
 import Image from "next/image";
 import InputWLabel from "../inputs/InputWLabel";
 import { User } from "@prisma/client";
@@ -81,6 +80,9 @@ function ConfigForm({
   };
 
   const handleVlanDatacom = (vlan?: number) => {
+    if (vlan) {
+      return vlan;
+    }
     const lastPon = pon.split("/");
     const lastVlanSlot1 = 0 + lastPon[2];
     return Number("1" + lastVlanSlot1.slice(-2));
@@ -175,7 +177,7 @@ function ConfigForm({
     );
   }
   const pppoeText2 = () => {
-    const array = cliente.toLowerCase().split(" ");
+    const array = cliente.toLowerCase().replace(/[0-9]/g, '').split(" ");
 
     return array.map(w => "2ponto." + w)
   }
@@ -214,6 +216,7 @@ function ConfigForm({
             case "VILA DA GLORIA":
             case "VILA NOVA":
             case "ITINGA":
+              case "ESTRADA DA ILHA":
               setCadastroText(cadastroText(comandoZte))
               return sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(zteText(handleVlan(oltZteChimaData[x].vlan)))
@@ -234,7 +237,6 @@ function ConfigForm({
           switch (selected.olt) {
             case "GARUVA":
             case "SFS":
-            case "PIÇARRAS":
               setCadastroText(cadastroText(comandoIntelbrasG))
 
               return onuModel == "ITBS"
@@ -264,6 +266,7 @@ function ConfigForm({
             case "BS1":
             case "ITAPOCU":
             case "SNL101":
+              case "JACU":              
               setCadastroText(cadastroText(comandoDatacom))
               return setConfigText(
                 datacomText(handleVlanDatacom(oltDatacomData[x].vlan))

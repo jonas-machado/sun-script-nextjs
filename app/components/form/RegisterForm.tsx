@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
+import { BeatLoader, PulseLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { z, ZodType } from "zod";
@@ -18,6 +19,8 @@ import InputUseForm from "../inputs/inputWLabelUseForm";
 
 export default function RegisterForm({ isVisible }: any) {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const notify = (text: any) =>
     toast.error(text, {
@@ -80,6 +83,7 @@ export default function RegisterForm({ isVisible }: any) {
     confirmPassword,
     name,
   }: FieldValues) => {
+    setIsLoading(true);
     if (errors.email) {
       notify(errors.email?.message);
     }
@@ -91,6 +95,7 @@ export default function RegisterForm({ isVisible }: any) {
         name,
       })
       .then(async (res: any) => {
+
         if (res.data.error) {
           return notify(res.data.error);
         }
@@ -100,6 +105,7 @@ export default function RegisterForm({ isVisible }: any) {
           redirect: false,
           callbackUrl: "/config/manual",
         }).then((callback) => {
+          setIsLoading(false);
           if (callback?.ok) {
             router.push("/ss/config/manual");
           }
@@ -125,7 +131,7 @@ export default function RegisterForm({ isVisible }: any) {
         }}
         exit={{ opacity: 0 }}
       >
-        <h1 className="text-center text-4xl my-2">Cadastro</h1>
+        <h1 className="text-center text-4xl my-2 text-gray-200">Cadastro</h1>
 
         <form
           className={`col space-y-2`}
@@ -169,11 +175,19 @@ export default function RegisterForm({ isVisible }: any) {
           </div>
 
           <div className="mt-1 w-full shadow-sm">
-            <input
+            <button
               className="transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]"
               id="register"
               type="submit"
-            />
+            >{!isLoading ? (
+              <>
+                <span>Enviar</span>
+              </>
+            ) : (
+              <>
+                <PulseLoader color="black" size={8} />
+              </>
+            )}</button>
           </div>
         </form>
         <div className=" w-full flex whitespace-nowrap mt-3 mb-2">

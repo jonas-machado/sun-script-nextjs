@@ -1,4 +1,4 @@
-// File: C:\Users\jonas\OneDrive\Área de Trabalho\Scripts\NextJS\sun-script-latest\app\layout.tsx
+// File: /home/jonas.alves/Documentos/script/sun-script-nextjs/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
