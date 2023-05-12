@@ -7,6 +7,7 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import getCurrentUser from "../../../actions/getCurrentUser";
 import { User } from "@prisma/client";
+import PageWrapper from "@/app/lib/pageWrapper";
 
 export default async function ConfigPage() {
   const currentUser = await getCurrentUser();
