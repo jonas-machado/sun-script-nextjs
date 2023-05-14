@@ -846,6 +846,84 @@
         "async": false
       }
     },
+    "(app-client)/./app/components/form/RegisterForm.tsx": {
+      "*": {
+        "id": "(sc_client)/./app/components/form/RegisterForm.tsx",
+        "name": "*",
+        "chunks": [
+          "app/register/page:static/chunks/app/register/page.js"
+        ],
+        "async": false
+      },
+      "": {
+        "id": "(sc_client)/./app/components/form/RegisterForm.tsx",
+        "name": "",
+        "chunks": [
+          "app/register/page:static/chunks/app/register/page.js"
+        ],
+        "async": false
+      },
+      "default": {
+        "id": "(sc_client)/./app/components/form/RegisterForm.tsx",
+        "name": "default",
+        "chunks": [
+          "app/register/page:static/chunks/app/register/page.js"
+        ],
+        "async": false
+      }
+    },
+    "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx": {
+      "*": {
+        "id": "(sc_client)/./app/components/inputs/inputWLabelUseForm.tsx",
+        "name": "*",
+        "chunks": [
+          "app/register/page:static/chunks/app/register/page.js"
+        ],
+        "async": false
+      },
+      "": {
+        "id": "(sc_client)/./app/components/inputs/inputWLabelUseForm.tsx",
+        "name": "",
+        "chunks": [
+          "app/register/page:static/chunks/app/register/page.js"
+        ],
+        "async": false
+      },
+      "default": {
+        "id": "(sc_client)/./app/components/inputs/inputWLabelUseForm.tsx",
+        "name": "default",
+        "chunks": [
+          "app/register/page:static/chunks/app/register/page.js"
+        ],
+        "async": false
+      }
+    },
+    "(app-client)/./app/components/form/ConfigForm.tsx": {
+      "*": {
+        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
+        "name": "*",
+        "chunks": [
+          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
+        ],
+        "async": false
+      },
+      "": {
+        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
+        "name": "",
+        "chunks": [
+          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
+        ],
+        "async": false
+      },
+      "default": {
+        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
+        "name": "default",
+        "chunks": [
+          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
+        ],
+        "async": false
+      }
+    },
     "(app-client)/./app/components/navbar/Navbar.tsx": {
       "*": {
         "id": "(sc_client)/./app/components/navbar/Navbar.tsx",
@@ -1069,32 +1147,6 @@
         ],
         "async": false
       }
-    },
-    "(app-client)/./app/components/form/ConfigForm.tsx": {
-      "*": {
-        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
-        "name": "*",
-        "chunks": [
-          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
-        "name": "",
-        "chunks": [
-          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
-        "name": "default",
-        "chunks": [
-          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-        ],
-        "async": false
-      }
     }
   },
   "edgeSSRModuleMapping": {},
@@ -1104,6 +1156,9 @@
     ],
     "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/layout": [
       "static/css/app/layout.css"
+    ],
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/register/page": [
+      "static/css/app/register/page.css"
     ]
   },
   "clientModules": {
@@ -2807,7 +2862,8 @@
       "id": "null",
       "name": "default",
       "chunks": [
-        "static/css/app/page.css"
+        "static/css/app/page.css",
+        "static/css/app/register/page.css"
       ]
     },
     "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/LoginForm.tsx": {
@@ -2941,6 +2997,78 @@
       "name": "default",
       "chunks": [
         "app/ss/layout:static/chunks/app/ss/layout.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/RegisterForm.tsx": {
+      "id": "(app-client)/./app/components/form/RegisterForm.tsx",
+      "name": "*",
+      "chunks": [
+        "app/register/page:static/chunks/app/register/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/RegisterForm.tsx#": {
+      "id": "(app-client)/./app/components/form/RegisterForm.tsx",
+      "name": "",
+      "chunks": [
+        "app/register/page:static/chunks/app/register/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/RegisterForm.tsx#default": {
+      "id": "(app-client)/./app/components/form/RegisterForm.tsx",
+      "name": "default",
+      "chunks": [
+        "app/register/page:static/chunks/app/register/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputWLabelUseForm.tsx": {
+      "id": "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx",
+      "name": "*",
+      "chunks": [
+        "app/register/page:static/chunks/app/register/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputWLabelUseForm.tsx#": {
+      "id": "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx",
+      "name": "",
+      "chunks": [
+        "app/register/page:static/chunks/app/register/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputWLabelUseForm.tsx#default": {
+      "id": "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx",
+      "name": "default",
+      "chunks": [
+        "app/register/page:static/chunks/app/register/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx": {
+      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
+      "name": "*",
+      "chunks": [
+        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx#": {
+      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
+      "name": "",
+      "chunks": [
+        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
+      ],
+      "async": false
+    },
+    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx#default": {
+      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
+      "name": "default",
+      "chunks": [
+        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
       ],
       "async": false
     },
@@ -3325,30 +3453,6 @@
       "name": "default",
       "chunks": [
         "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx": {
-      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
-      "name": "*",
-      "chunks": [
-        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx#": {
-      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
-      "name": "",
-      "chunks": [
-        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx#default": {
-      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
-      "name": "default",
-      "chunks": [
-        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
       ],
       "async": false
     }

@@ -10,7 +10,6 @@ import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-
 const plans = [
   {
     name: "ZTE/ITBS",
@@ -104,10 +103,8 @@ function ConfigForm({
     return `interface gpon-olt_${pon}\nonu ${id} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${id}\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      ).toLowerCase()}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${id}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
+      .replace(/ /g, "_")
+      .toLowerCase()}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${id}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
 
   const zteText = (vlan: number | undefined) => {
@@ -148,59 +145,65 @@ function ConfigForm({
         / /g,
         "_"
       )}\nserial-number ${sn}\nline-profile 1000Mdow1000Mup\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(
-          / /g,
-          "_"
-        )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(
+        / /g,
+        "_"
+      )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
   };
 
-  const comandoZte = `show pon power attenuation gpon-onu_${pon}:${id}`
+  const comandoZte = `show pon power attenuation gpon-onu_${pon}:${id}`;
 
-  const comandoIntelbrasG = `onu power show 1-1-${pon}-${id}`
+  const comandoIntelbrasG = `onu power show 1-1-${pon}-${id}`;
 
-  const comandoIntelbrasI = `onu status gpon ${pon} onu ${id}`
+  const comandoIntelbrasI = `onu status gpon ${pon} onu ${id}`;
 
-  const comandoDatacom = `do show interface gpon ${pon} onu ${id}`
+  const comandoDatacom = `do show interface gpon ${pon} onu ${id}`;
 
   const cadastroText = (comando: string) => {
-    const date = new Date()
-    return `=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n${currentUser!.name.split(" ")[0]}: ${("0" + date.getDate()).slice(-2)}/${("0" + (date.getMonth() + 1)).slice(-2)}/${date.getFullYear()}\nOLT: ${selected.olt}\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`
-  }
+    const date = new Date();
+    return `=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n${
+      currentUser!.name.split(" ")[0]
+    }: ${("0" + date.getDate()).slice(-2)}/${(
+      "0" +
+      (date.getMonth() + 1)
+    ).slice(-2)}/${date.getFullYear()}\nOLT: ${
+      selected.olt
+    }\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
+  };
 
   const pppoeText = () => {
     const array = cliente.toLowerCase().split(" ");
 
-    return array.flatMap(
-      (v, i) => array.slice(i + 1).map(w => v + '.' + w)
-    );
-  }
+    return array.flatMap((v, i) => array.slice(i + 1).map((w) => v + "." + w));
+  };
   const pppoeText2 = () => {
-    const array = cliente.toLowerCase().replace(/[0-9]/g, '').split(" ");
+    const array = cliente.toLowerCase().replace(/[0-9]/g, "").split(" ");
 
-    return array.map(w => "2ponto." + w)
-  }
+    return array.map((w) => "2ponto." + w);
+  };
 
   const handleConfigSubmit = async (values: any) => {
     values.preventDefault();
-    axios.post("/api/configManual", {
-      serial: sn,
-      olt: selected.olt,
-      pon: pon,
-      idLivre: id,
-      idOnu: onuId,
-      cliente: cliente,
-      id: currentUser!.id
-    }).catch(err => { console.log(err) })
-    setpppoeText(pppoeText().join("\n"))
-    setpppoeText2(pppoeText2().join("\n"))
+    axios
+      .post("/api/configManual", {
+        serial: sn,
+        olt: selected.olt,
+        pon: pon,
+        idLivre: id,
+        idOnu: onuId,
+        cliente: cliente,
+        id: currentUser!.id,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setpppoeText(pppoeText().join("\n"));
+    setpppoeText2(pppoeText2().join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
       for (let x in oltZteChimaData) {
         if (selected.olt == oltZteChimaData[x].olt) {
-          // return setConfigText(
-          //   chimaText(handleVlan(oltChimaZte[x].vlan))
-          // );
           switch (selected.olt) {
             case "BRV04":
             case "PENHA":
@@ -216,16 +219,16 @@ function ConfigForm({
             case "VILA DA GLORIA":
             case "VILA NOVA":
             case "ITINGA":
-              case "ESTRADA DA ILHA":
-              setCadastroText(cadastroText(comandoZte))
+            case "ESTRADA DA ILHA":
+              setCadastroText(cadastroText(comandoZte));
               return sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(zteText(handleVlan(oltZteChimaData[x].vlan)))
                 : setConfigText(chimaText(handleVlan(oltZteChimaData[x].vlan)));
             case "ITAPOA2":
-              setCadastroText(cadastroText(comandoZte))
+              setCadastroText(cadastroText(comandoZte));
               return setConfigText(chimaText(handleVlanItapoa2()));
             default:
-              setCadastroText(cadastroText(comandoZte))
+              setCadastroText(cadastroText(comandoZte));
               return setConfigText(chimaText(handleVlan()));
           }
         }
@@ -237,22 +240,20 @@ function ConfigForm({
           switch (selected.olt) {
             case "GARUVA":
             case "SFS":
-              setCadastroText(cadastroText(comandoIntelbrasG))
+              setCadastroText(cadastroText(comandoIntelbrasG));
 
               return onuModel == "ITBS"
                 ? setConfigText(
-                  intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
-                )
+                    intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
+                  )
                 : setConfigText(
-                  intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
-                );
+                    intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
+                  );
             case "ERVINO":
-              setCadastroText(cadastroText(comandoIntelbrasI))
-              setConfigText(
-                intelbrasI(handleVlan(oltIntelbrasData[x].vlan))
-              );
-              setOnuId(null)
-              break
+              setCadastroText(cadastroText(comandoIntelbrasI));
+              setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
+              setOnuId(null);
+              break;
             default:
           }
         }
@@ -266,8 +267,8 @@ function ConfigForm({
             case "BS1":
             case "ITAPOCU":
             case "SNL101":
-              case "JACU":              
-              setCadastroText(cadastroText(comandoDatacom))
+            case "JACU":
+              setCadastroText(cadastroText(comandoDatacom));
               return setConfigText(
                 datacomText(handleVlanDatacom(oltDatacomData[x].vlan))
               );
@@ -275,12 +276,11 @@ function ConfigForm({
         }
       }
     }
-
   };
   return (
     <div>
       <section className="lg:grid lg:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
-        <form className="row-span-2 h-full z-10" onSubmit={handleConfigSubmit}>
+        <form className="row-span-2 h-full z-5" onSubmit={handleConfigSubmit}>
           <div className=" flex flex-col bg-black opacity-95 border-gray-900 border-2 rounded-xl p-6 space-y-5">
             <h1 className="text-white flex justify-center text-xl bg-gray-900 rounded-md p-1">
               SELECIONE O SCRIPT
@@ -296,10 +296,11 @@ function ConfigForm({
                     value={plan}
                     className={({ active, checked }) =>
                       `
-                  ${checked
-                        ? "bg-gray-700 bg-opacity-75 text-white"
-                        : "bg-gray-900 "
-                      }
+                  ${
+                    checked
+                      ? "bg-gray-700 bg-opacity-75 text-white"
+                      : "bg-gray-900 "
+                  }
                     relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none w-full transition-all`
                     }
                   >
@@ -317,8 +318,9 @@ function ConfigForm({
                               </RadioGroup.Label>
                               <RadioGroup.Description
                                 as="span"
-                                className={`inline ${checked ? "text-sky-100" : "text-gray-400"
-                                  }`}
+                                className={`inline ${
+                                  checked ? "text-sky-100" : "text-gray-400"
+                                }`}
                               >
                                 <span>{plan.description}</span>
                               </RadioGroup.Description>
@@ -352,9 +354,11 @@ function ConfigForm({
                       </Listbox.Label>
                       <div className="relative w-full">
                         <Listbox.Button
-                          className={`${open ? "rounded-br-none" : ""
-                            } w-full relative cursor-default ${oltCompany == "Intelbras" ? "lg:rounded-none" : ""
-                            } bg-gray-900 rounded-r-md py-3 pl-3 pr-10 text-left shadow-sm overflow-hidden focus:outline-none sm:text-sm`}
+                          className={`${
+                            open ? "rounded-br-none" : ""
+                          } w-full relative cursor-default ${
+                            oltCompany == "Intelbras" ? "lg:rounded-none" : ""
+                          } bg-gray-900 rounded-r-md py-3 pl-3 pr-10 text-left shadow-sm overflow-hidden focus:outline-none sm:text-sm`}
                         >
                           <span className="flex items-center">
                             <span className="block truncate text-white font-medium">
@@ -436,8 +440,9 @@ function ConfigForm({
                       setOnuModel("ZNTS");
                     }}
                     type="button"
-                    className={`w-full border rounded-l-md lg:rounded-none border-gray-900 ${onuModel == "ZNTS" ? "bg-gray-500" : "bg-gray-700"
-                      } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
+                    className={`w-full border rounded-l-md lg:rounded-none border-gray-900 ${
+                      onuModel == "ZNTS" ? "bg-gray-500" : "bg-gray-700"
+                    } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
                   >
                     ZNTS
                   </button>
@@ -446,8 +451,9 @@ function ConfigForm({
                       setOnuModel("ITBS");
                     }}
                     type="button"
-                    className={`w-full rounded-r-md border border-gray-900 ${onuModel == "ITBS" ? "bg-gray-500" : "bg-gray-700"
-                      } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
+                    className={`w-full rounded-r-md border border-gray-900 ${
+                      onuModel == "ITBS" ? "bg-gray-500" : "bg-gray-700"
+                    } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
                   >
                     ITBS
                   </button>
@@ -517,7 +523,6 @@ function ConfigForm({
             value={cadastroTextArea}
             spellCheck="false"
             onChange={(e) => setCadastroText(e.target.value)}
-
           />
         </div>
         <div className="h-full">
@@ -528,7 +533,6 @@ function ConfigForm({
             value={pppoeTextArea}
             spellCheck="false"
             onChange={(e) => setpppoeText(e.target.value)}
-
           />
         </div>
         <div className="h-full">

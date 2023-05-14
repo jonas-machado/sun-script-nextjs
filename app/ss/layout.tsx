@@ -16,7 +16,7 @@ export default async function RootLayout({
     <>
       <PageWrapper>
         <section className="bg-[url('/images/backgroundConfig.gif')] bg-no-repeat bg-auto h-screen">
-          <Navbar currentUser={currentUser} />
+          <Navbar currentUser={currentUser} schedules={schedules} />
           <NextTopLoader
             color="#000000"
             shadow="0 0 70px #ffffff,0 0 70px #ffffff"

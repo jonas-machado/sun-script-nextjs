@@ -94,11 +94,13 @@ function classNames(...classes: any) {
 
 interface NavbarProps {
   currentUser?: User | null;
+  schedules: any;
 }
 
-function Navbar({ currentUser }: NavbarProps) {
+function Navbar({ currentUser, schedules }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
+  console.log(schedules);
   return (
     <header>
       <nav>
@@ -178,19 +180,20 @@ function Navbar({ currentUser }: NavbarProps) {
                         <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-[13rem] -translate-x-1/2 transform px-2 sm:px-0">
                           <div className=" overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                             <div className=" relative grid gap-6 shadow-xl bg-black opacity-90 border-gray-900 border-2 rounded-lg px-5 py-6 sm:gap-8 sm:p-8">
-                              {agendas.map((item) => (
+                              {schedules.map((item: any) => (
                                 <a
-                                  key={item.name}
-                                  href={item.href}
+                                  key={item.id}
+                                  href={item.link}
+                                  target="_blank"
                                   className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
                                 >
-                                  <item.icon
+                                  <CalendarIcon
                                     className="h-6 w-6 flex-shrink-0 text-indigo-200"
                                     aria-hidden="true"
                                   />
                                   <div className="ml-4">
-                                    <p className="text-base font-medium text-gray-200">
-                                      {item.name}
+                                    <p className="text-base font-medium text-gray-200 whitespace-nowrap">
+                                      {"Agenda " + item.company}
                                     </p>
                                   </div>
                                 </a>
