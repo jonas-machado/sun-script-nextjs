@@ -16,41 +16,40 @@ import { z, ZodType } from "zod";
 import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputUseForm from "../inputs/inputWLabelUseForm";
+import { Result } from "postcss";
 
 export default function RegisterForm({ isVisible }: any) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-
-  const notify = (text: any) =>
+  //função para notificações
+  const notify = (text: any) => {
     toast.error(text, {
       theme: "dark",
       pauseOnFocusLoss: false,
       pauseOnHover: false,
 
     });
-
-  const notifySuc = (text: string) =>
+  }
+  const notifySuc = (text: string) => {
     toast.success(text, {
       theme: "dark",
       pauseOnFocusLoss: false,
       hideProgressBar: false,
     });
+  }
 
+  //schema do zod
   const schema = z
     .object({
-      email: z.string().email({ message: "Email inválido" }),
+      email: z.string().email({ message: "Email inválido" }).nonempty({ message: "Preencha todos os campos" }),
       password: z.string({
-        required_error: "Preencha os campos"
-      }),
+      }).nonempty({ message: "Preencha todos os campos" }),
       confirmPassword: z.string({
-        required_error: "Preencha os campos"
-      }),
+      }).nonempty({ message: "Preencha todos os campos" }),
       name: z.string({
-        required_error: "Preencha os campos"
-      }),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
+      }).nonempty({ message: "Preencha todos os campos" }),
+    }).required().refine((data) => data.password === data.confirmPassword, {
       message: "Senhas diferentes",
       path: ["confirmPassword"],
     })
@@ -62,21 +61,15 @@ export default function RegisterForm({ isVisible }: any) {
   } = useForm<FieldValues>({
     resolver: zodResolver(schema),
   });
+
+  //use effect para verificar erros nos campos
   useEffect(() => {
-    if (errors.email) {
-      notify(errors.email?.message);
-    }
-    if (errors.name) {
-      notify(errors.name?.message);
-    }
-    if (errors.password) {
-      notify(errors.password?.message);
-    }
-    if (errors.confirmPassword) {
-      notify(errors.confirmPassword?.message);
+    for (let error in errors) {
+      notify(errors[error]?.message)
     }
   }, [errors]);
 
+  //função on submit que envia os dados para o nextauth e posteriomente para o mongoDB
   const handleClickRegister = async ({
     email,
     password,
@@ -84,9 +77,6 @@ export default function RegisterForm({ isVisible }: any) {
     name,
   }: FieldValues) => {
     setIsLoading(true);
-    if (errors.email) {
-      notify(errors.email?.message);
-    }
 
     await axios
       .post("/api/register", {
@@ -97,6 +87,7 @@ export default function RegisterForm({ isVisible }: any) {
       .then(async (res: any) => {
 
         if (res.data.error) {
+          setIsLoading(false);
           return notify(res.data.error);
         }
         await signIn("credentials", {
@@ -177,7 +168,6 @@ export default function RegisterForm({ isVisible }: any) {
           <div className="mt-1 w-full shadow-sm">
             <button
               className="transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]"
-              id="register"
               type="submit"
             >{!isLoading ? (
               <>

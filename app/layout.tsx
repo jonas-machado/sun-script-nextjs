@@ -19,7 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <PageWrapper>
+        <PageWrapper >
           {children}
         </PageWrapper>
       </body>

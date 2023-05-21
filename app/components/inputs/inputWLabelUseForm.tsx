@@ -35,7 +35,6 @@ const InputUseForm = ({
         className={`focus:shadow-[0px_0px_10px] focus:shadow-black transition duration-300 block caret-gray-200 outline-none w-full h-11 flex-1 rounded-none rounded-r-md  pl-3 text-gray-200 border-gray-900 sm:text-sm border-b-[1px] border-t-[1px] bg-black bg-opacity-60`}
         placeholder={placeholder}
         spellCheck="false"
-        required
         {...register(id, { required })}
       />
     </div>

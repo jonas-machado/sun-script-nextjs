@@ -20,6 +20,7 @@ interface LoginProps {
 }
 
 export default function LoginForm({ currentUser }: LoginProps) {
+
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const notify = (text: any) =>
@@ -45,14 +46,9 @@ export default function LoginForm({ currentUser }: LoginProps) {
   });
 
   useEffect(() => {
-    if (errors.email) {
-      notify(errors.email?.message);
+    for (let error in errors) {
+      notify(errors[error]?.message)
     }
-
-    if (errors.password) {
-      notify(errors.password?.message);
-    }
-
   }, [errors]);
 
   const handleClickLogin = async ({
@@ -98,14 +94,16 @@ export default function LoginForm({ currentUser }: LoginProps) {
             label="Email"
             register={register}
             error={errors}
-            required />
+            required
+          />
           <InputUseForm
             id="password"
             label="Senha"
             register={register}
             error={errors}
-            required />
-          <button className="mt-1 transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]" id="register" type="submit">
+            required
+          />
+          <button className="mt-1 transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]" type="submit">
             {!isLoading ? (
               <>
                 <span>Enviar</span>

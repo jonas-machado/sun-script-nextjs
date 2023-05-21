@@ -1,5 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/ss/config/manual/page": "app/ss/config/manual/page.js"
+  "/(pages)/(login)/page": "app/(pages)/(login)/page.js"
 }

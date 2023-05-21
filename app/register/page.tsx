@@ -7,6 +7,7 @@ function RegisterPage() {
     <>
 
       <div
+        id="register"
         className={`h-screen flex items-center justify-center bg-[url('/images/bg1.gif')] bg-no-repeat bg-fixed bg-cover`}
 
       >

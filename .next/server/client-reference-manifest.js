@@ -742,12 +742,38 @@ self.__RSC_MANIFEST={
         "async": false
       }
     },
+    "(app-client)/./lib/pageWrapper.tsx": {
+      "*": {
+        "id": "(sc_client)/./lib/pageWrapper.tsx",
+        "name": "*",
+        "chunks": [
+          "app/layout:static/chunks/app/layout.js"
+        ],
+        "async": false
+      },
+      "": {
+        "id": "(sc_client)/./lib/pageWrapper.tsx",
+        "name": "",
+        "chunks": [
+          "app/layout:static/chunks/app/layout.js"
+        ],
+        "async": false
+      },
+      "default": {
+        "id": "(sc_client)/./lib/pageWrapper.tsx",
+        "name": "default",
+        "chunks": [
+          "app/layout:static/chunks/app/layout.js"
+        ],
+        "async": false
+      }
+    },
     "(app-client)/./app/components/form/LoginForm.tsx": {
       "*": {
         "id": "(sc_client)/./app/components/form/LoginForm.tsx",
         "name": "*",
         "chunks": [
-          "app/page:static/chunks/app/page.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       },
@@ -755,7 +781,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/form/LoginForm.tsx",
         "name": "",
         "chunks": [
-          "app/page:static/chunks/app/page.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       },
@@ -763,7 +789,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/form/LoginForm.tsx",
         "name": "default",
         "chunks": [
-          "app/page:static/chunks/app/page.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       }
@@ -773,7 +799,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/inputs/inputUseForm.tsx",
         "name": "*",
         "chunks": [
-          "app/page:static/chunks/app/page.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       },
@@ -781,7 +807,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/inputs/inputUseForm.tsx",
         "name": "",
         "chunks": [
-          "app/page:static/chunks/app/page.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       },
@@ -789,7 +815,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/inputs/inputUseForm.tsx",
         "name": "default",
         "chunks": [
-          "app/page:static/chunks/app/page.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       }
@@ -799,7 +825,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./node_modules/next/dist/client/link.js",
         "name": "*",
         "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       },
@@ -807,7 +833,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./node_modules/next/dist/client/link.js",
         "name": "",
         "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       },
@@ -815,335 +841,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./node_modules/next/dist/client/link.js",
         "name": "default",
         "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./app/lib/pageWrapper.tsx": {
-      "*": {
-        "id": "(sc_client)/./app/lib/pageWrapper.tsx",
-        "name": "*",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./app/lib/pageWrapper.tsx",
-        "name": "",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./app/lib/pageWrapper.tsx",
-        "name": "default",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./app/components/form/RegisterForm.tsx": {
-      "*": {
-        "id": "(sc_client)/./app/components/form/RegisterForm.tsx",
-        "name": "*",
-        "chunks": [
-          "app/register/page:static/chunks/app/register/page.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./app/components/form/RegisterForm.tsx",
-        "name": "",
-        "chunks": [
-          "app/register/page:static/chunks/app/register/page.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./app/components/form/RegisterForm.tsx",
-        "name": "default",
-        "chunks": [
-          "app/register/page:static/chunks/app/register/page.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx": {
-      "*": {
-        "id": "(sc_client)/./app/components/inputs/inputWLabelUseForm.tsx",
-        "name": "*",
-        "chunks": [
-          "app/register/page:static/chunks/app/register/page.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./app/components/inputs/inputWLabelUseForm.tsx",
-        "name": "",
-        "chunks": [
-          "app/register/page:static/chunks/app/register/page.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./app/components/inputs/inputWLabelUseForm.tsx",
-        "name": "default",
-        "chunks": [
-          "app/register/page:static/chunks/app/register/page.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./app/components/form/ConfigForm.tsx": {
-      "*": {
-        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
-        "name": "*",
-        "chunks": [
-          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
-        "name": "",
-        "chunks": [
-          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./app/components/form/ConfigForm.tsx",
-        "name": "default",
-        "chunks": [
-          "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./app/components/navbar/Navbar.tsx": {
-      "*": {
-        "id": "(sc_client)/./app/components/navbar/Navbar.tsx",
-        "name": "*",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./app/components/navbar/Navbar.tsx",
-        "name": "",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./app/components/navbar/Navbar.tsx",
-        "name": "default",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./node_modules/next/dist/client/image.js": {
-      "*": {
-        "id": "(sc_client)/./node_modules/next/dist/client/image.js",
-        "name": "*",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./node_modules/next/dist/client/image.js",
-        "name": "",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./node_modules/next/dist/client/image.js",
-        "name": "default",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./node_modules/next/dist/shared/lib/head.js": {
-      "*": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "*",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "default",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "defaultHead": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "defaultHead",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "charSet": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "charSet",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "name": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "name",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "content": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "content",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "\"title\"": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "\"title\"",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "\"base\"": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "\"base\"",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "\"meta\"": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "\"meta\"",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "TODO(prateekbh@)": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "TODO(prateekbh@)",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "\"https": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "\"https",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "here": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "here",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "https": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "https",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "reduceComponentsToState": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "reduceComponentsToState",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "headManager": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "headManager",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "inAmpMode": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "inAmpMode",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "value": {
-        "id": "(sc_client)/./node_modules/next/dist/shared/lib/head.js",
-        "name": "value",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./node_modules/nextjs-toploader/dist/index.js": {
-      "*": {
-        "id": "(sc_client)/./node_modules/nextjs-toploader/dist/index.js",
-        "name": "*",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./node_modules/nextjs-toploader/dist/index.js",
-        "name": "",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./node_modules/nextjs-toploader/dist/index.js",
-        "name": "default",
-        "chunks": [
-          "app/ss/layout:static/chunks/app/ss/layout.js"
+          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
         ],
         "async": false
       }
@@ -1151,18 +849,15 @@ self.__RSC_MANIFEST={
   },
   "edgeSSRModuleMapping": {},
   "cssFiles": {
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/page": [
-      "static/css/app/page.css"
-    ],
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/layout": [
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\layout": [
       "static/css/app/layout.css"
     ],
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/register/page": [
-      "static/css/app/register/page.css"
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\(pages)\\(login)\\page": [
+      "static/css/app/(pages)/(login)/page.css"
     ]
   },
   "clientModules": {
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "*",
       "chunks": [
@@ -1170,7 +865,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "*",
       "chunks": [
@@ -1178,7 +873,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "",
       "chunks": [
@@ -1186,7 +881,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "",
       "chunks": [
@@ -1194,7 +889,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "default",
       "chunks": [
@@ -1202,7 +897,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "default",
       "chunks": [
@@ -1210,7 +905,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#getServerActionDispatcher": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#getServerActionDispatcher": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "getServerActionDispatcher",
       "chunks": [
@@ -1218,7 +913,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#getServerActionDispatcher": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#getServerActionDispatcher": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "getServerActionDispatcher",
       "chunks": [
@@ -1226,7 +921,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#urlToUrlWithoutFlightMarker": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#urlToUrlWithoutFlightMarker": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "urlToUrlWithoutFlightMarker",
       "chunks": [
@@ -1234,7 +929,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#urlToUrlWithoutFlightMarker": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#urlToUrlWithoutFlightMarker": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "urlToUrlWithoutFlightMarker",
       "chunks": [
@@ -1242,7 +937,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#TODO-APP": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#TODO-APP": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "TODO-APP",
       "chunks": [
@@ -1250,7 +945,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#TODO-APP": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#TODO-APP": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "TODO-APP",
       "chunks": [
@@ -1258,7 +953,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#__NA": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#__NA": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "__NA",
       "chunks": [
@@ -1266,7 +961,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#__NA": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#__NA": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "__NA",
       "chunks": [
@@ -1274,7 +969,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#location": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#location": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "location",
       "chunks": [
@@ -1282,7 +977,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#location": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#location": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "location",
       "chunks": [
@@ -1290,7 +985,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#\"http": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#\"http": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "\"http",
       "chunks": [
@@ -1298,7 +993,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#\"http": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#\"http": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "\"http",
       "chunks": [
@@ -1306,7 +1001,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#searchParams": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#searchParams": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "searchParams",
       "chunks": [
@@ -1314,7 +1009,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#searchParams": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#searchParams": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "searchParams",
       "chunks": [
@@ -1322,7 +1017,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#pathname": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#pathname": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "pathname",
       "chunks": [
@@ -1330,7 +1025,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#pathname": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#pathname": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "pathname",
       "chunks": [
@@ -1338,7 +1033,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#type": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#type": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "type",
       "chunks": [
@@ -1346,7 +1041,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#type": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#type": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "type",
       "chunks": [
@@ -1354,7 +1049,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#cache": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#cache": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "cache",
       "chunks": [
@@ -1362,7 +1057,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#cache": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#cache": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "cache",
       "chunks": [
@@ -1370,7 +1065,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#status": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#status": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "status",
       "chunks": [
@@ -1378,7 +1073,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#status": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#status": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "status",
       "chunks": [
@@ -1386,7 +1081,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#data": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#data": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "data",
       "chunks": [
@@ -1394,7 +1089,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#data": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#data": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "data",
       "chunks": [
@@ -1402,7 +1097,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#subTreeData": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#subTreeData": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "subTreeData",
       "chunks": [
@@ -1410,7 +1105,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#subTreeData": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#subTreeData": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "subTreeData",
       "chunks": [
@@ -1418,7 +1113,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#parallelRoutes": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#parallelRoutes": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "parallelRoutes",
       "chunks": [
@@ -1426,7 +1121,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#parallelRoutes": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#parallelRoutes": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "parallelRoutes",
       "chunks": [
@@ -1434,7 +1129,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#mutable": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#mutable": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "mutable",
       "chunks": [
@@ -1442,7 +1137,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#mutable": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#mutable": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "mutable",
       "chunks": [
@@ -1450,7 +1145,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#isExternalUrl": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#isExternalUrl": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "isExternalUrl",
       "chunks": [
@@ -1458,7 +1153,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#isExternalUrl": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#isExternalUrl": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "isExternalUrl",
       "chunks": [
@@ -1466,7 +1161,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#locationSearch": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#locationSearch": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "locationSearch",
       "chunks": [
@@ -1474,7 +1169,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#locationSearch": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#locationSearch": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "locationSearch",
       "chunks": [
@@ -1482,7 +1177,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#back": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#back": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "back",
       "chunks": [
@@ -1490,7 +1185,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#back": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#back": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "back",
       "chunks": [
@@ -1498,7 +1193,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#forward": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#forward": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "forward",
       "chunks": [
@@ -1506,7 +1201,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#forward": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#forward": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "forward",
       "chunks": [
@@ -1514,7 +1209,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#prefetch": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#prefetch": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "prefetch",
       "chunks": [
@@ -1522,7 +1217,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#prefetch": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#prefetch": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "prefetch",
       "chunks": [
@@ -1530,7 +1225,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#kind": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#kind": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "kind",
       "chunks": [
@@ -1538,7 +1233,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#kind": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#kind": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "kind",
       "chunks": [
@@ -1546,7 +1241,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#replace": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#replace": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "replace",
       "chunks": [
@@ -1554,7 +1249,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#replace": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#replace": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "replace",
       "chunks": [
@@ -1562,7 +1257,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#push": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#push": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "push",
       "chunks": [
@@ -1570,7 +1265,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#push": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#push": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "push",
       "chunks": [
@@ -1578,7 +1273,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#refresh": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#refresh": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "refresh",
       "chunks": [
@@ -1586,7 +1281,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#refresh": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#refresh": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "refresh",
       "chunks": [
@@ -1594,7 +1289,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#origin": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#origin": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "origin",
       "chunks": [
@@ -1602,7 +1297,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#origin": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#origin": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "origin",
       "chunks": [
@@ -1610,7 +1305,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#fastRefresh": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#fastRefresh": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "fastRefresh",
       "chunks": [
@@ -1618,7 +1313,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#fastRefresh": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#fastRefresh": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "fastRefresh",
       "chunks": [
@@ -1626,7 +1321,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#router": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#router": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "router",
       "chunks": [
@@ -1634,7 +1329,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#router": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#router": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "router",
       "chunks": [
@@ -1642,7 +1337,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#(eg": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#(eg": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "(eg",
       "chunks": [
@@ -1650,7 +1345,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#(eg": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#(eg": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "(eg",
       "chunks": [
@@ -1658,7 +1353,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#url": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#url": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "url",
       "chunks": [
@@ -1666,7 +1361,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#url": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#url": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "url",
       "chunks": [
@@ -1674,7 +1369,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#tree": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#tree": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "tree",
       "chunks": [
@@ -1682,7 +1377,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#tree": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#tree": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "tree",
       "chunks": [
@@ -1690,7 +1385,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#notFound": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#notFound": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "notFound",
       "chunks": [
@@ -1698,7 +1393,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#notFound": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#notFound": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "notFound",
       "chunks": [
@@ -1706,7 +1401,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#notFoundStyles": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#notFoundStyles": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "notFoundStyles",
       "chunks": [
@@ -1714,7 +1409,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#notFoundStyles": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#notFoundStyles": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "notFoundStyles",
       "chunks": [
@@ -1722,7 +1417,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#asNotFound": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#asNotFound": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "asNotFound",
       "chunks": [
@@ -1730,7 +1425,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#asNotFound": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#asNotFound": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "asNotFound",
       "chunks": [
@@ -1738,7 +1433,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#pushRef": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#pushRef": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "pushRef",
       "chunks": [
@@ -1746,7 +1441,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#pushRef": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#pushRef": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "pushRef",
       "chunks": [
@@ -1754,7 +1449,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#canonicalUrl": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#canonicalUrl": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "canonicalUrl",
       "chunks": [
@@ -1762,7 +1457,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#canonicalUrl": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#canonicalUrl": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "canonicalUrl",
       "chunks": [
@@ -1770,7 +1465,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#sync": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#sync": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "sync",
       "chunks": [
@@ -1778,7 +1473,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#sync": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#sync": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "sync",
       "chunks": [
@@ -1786,7 +1481,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#value": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#value": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "value",
       "chunks": [
@@ -1794,7 +1489,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#value": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#value": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "value",
       "chunks": [
@@ -1802,15 +1497,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#childNodes": {
-      "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
-      "name": "childNodes",
-      "chunks": [
-        "webpack:static/chunks/webpack.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#childNodes": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#childNodes": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "childNodes",
       "chunks": [
@@ -1818,7 +1505,15 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#assetPrefix": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#childNodes": {
+      "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
+      "name": "childNodes",
+      "chunks": [
+        "webpack:static/chunks/webpack.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#assetPrefix": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "assetPrefix",
       "chunks": [
@@ -1826,7 +1521,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#assetPrefix": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#assetPrefix": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "assetPrefix",
       "chunks": [
@@ -1834,7 +1529,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/app-router.js#errorComponent": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\app-router.js#errorComponent": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "errorComponent",
       "chunks": [
@@ -1842,7 +1537,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/app-router.js#errorComponent": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\app-router.js#errorComponent": {
       "id": "(app-client)/./node_modules/next/dist/client/components/app-router.js",
       "name": "errorComponent",
       "chunks": [
@@ -1850,7 +1545,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "*",
       "chunks": [
@@ -1858,7 +1553,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "*",
       "chunks": [
@@ -1866,7 +1561,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "",
       "chunks": [
@@ -1874,7 +1569,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "",
       "chunks": [
@@ -1882,7 +1577,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "default",
       "chunks": [
@@ -1890,7 +1585,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "default",
       "chunks": [
@@ -1898,7 +1593,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#ErrorBoundaryHandler": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#ErrorBoundaryHandler": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "ErrorBoundaryHandler",
       "chunks": [
@@ -1906,7 +1601,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#ErrorBoundaryHandler": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#ErrorBoundaryHandler": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "ErrorBoundaryHandler",
       "chunks": [
@@ -1914,7 +1609,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#ErrorBoundary": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#ErrorBoundary": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "ErrorBoundary",
       "chunks": [
@@ -1922,7 +1617,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#ErrorBoundary": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#ErrorBoundary": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "ErrorBoundary",
       "chunks": [
@@ -1930,7 +1625,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#error": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#error": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "error",
       "chunks": [
@@ -1938,7 +1633,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#error": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#error": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "error",
       "chunks": [
@@ -1946,7 +1641,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#https": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#https": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "https",
       "chunks": [
@@ -1954,7 +1649,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#https": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#https": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "https",
       "chunks": [
@@ -1962,7 +1657,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#fontFamily": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#fontFamily": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "fontFamily",
       "chunks": [
@@ -1970,7 +1665,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#fontFamily": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#fontFamily": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "fontFamily",
       "chunks": [
@@ -1978,7 +1673,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#height": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#height": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "height",
       "chunks": [
@@ -1986,7 +1681,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#height": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#height": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "height",
       "chunks": [
@@ -1994,7 +1689,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#textAlign": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#textAlign": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "textAlign",
       "chunks": [
@@ -2002,7 +1697,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#textAlign": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#textAlign": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "textAlign",
       "chunks": [
@@ -2010,7 +1705,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#display": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#display": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "display",
       "chunks": [
@@ -2018,7 +1713,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#display": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#display": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "display",
       "chunks": [
@@ -2026,7 +1721,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#flexDirection": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#flexDirection": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "flexDirection",
       "chunks": [
@@ -2034,7 +1729,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#flexDirection": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#flexDirection": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "flexDirection",
       "chunks": [
@@ -2042,7 +1737,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#alignItems": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#alignItems": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "alignItems",
       "chunks": [
@@ -2050,7 +1745,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#alignItems": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#alignItems": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "alignItems",
       "chunks": [
@@ -2058,7 +1753,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#justifyContent": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#justifyContent": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "justifyContent",
       "chunks": [
@@ -2066,7 +1761,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#justifyContent": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#justifyContent": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "justifyContent",
       "chunks": [
@@ -2074,7 +1769,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#desc": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#desc": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "desc",
       "chunks": [
@@ -2082,7 +1777,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#desc": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#desc": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "desc",
       "chunks": [
@@ -2090,7 +1785,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#text": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#text": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "text",
       "chunks": [
@@ -2098,7 +1793,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#text": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#text": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "text",
       "chunks": [
@@ -2106,7 +1801,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#fontSize": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#fontSize": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "fontSize",
       "chunks": [
@@ -2114,7 +1809,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#fontSize": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#fontSize": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "fontSize",
       "chunks": [
@@ -2122,7 +1817,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#fontWeight": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#fontWeight": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "fontWeight",
       "chunks": [
@@ -2130,7 +1825,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#fontWeight": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#fontWeight": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "fontWeight",
       "chunks": [
@@ -2138,7 +1833,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#lineHeight": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#lineHeight": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "lineHeight",
       "chunks": [
@@ -2146,7 +1841,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#lineHeight": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#lineHeight": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "lineHeight",
       "chunks": [
@@ -2154,7 +1849,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#margin": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#margin": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "margin",
       "chunks": [
@@ -2162,7 +1857,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#margin": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#margin": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "margin",
       "chunks": [
@@ -2170,7 +1865,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#reset": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#reset": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "reset",
       "chunks": [
@@ -2178,7 +1873,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#reset": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#reset": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "reset",
       "chunks": [
@@ -2186,7 +1881,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#style": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#style": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "style",
       "chunks": [
@@ -2194,7 +1889,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#style": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#style": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "style",
       "chunks": [
@@ -2202,7 +1897,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#\"Digest": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#\"Digest": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "\"Digest",
       "chunks": [
@@ -2210,7 +1905,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#\"Digest": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#\"Digest": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "\"Digest",
       "chunks": [
@@ -2218,7 +1913,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#errorComponent": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#errorComponent": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "errorComponent",
       "chunks": [
@@ -2226,7 +1921,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#errorComponent": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#errorComponent": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "errorComponent",
       "chunks": [
@@ -2234,7 +1929,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#errorStyles": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#errorStyles": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "errorStyles",
       "chunks": [
@@ -2242,7 +1937,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#errorStyles": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#errorStyles": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "errorStyles",
       "chunks": [
@@ -2250,7 +1945,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/error-boundary.js#value": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\error-boundary.js#value": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "value",
       "chunks": [
@@ -2258,7 +1953,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/error-boundary.js#value": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\error-boundary.js#value": {
       "id": "(app-client)/./node_modules/next/dist/client/components/error-boundary.js",
       "name": "value",
       "chunks": [
@@ -2266,7 +1961,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "*",
       "chunks": [
@@ -2274,7 +1969,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "*",
       "chunks": [
@@ -2282,7 +1977,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "",
       "chunks": [
@@ -2290,7 +1985,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "",
       "chunks": [
@@ -2298,7 +1993,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "default",
       "chunks": [
@@ -2306,7 +2001,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "default",
       "chunks": [
@@ -2314,15 +2009,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#RedirectErrorBoundary": {
-      "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
-      "name": "RedirectErrorBoundary",
-      "chunks": [
-        "webpack:static/chunks/webpack.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#RedirectErrorBoundary": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#RedirectErrorBoundary": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "RedirectErrorBoundary",
       "chunks": [
@@ -2330,7 +2017,15 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#RedirectBoundary": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#RedirectErrorBoundary": {
+      "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
+      "name": "RedirectErrorBoundary",
+      "chunks": [
+        "webpack:static/chunks/webpack.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#RedirectBoundary": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "RedirectBoundary",
       "chunks": [
@@ -2338,7 +2033,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#RedirectBoundary": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#RedirectBoundary": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "RedirectBoundary",
       "chunks": [
@@ -2346,7 +2041,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#redirect": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#redirect": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "redirect",
       "chunks": [
@@ -2354,7 +2049,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#redirect": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#redirect": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "redirect",
       "chunks": [
@@ -2362,7 +2057,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#redirectType": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#redirectType": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "redirectType",
       "chunks": [
@@ -2370,7 +2065,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#redirectType": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#redirectType": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "redirectType",
       "chunks": [
@@ -2378,7 +2073,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#reset": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#reset": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "reset",
       "chunks": [
@@ -2386,7 +2081,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#reset": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#reset": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "reset",
       "chunks": [
@@ -2394,7 +2089,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#router": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#router": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "router",
       "chunks": [
@@ -2402,7 +2097,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#router": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#router": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "router",
       "chunks": [
@@ -2410,7 +2105,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/redirect-boundary.js#value": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\redirect-boundary.js#value": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "value",
       "chunks": [
@@ -2418,7 +2113,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/redirect-boundary.js#value": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\redirect-boundary.js#value": {
       "id": "(app-client)/./node_modules/next/dist/client/components/redirect-boundary.js",
       "name": "value",
       "chunks": [
@@ -2426,7 +2121,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/router-reducer/fetch-server-response.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\router-reducer\\fetch-server-response.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/router-reducer/fetch-server-response.js",
       "name": "*",
       "chunks": [
@@ -2434,7 +2129,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/router-reducer/fetch-server-response.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\router-reducer\\fetch-server-response.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/router-reducer/fetch-server-response.js",
       "name": "*",
       "chunks": [
@@ -2442,7 +2137,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/router-reducer/fetch-server-response.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\router-reducer\\fetch-server-response.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/router-reducer/fetch-server-response.js",
       "name": "",
       "chunks": [
@@ -2450,7 +2145,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/router-reducer/fetch-server-response.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\router-reducer\\fetch-server-response.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/router-reducer/fetch-server-response.js",
       "name": "",
       "chunks": [
@@ -2458,7 +2153,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/router-reducer/fetch-server-response.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\router-reducer\\fetch-server-response.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/router-reducer/fetch-server-response.js",
       "name": "default",
       "chunks": [
@@ -2466,7 +2161,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/router-reducer/fetch-server-response.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\router-reducer\\fetch-server-response.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/router-reducer/fetch-server-response.js",
       "name": "default",
       "chunks": [
@@ -2474,7 +2169,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "*",
       "chunks": [
@@ -2482,7 +2177,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "*",
       "chunks": [
@@ -2490,7 +2185,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js#": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "",
       "chunks": [
@@ -2498,7 +2193,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js#": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "",
       "chunks": [
@@ -2506,7 +2201,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js#CacheStates": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js#CacheStates": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "CacheStates",
       "chunks": [
@@ -2514,7 +2209,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js#CacheStates": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js#CacheStates": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "CacheStates",
       "chunks": [
@@ -2522,7 +2217,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js#AppRouterContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js#AppRouterContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "AppRouterContext",
       "chunks": [
@@ -2530,7 +2225,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js#AppRouterContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js#AppRouterContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "AppRouterContext",
       "chunks": [
@@ -2538,7 +2233,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js#LayoutRouterContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js#LayoutRouterContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "LayoutRouterContext",
       "chunks": [
@@ -2546,7 +2241,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js#LayoutRouterContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js#LayoutRouterContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "LayoutRouterContext",
       "chunks": [
@@ -2554,7 +2249,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js#GlobalLayoutRouterContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js#GlobalLayoutRouterContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "GlobalLayoutRouterContext",
       "chunks": [
@@ -2562,7 +2257,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js#GlobalLayoutRouterContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js#GlobalLayoutRouterContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "GlobalLayoutRouterContext",
       "chunks": [
@@ -2570,7 +2265,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/app-router-context.js#TemplateContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\app-router-context.js#TemplateContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "TemplateContext",
       "chunks": [
@@ -2578,7 +2273,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/app-router-context.js#TemplateContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\app-router-context.js#TemplateContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/app-router-context.js",
       "name": "TemplateContext",
       "chunks": [
@@ -2586,7 +2281,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/hooks-client-context.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\hooks-client-context.js": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "*",
       "chunks": [
@@ -2594,7 +2289,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/hooks-client-context.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\hooks-client-context.js": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "*",
       "chunks": [
@@ -2602,7 +2297,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/hooks-client-context.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\hooks-client-context.js#": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "",
       "chunks": [
@@ -2610,7 +2305,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/hooks-client-context.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\hooks-client-context.js#": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "",
       "chunks": [
@@ -2618,15 +2313,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/hooks-client-context.js#SearchParamsContext": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
-      "name": "SearchParamsContext",
-      "chunks": [
-        "webpack:static/chunks/webpack.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/hooks-client-context.js#SearchParamsContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\hooks-client-context.js#SearchParamsContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "SearchParamsContext",
       "chunks": [
@@ -2634,7 +2321,15 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/hooks-client-context.js#PathnameContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\hooks-client-context.js#SearchParamsContext": {
+      "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
+      "name": "SearchParamsContext",
+      "chunks": [
+        "webpack:static/chunks/webpack.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\hooks-client-context.js#PathnameContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "PathnameContext",
       "chunks": [
@@ -2642,7 +2337,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/hooks-client-context.js#PathnameContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\hooks-client-context.js#PathnameContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/hooks-client-context.js",
       "name": "PathnameContext",
       "chunks": [
@@ -2650,7 +2345,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/server-inserted-html.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\server-inserted-html.js": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "*",
       "chunks": [
@@ -2658,7 +2353,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/server-inserted-html.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\server-inserted-html.js": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "*",
       "chunks": [
@@ -2666,7 +2361,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/server-inserted-html.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\server-inserted-html.js#": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "",
       "chunks": [
@@ -2674,7 +2369,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/server-inserted-html.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\server-inserted-html.js#": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "",
       "chunks": [
@@ -2682,15 +2377,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/server-inserted-html.js#ServerInsertedHTMLContext": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
-      "name": "ServerInsertedHTMLContext",
-      "chunks": [
-        "webpack:static/chunks/webpack.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/server-inserted-html.js#ServerInsertedHTMLContext": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\server-inserted-html.js#ServerInsertedHTMLContext": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "ServerInsertedHTMLContext",
       "chunks": [
@@ -2698,7 +2385,15 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/server-inserted-html.js#useServerInsertedHTML": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\server-inserted-html.js#ServerInsertedHTMLContext": {
+      "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
+      "name": "ServerInsertedHTMLContext",
+      "chunks": [
+        "webpack:static/chunks/webpack.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\shared\\lib\\server-inserted-html.js#useServerInsertedHTML": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "useServerInsertedHTML",
       "chunks": [
@@ -2706,7 +2401,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/server-inserted-html.js#useServerInsertedHTML": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\shared\\lib\\server-inserted-html.js#useServerInsertedHTML": {
       "id": "(app-client)/./node_modules/next/dist/shared/lib/server-inserted-html.js",
       "name": "useServerInsertedHTML",
       "chunks": [
@@ -2714,7 +2409,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/layout-router.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\layout-router.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/layout-router.js",
       "name": "*",
       "chunks": [
@@ -2722,7 +2417,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/layout-router.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\layout-router.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/layout-router.js",
       "name": "*",
       "chunks": [
@@ -2730,7 +2425,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/layout-router.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\layout-router.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/layout-router.js",
       "name": "",
       "chunks": [
@@ -2738,7 +2433,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/layout-router.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\layout-router.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/layout-router.js",
       "name": "",
       "chunks": [
@@ -2746,7 +2441,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/layout-router.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\layout-router.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/layout-router.js",
       "name": "default",
       "chunks": [
@@ -2754,7 +2449,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/layout-router.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\layout-router.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/layout-router.js",
       "name": "default",
       "chunks": [
@@ -2762,7 +2457,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/render-from-template-context.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\render-from-template-context.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/render-from-template-context.js",
       "name": "*",
       "chunks": [
@@ -2770,7 +2465,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/render-from-template-context.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\render-from-template-context.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/render-from-template-context.js",
       "name": "*",
       "chunks": [
@@ -2778,7 +2473,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/render-from-template-context.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\render-from-template-context.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/render-from-template-context.js",
       "name": "",
       "chunks": [
@@ -2786,7 +2481,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/render-from-template-context.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\render-from-template-context.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/render-from-template-context.js",
       "name": "",
       "chunks": [
@@ -2794,7 +2489,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/render-from-template-context.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\render-from-template-context.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/render-from-template-context.js",
       "name": "default",
       "chunks": [
@@ -2802,7 +2497,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/render-from-template-context.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\render-from-template-context.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/render-from-template-context.js",
       "name": "default",
       "chunks": [
@@ -2810,7 +2505,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\static-generation-searchparams-bailout-provider.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js",
       "name": "*",
       "chunks": [
@@ -2818,7 +2513,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/static-generation-searchparams-bailout-provider.js": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\static-generation-searchparams-bailout-provider.js": {
       "id": "(app-client)/./node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js",
       "name": "*",
       "chunks": [
@@ -2826,7 +2521,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\static-generation-searchparams-bailout-provider.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js",
       "name": "",
       "chunks": [
@@ -2834,7 +2529,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/static-generation-searchparams-bailout-provider.js#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\static-generation-searchparams-bailout-provider.js#": {
       "id": "(app-client)/./node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js",
       "name": "",
       "chunks": [
@@ -2842,7 +2537,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\components\\static-generation-searchparams-bailout-provider.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js",
       "name": "default",
       "chunks": [
@@ -2850,7 +2545,7 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/components/static-generation-searchparams-bailout-provider.js#default": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\components\\static-generation-searchparams-bailout-provider.js#default": {
       "id": "(app-client)/./node_modules/next/dist/client/components/static-generation-searchparams-bailout-provider.js",
       "name": "default",
       "chunks": [
@@ -2858,601 +2553,144 @@ self.__RSC_MANIFEST={
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/react-toastify/dist/ReactToastify.css#": {
-      "id": "null",
-      "name": "default",
-      "chunks": [
-        "static/css/app/page.css",
-        "static/css/app/register/page.css"
-      ]
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/LoginForm.tsx": {
-      "id": "(app-client)/./app/components/form/LoginForm.tsx",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/LoginForm.tsx#": {
-      "id": "(app-client)/./app/components/form/LoginForm.tsx",
-      "name": "",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/LoginForm.tsx#default": {
-      "id": "(app-client)/./app/components/form/LoginForm.tsx",
-      "name": "default",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputUseForm.tsx": {
-      "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
-      "name": "*",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputUseForm.tsx#": {
-      "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
-      "name": "",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputUseForm.tsx#default": {
-      "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
-      "name": "default",
-      "chunks": [
-        "app/page:static/chunks/app/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/link.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/link.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/link.js#": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/link.js#": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/link.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "default",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/link.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "default",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/globals.css#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\globals.css#": {
       "id": "null",
       "name": "default",
       "chunks": [
         "static/css/app/layout.css"
       ]
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/font/google/target.css?{\"path\":\"app/layout.tsx\",\"import\":\"Nunito\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"font\"}#": {
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\font\\google\\target.css?{\"path\":\"app\\\\layout.tsx\",\"import\":\"Nunito\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"font\"}#": {
       "id": "null",
       "name": "default",
       "chunks": [
         "static/css/app/layout.css"
       ]
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/lib/pageWrapper.tsx": {
-      "id": "(app-client)/./app/lib/pageWrapper.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\lib\\pageWrapper.tsx": {
+      "id": "(app-client)/./lib/pageWrapper.tsx",
       "name": "*",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/lib/pageWrapper.tsx#": {
-      "id": "(app-client)/./app/lib/pageWrapper.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\lib\\pageWrapper.tsx#": {
+      "id": "(app-client)/./lib/pageWrapper.tsx",
       "name": "",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/lib/pageWrapper.tsx#default": {
-      "id": "(app-client)/./app/lib/pageWrapper.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\lib\\pageWrapper.tsx#default": {
+      "id": "(app-client)/./lib/pageWrapper.tsx",
       "name": "default",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/RegisterForm.tsx": {
-      "id": "(app-client)/./app/components/form/RegisterForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\react-toastify\\dist\\ReactToastify.css#": {
+      "id": "null",
+      "name": "default",
+      "chunks": [
+        "static/css/app/(pages)/(login)/page.css"
+      ]
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\form\\LoginForm.tsx": {
+      "id": "(app-client)/./app/components/form/LoginForm.tsx",
       "name": "*",
       "chunks": [
-        "app/register/page:static/chunks/app/register/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/RegisterForm.tsx#": {
-      "id": "(app-client)/./app/components/form/RegisterForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\form\\LoginForm.tsx#": {
+      "id": "(app-client)/./app/components/form/LoginForm.tsx",
       "name": "",
       "chunks": [
-        "app/register/page:static/chunks/app/register/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/RegisterForm.tsx#default": {
-      "id": "(app-client)/./app/components/form/RegisterForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\form\\LoginForm.tsx#default": {
+      "id": "(app-client)/./app/components/form/LoginForm.tsx",
       "name": "default",
       "chunks": [
-        "app/register/page:static/chunks/app/register/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputWLabelUseForm.tsx": {
-      "id": "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\inputs\\inputUseForm.tsx": {
+      "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
       "name": "*",
       "chunks": [
-        "app/register/page:static/chunks/app/register/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputWLabelUseForm.tsx#": {
-      "id": "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\inputs\\inputUseForm.tsx#": {
+      "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
       "name": "",
       "chunks": [
-        "app/register/page:static/chunks/app/register/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/inputs/inputWLabelUseForm.tsx#default": {
-      "id": "(app-client)/./app/components/inputs/inputWLabelUseForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\inputs\\inputUseForm.tsx#default": {
+      "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
       "name": "default",
       "chunks": [
-        "app/register/page:static/chunks/app/register/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx": {
-      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\link.js": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "*",
       "chunks": [
-        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx#": {
-      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
-      "name": "",
-      "chunks": [
-        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/form/ConfigForm.tsx#default": {
-      "id": "(app-client)/./app/components/form/ConfigForm.tsx",
-      "name": "default",
-      "chunks": [
-        "app/ss/config/manual/page:static/chunks/app/ss/config/manual/page.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/navbar/Navbar.tsx": {
-      "id": "(app-client)/./app/components/navbar/Navbar.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\link.js": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "*",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/navbar/Navbar.tsx#": {
-      "id": "(app-client)/./app/components/navbar/Navbar.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\link.js#": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/app/components/navbar/Navbar.tsx#default": {
-      "id": "(app-client)/./app/components/navbar/Navbar.tsx",
-      "name": "default",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/image.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/image.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/image.js#": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\link.js#": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/image.js#": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
-      "name": "",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/client/image.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\link.js#default": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "default",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/client/image.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/client/image.js",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\link.js#default": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
       "name": "default",
       "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "default",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "default",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#defaultHead": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "defaultHead",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#defaultHead": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "defaultHead",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#charSet": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "charSet",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#charSet": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "charSet",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#name": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "name",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#name": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "name",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#content": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "content",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#content": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "content",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#\"title\"": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"title\"",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#\"title\"": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"title\"",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#\"base\"": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"base\"",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#\"base\"": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"base\"",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#\"meta\"": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"meta\"",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#\"meta\"": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"meta\"",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#TODO(prateekbh@)": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "TODO(prateekbh@)",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#TODO(prateekbh@)": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "TODO(prateekbh@)",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#\"https": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"https",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#\"https": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "\"https",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#here": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "here",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#here": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "here",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#https": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "https",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#https": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "https",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#reduceComponentsToState": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "reduceComponentsToState",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#reduceComponentsToState": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "reduceComponentsToState",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#headManager": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "headManager",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#headManager": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "headManager",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#inAmpMode": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "inAmpMode",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#inAmpMode": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "inAmpMode",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/shared/lib/head.js#value": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "value",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/next/dist/esm/shared/lib/head.js#value": {
-      "id": "(app-client)/./node_modules/next/dist/shared/lib/head.js",
-      "name": "value",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/nextjs-toploader/dist/index.js": {
-      "id": "(app-client)/./node_modules/nextjs-toploader/dist/index.js",
-      "name": "*",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/nextjs-toploader/dist/index.js#": {
-      "id": "(app-client)/./node_modules/nextjs-toploader/dist/index.js",
-      "name": "",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
-      ],
-      "async": false
-    },
-    "/home/jonas.alves/Documentos/script/sun-script-nextjs/node_modules/nextjs-toploader/dist/index.js#default": {
-      "id": "(app-client)/./node_modules/nextjs-toploader/dist/index.js",
-      "name": "default",
-      "chunks": [
-        "app/ss/layout:static/chunks/app/ss/layout.js"
+        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
       ],
       "async": false
     }
