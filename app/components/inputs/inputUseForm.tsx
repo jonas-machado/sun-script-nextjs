@@ -27,12 +27,13 @@ const InputUseForm = ({
                 type="text"
                 id={id}
                 className={`peer disabled:opacity-70 focus:shadow-[0px_0px_10px] focus:shadow-black duration-300
-                disabled:cursor-not-allowed transition caret-gray-200 outline-none w-full pt-4 rounded-md pl-4 pb-2 text-gray-200 border-gray-900 sm:text-sm border-b-[1px] border-t-[1px] bg-black bg-opacity-50`}
+                disabled:cursor-not-allowed transition caret-gray-200 outline-none w-full pt-[1.2rem] rounded-md pl-4 pb-[0.3rem] text-gray-200 border-gray-900 sm:text-sm border-b-[1px] border-t-[1px] bg-black bg-opacity-50`}
                 spellCheck="false"
                 {...register(id, { required })}
                 placeholder=" "
             />
             <label
+                htmlFor={id}
                 className={`
                 text-gray-400
                 absolute 
@@ -50,7 +51,6 @@ const InputUseForm = ({
                 peer-focus:-translate-y-5
                 [&:not(peer-placeholder-shown)]:-translate-y-5
                 [&:not(peer-placeholder-shown)]:scale-75
-
                 `}
             >
                 {label}

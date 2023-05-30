@@ -6,30 +6,35 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { BeatLoader, PulseLoader } from "react-spinners";
-import { User } from "@prisma/client";
 import InputUseForm from "../inputs/inputUseForm";
 import { z, ZodType } from "zod";
 import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-interface LoginProps {
-  currentUser?: User | null;
-}
 
-export default function LoginForm({ currentUser }: LoginProps) {
+export default function LoginForm() {
 
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
+  const session = useSession()
+
+  useEffect(() => {
+    if (session?.status == 'authenticated') {
+      router.push('/ss/config/manual')
+    }
+  }, [session?.status, router])
+
+
   const notify = (text: any) =>
     toast.error(text, {
       theme: "dark",
       pauseOnFocusLoss: false,
       pauseOnHover: false,
     });
-
 
   const schema: ZodType<FieldValues> = z
     .object({
@@ -62,7 +67,7 @@ export default function LoginForm({ currentUser }: LoginProps) {
       email: email,
       password: password,
       redirect: false,
-      callbackUrl: "/config/manual",
+      callbackUrl: "/ss/config/manual",
     }).then((callback) => {
       setIsLoading(false);
       if (callback?.ok) {
@@ -115,14 +120,14 @@ export default function LoginForm({ currentUser }: LoginProps) {
             )}
           </button>
         </form>
-        <div className="my-2 ">
+        {/* <div className="my-2 ">
           <Link
             className={`ml-2 cursor-pointer text-gray-200`}
             href="/register"
           >
             Não tem conta? <b>Cadastre-se</b>
           </Link>
-        </div>
+        </div> */}
 
       </motion.div>
       <ToastContainer />

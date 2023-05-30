@@ -15,7 +15,7 @@ import axios from "axios";
 import { z, ZodType } from "zod";
 import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputUseForm from "../inputs/inputWLabelUseForm";
+import InputUseForm from "../inputs/inputUseForm";
 import { Result } from "postcss";
 
 export default function RegisterForm({ isVisible }: any) {

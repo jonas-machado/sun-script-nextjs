@@ -742,9 +742,9 @@ self.__RSC_MANIFEST={
         "async": false
       }
     },
-    "(app-client)/./lib/pageWrapper.tsx": {
+    "(app-client)/./app/lib/AuthContext.tsx": {
       "*": {
-        "id": "(sc_client)/./lib/pageWrapper.tsx",
+        "id": "(sc_client)/./app/lib/AuthContext.tsx",
         "name": "*",
         "chunks": [
           "app/layout:static/chunks/app/layout.js"
@@ -752,7 +752,7 @@ self.__RSC_MANIFEST={
         "async": false
       },
       "": {
-        "id": "(sc_client)/./lib/pageWrapper.tsx",
+        "id": "(sc_client)/./app/lib/AuthContext.tsx",
         "name": "",
         "chunks": [
           "app/layout:static/chunks/app/layout.js"
@@ -760,7 +760,33 @@ self.__RSC_MANIFEST={
         "async": false
       },
       "default": {
-        "id": "(sc_client)/./lib/pageWrapper.tsx",
+        "id": "(sc_client)/./app/lib/AuthContext.tsx",
+        "name": "default",
+        "chunks": [
+          "app/layout:static/chunks/app/layout.js"
+        ],
+        "async": false
+      }
+    },
+    "(app-client)/./app/lib/pageWrapper.tsx": {
+      "*": {
+        "id": "(sc_client)/./app/lib/pageWrapper.tsx",
+        "name": "*",
+        "chunks": [
+          "app/layout:static/chunks/app/layout.js"
+        ],
+        "async": false
+      },
+      "": {
+        "id": "(sc_client)/./app/lib/pageWrapper.tsx",
+        "name": "",
+        "chunks": [
+          "app/layout:static/chunks/app/layout.js"
+        ],
+        "async": false
+      },
+      "default": {
+        "id": "(sc_client)/./app/lib/pageWrapper.tsx",
         "name": "default",
         "chunks": [
           "app/layout:static/chunks/app/layout.js"
@@ -773,7 +799,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/form/LoginForm.tsx",
         "name": "*",
         "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+          "app/(login)/page:static/chunks/app/(login)/page.js"
         ],
         "async": false
       },
@@ -781,7 +807,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/form/LoginForm.tsx",
         "name": "",
         "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+          "app/(login)/page:static/chunks/app/(login)/page.js"
         ],
         "async": false
       },
@@ -789,7 +815,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/form/LoginForm.tsx",
         "name": "default",
         "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+          "app/(login)/page:static/chunks/app/(login)/page.js"
         ],
         "async": false
       }
@@ -799,7 +825,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/inputs/inputUseForm.tsx",
         "name": "*",
         "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+          "app/(login)/page:static/chunks/app/(login)/page.js"
         ],
         "async": false
       },
@@ -807,7 +833,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/inputs/inputUseForm.tsx",
         "name": "",
         "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+          "app/(login)/page:static/chunks/app/(login)/page.js"
         ],
         "async": false
       },
@@ -815,33 +841,7 @@ self.__RSC_MANIFEST={
         "id": "(sc_client)/./app/components/inputs/inputUseForm.tsx",
         "name": "default",
         "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-        ],
-        "async": false
-      }
-    },
-    "(app-client)/./node_modules/next/dist/client/link.js": {
-      "*": {
-        "id": "(sc_client)/./node_modules/next/dist/client/link.js",
-        "name": "*",
-        "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-        ],
-        "async": false
-      },
-      "": {
-        "id": "(sc_client)/./node_modules/next/dist/client/link.js",
-        "name": "",
-        "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-        ],
-        "async": false
-      },
-      "default": {
-        "id": "(sc_client)/./node_modules/next/dist/client/link.js",
-        "name": "default",
-        "chunks": [
-          "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+          "app/(login)/page:static/chunks/app/(login)/page.js"
         ],
         "async": false
       }
@@ -852,8 +852,8 @@ self.__RSC_MANIFEST={
     "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\layout": [
       "static/css/app/layout.css"
     ],
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\(pages)\\(login)\\page": [
-      "static/css/app/(pages)/(login)/page.css"
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\(login)\\page": [
+      "static/css/app/(login)/page.css"
     ]
   },
   "clientModules": {
@@ -2567,24 +2567,48 @@ self.__RSC_MANIFEST={
         "static/css/app/layout.css"
       ]
     },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\lib\\pageWrapper.tsx": {
-      "id": "(app-client)/./lib/pageWrapper.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\lib\\AuthContext.tsx": {
+      "id": "(app-client)/./app/lib/AuthContext.tsx",
       "name": "*",
       "chunks": [
         "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\lib\\pageWrapper.tsx#": {
-      "id": "(app-client)/./lib/pageWrapper.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\lib\\AuthContext.tsx#": {
+      "id": "(app-client)/./app/lib/AuthContext.tsx",
       "name": "",
       "chunks": [
         "app/layout:static/chunks/app/layout.js"
       ],
       "async": false
     },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\lib\\pageWrapper.tsx#default": {
-      "id": "(app-client)/./lib/pageWrapper.tsx",
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\lib\\AuthContext.tsx#default": {
+      "id": "(app-client)/./app/lib/AuthContext.tsx",
+      "name": "default",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\lib\\pageWrapper.tsx": {
+      "id": "(app-client)/./app/lib/pageWrapper.tsx",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\lib\\pageWrapper.tsx#": {
+      "id": "(app-client)/./app/lib/pageWrapper.tsx",
+      "name": "",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\lib\\pageWrapper.tsx#default": {
+      "id": "(app-client)/./app/lib/pageWrapper.tsx",
       "name": "default",
       "chunks": [
         "app/layout:static/chunks/app/layout.js"
@@ -2595,14 +2619,14 @@ self.__RSC_MANIFEST={
       "id": "null",
       "name": "default",
       "chunks": [
-        "static/css/app/(pages)/(login)/page.css"
+        "static/css/app/(login)/page.css"
       ]
     },
     "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\app\\components\\form\\LoginForm.tsx": {
       "id": "(app-client)/./app/components/form/LoginForm.tsx",
       "name": "*",
       "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+        "app/(login)/page:static/chunks/app/(login)/page.js"
       ],
       "async": false
     },
@@ -2610,7 +2634,7 @@ self.__RSC_MANIFEST={
       "id": "(app-client)/./app/components/form/LoginForm.tsx",
       "name": "",
       "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+        "app/(login)/page:static/chunks/app/(login)/page.js"
       ],
       "async": false
     },
@@ -2618,7 +2642,7 @@ self.__RSC_MANIFEST={
       "id": "(app-client)/./app/components/form/LoginForm.tsx",
       "name": "default",
       "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+        "app/(login)/page:static/chunks/app/(login)/page.js"
       ],
       "async": false
     },
@@ -2626,7 +2650,7 @@ self.__RSC_MANIFEST={
       "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
       "name": "*",
       "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+        "app/(login)/page:static/chunks/app/(login)/page.js"
       ],
       "async": false
     },
@@ -2634,7 +2658,7 @@ self.__RSC_MANIFEST={
       "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
       "name": "",
       "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+        "app/(login)/page:static/chunks/app/(login)/page.js"
       ],
       "async": false
     },
@@ -2642,55 +2666,7 @@ self.__RSC_MANIFEST={
       "id": "(app-client)/./app/components/inputs/inputUseForm.tsx",
       "name": "default",
       "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-      ],
-      "async": false
-    },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\link.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "*",
-      "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-      ],
-      "async": false
-    },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\link.js": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "*",
-      "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-      ],
-      "async": false
-    },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\link.js#": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "",
-      "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-      ],
-      "async": false
-    },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\link.js#": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "",
-      "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-      ],
-      "async": false
-    },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\client\\link.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "default",
-      "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
-      ],
-      "async": false
-    },
-    "C:\\Users\\jonas\\OneDrive\\Área de Trabalho\\Scripts\\NextJS\\sun-script-latest\\node_modules\\next\\dist\\esm\\client\\link.js#default": {
-      "id": "(app-client)/./node_modules/next/dist/client/link.js",
-      "name": "default",
-      "chunks": [
-        "app/(pages)/(login)/page:static/chunks/app/(pages)/(login)/page.js"
+        "app/(login)/page:static/chunks/app/(login)/page.js"
       ],
       "async": false
     }

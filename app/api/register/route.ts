@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     },
   });
   if (userIn) {
-    return NextResponse.json({ error: "Email já registrado" });
+    return NextResponse.json({ error: "Email já cadastrado" });
   }
   const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -24,5 +24,5 @@ export async function POST(request: Request) {
       emailVerified: new Date(),
     },
   });
-  return NextResponse.json({ msg: "Cadastrado com sucesso" });
+  return NextResponse.json(user);
 }

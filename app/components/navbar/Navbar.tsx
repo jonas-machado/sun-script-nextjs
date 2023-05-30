@@ -97,23 +97,21 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
     <header>
       <nav>
         <Popover className="relative bg-black bg-opacity-75 shadow-black shadow-lg">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="flex items-center justify-between border-black border-b-2 py-4 lg:justify-start mlg:space-x-10">
+          <div className="mx-auto max-w-7xl px-6 ">
+            <div className="flex items-center justify-between border-black border-b-2 py-4 lg:justify-between lg:space-x-10">
               <div className="flex justify-start mr-10">
-                <a href="#">
-                  <span className="sr-only">Your Company</span>
-                  <Image
-                    className="w-auto"
-                    src="/images/Sun.png"
-                    alt=""
-                    width={40}
-                    height={40}
-                    priority={true}
-                    onClick={() => {
-                      router.push("/ss/config/manual");
-                    }}
-                  />
-                </a>
+                <span className="sr-only">Your Company</span>
+                <Image
+                  className="w-auto"
+                  src="/images/Sun.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  priority={true}
+                  onClick={() => {
+                    router.push("/ss/config/manual");
+                  }}
+                />
               </div>
               <div className="-my-2 -mr-2 lg:hidden">
                 <Popover.Button className="border-transparent focus:border-transparent focus:ring-offset-0 inline-flex items-center justify-center rounded-md bg-transparent p-2 text-white hover:bg-transparent hover:text-gray-500 focus:outline-none">
@@ -169,7 +167,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                       >
-                        <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-[13rem] -translate-x-1/2 transform px-2 sm:px-0">
+                        <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-[14rem] -translate-x-1/2 transform px-2 sm:px-0">
                           <div className=" overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                             <div className=" relative grid gap-6 shadow-xl bg-black opacity-90 border-gray-900 border-2 rounded-lg px-5 py-6 sm:gap-8 sm:p-8">
                               {schedules.map((item: any) => (
@@ -239,7 +237,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     aria-hidden="true"
                                   />
                                   <div className="ml-4">
-                                    <p className="text-base font-medium text-white">
+                                    <p className="text-base font-medium text-white whitespace-nowrap">
                                       {item.name}
                                     </p>
                                   </div>
@@ -294,7 +292,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     aria-hidden="true"
                                   />
                                   <div className="ml-4">
-                                    <p className="text-base font-medium text-gray-200">
+                                    <p className="text-base font-medium text-gray-200 whitespace-nowrap">
                                       {item.name}
                                     </p>
                                   </div>

@@ -145,12 +145,12 @@ function ConfigForm({
         / /g,
         "_"
       )}\nserial-number ${sn}\nline-profile 1000Mdow1000Mup\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(
+          / /g,
+          "_"
+        )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
   };
 
   const comandoZte = `show pon power attenuation gpon-onu_${pon}:${id}`;
@@ -163,14 +163,12 @@ function ConfigForm({
 
   const cadastroText = (comando: string) => {
     const date = new Date();
-    return `=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n${
-      currentUser!.name.split(" ")[0]
-    }: ${("0" + date.getDate()).slice(-2)}/${(
-      "0" +
-      (date.getMonth() + 1)
-    ).slice(-2)}/${date.getFullYear()}\nOLT: ${
-      selected.olt
-    }\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
+    return `=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n${currentUser!.name.split(" ")[0]
+      }: ${("0" + date.getDate()).slice(-2)}/${(
+        "0" +
+        (date.getMonth() + 1)
+      ).slice(-2)}/${date.getFullYear()}\nOLT: ${selected.olt
+      }\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
   };
 
   const pppoeText = () => {
@@ -244,11 +242,11 @@ function ConfigForm({
 
               return onuModel == "ITBS"
                 ? setConfigText(
-                    intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
-                  )
+                  intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
+                )
                 : setConfigText(
-                    intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
-                  );
+                  intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
+                );
             case "ERVINO":
               setCadastroText(cadastroText(comandoIntelbrasI));
               setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
@@ -296,11 +294,10 @@ function ConfigForm({
                     value={plan}
                     className={({ active, checked }) =>
                       `
-                  ${
-                    checked
-                      ? "bg-gray-700 bg-opacity-75 text-white"
-                      : "bg-gray-900 "
-                  }
+                  ${checked
+                        ? "bg-gray-700 bg-opacity-75 text-white"
+                        : "bg-gray-900 "
+                      }
                     relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none w-full transition-all`
                     }
                   >
@@ -318,9 +315,8 @@ function ConfigForm({
                               </RadioGroup.Label>
                               <RadioGroup.Description
                                 as="span"
-                                className={`inline ${
-                                  checked ? "text-sky-100" : "text-gray-400"
-                                }`}
+                                className={`inline ${checked ? "text-sky-100" : "text-gray-400"
+                                  }`}
                               >
                                 <span>{plan.description}</span>
                               </RadioGroup.Description>
@@ -354,11 +350,9 @@ function ConfigForm({
                       </Listbox.Label>
                       <div className="relative w-full">
                         <Listbox.Button
-                          className={`${
-                            open ? "rounded-br-none" : ""
-                          } w-full relative cursor-default ${
-                            oltCompany == "Intelbras" ? "lg:rounded-none" : ""
-                          } bg-gray-900 rounded-r-md py-3 pl-3 pr-10 text-left shadow-sm overflow-hidden focus:outline-none sm:text-sm`}
+                          className={`${open ? "rounded-br-none" : ""
+                            } w-full relative cursor-default ${oltCompany == "Intelbras" ? "lg:rounded-none" : ""
+                            } bg-gray-900 rounded-r-md py-3 pl-3 pr-10 text-left shadow-sm overflow-hidden focus:outline-none sm:text-sm`}
                         >
                           <span className="flex items-center">
                             <span className="block truncate text-white font-medium">
@@ -440,9 +434,8 @@ function ConfigForm({
                       setOnuModel("ZNTS");
                     }}
                     type="button"
-                    className={`w-full border rounded-l-md lg:rounded-none border-gray-900 ${
-                      onuModel == "ZNTS" ? "bg-gray-500" : "bg-gray-700"
-                    } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
+                    className={`w-full border rounded-l-md lg:rounded-none border-gray-900 ${onuModel == "ZNTS" ? "bg-gray-500" : "bg-gray-700"
+                      } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
                   >
                     ZNTS
                   </button>
@@ -451,9 +444,8 @@ function ConfigForm({
                       setOnuModel("ITBS");
                     }}
                     type="button"
-                    className={`w-full rounded-r-md border border-gray-900 ${
-                      onuModel == "ITBS" ? "bg-gray-500" : "bg-gray-700"
-                    } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
+                    className={`w-full rounded-r-md border border-gray-900 ${onuModel == "ITBS" ? "bg-gray-500" : "bg-gray-700"
+                      } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
                   >
                     ITBS
                   </button>
