@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 const font = Nunito({ subsets: ["latin"] });
 import { AnimatePresence } from "framer-motion";
 import PageWrapper from "./lib/pageWrapper";
+import MotionPage from "./lib/motionPage";
 import AuthContext from "./lib/AuthContext";
 
 export const metadata = {
@@ -19,8 +20,8 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <AuthContext>
-          <PageWrapper >
-            {children}
+          <PageWrapper>
+            <MotionPage>{children}</MotionPage>
           </PageWrapper>
         </AuthContext>
       </body>

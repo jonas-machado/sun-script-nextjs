@@ -3,6 +3,7 @@ import getCurrentUser from "../actions/getCurrentUser";
 import PageWrapper from "../lib/pageWrapper";
 import NextTopLoader from "nextjs-toploader";
 import { getSchedule } from "../actions/getSchedule";
+import MotionPage from "../lib/motionPage";
 
 export default async function RootLayout({
   children,
@@ -15,15 +16,17 @@ export default async function RootLayout({
   return (
     <>
       <PageWrapper>
-        <section className="bg-[url('/images/backgroundConfig.gif')] bg-no-repeat bg-auto h-screen">
-          <Navbar currentUser={currentUser} schedules={schedules} />
-          <NextTopLoader
-            color="#000000"
-            shadow="0 40px 50px #ffffff,0 40px 50px #ffffff"
-            showSpinner={false}
-          />
-          {children}
-        </section>
+        <MotionPage>
+          <section className="bg-[url('/images/backgroundConfig.gif')] bg-no-repeat bg-auto h-screen">
+            <Navbar currentUser={currentUser} schedules={schedules} />
+            <NextTopLoader
+              color="#000000"
+              shadow="0 40px 50px #ffffff,0 40px 50px #ffffff"
+              showSpinner={false}
+            />
+            {children}
+          </section>
+        </MotionPage>
       </PageWrapper>
     </>
   );

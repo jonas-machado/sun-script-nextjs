@@ -8,26 +8,25 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { BeatLoader, PulseLoader } from "react-spinners";
+import { BeatLoader, PulseLoader, PacmanLoader } from "react-spinners";
 import InputUseForm from "../inputs/inputUseForm";
 import { z, ZodType } from "zod";
 import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-
 export default function LoginForm() {
-
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const session = useSession()
+  const session = useSession();
+
+  console.log(session.status);
 
   useEffect(() => {
-    if (session?.status == 'authenticated') {
-      router.push('/ss/config/manual')
+    if (session?.status == "authenticated") {
+      router.push("/ss/config/manual");
     }
-  }, [session?.status, router])
-
+  }, [session?.status, router]);
 
   const notify = (text: any) =>
     toast.error(text, {
@@ -36,11 +35,10 @@ export default function LoginForm() {
       pauseOnHover: false,
     });
 
-  const schema: ZodType<FieldValues> = z
-    .object({
-      email: z.string().email({ message: "Email inválido" }),
-      password: z.string().max(20),
-    })
+  const schema: ZodType<FieldValues> = z.object({
+    email: z.string().email({ message: "Email inválido" }),
+    password: z.string().max(20),
+  });
 
   const {
     register,
@@ -52,15 +50,11 @@ export default function LoginForm() {
 
   useEffect(() => {
     for (let error in errors) {
-      notify(errors[error]?.message)
+      notify(errors[error]?.message);
     }
   }, [errors]);
 
-  const handleClickLogin = async ({
-    email,
-    password,
-
-  }: FieldValues) => {
+  const handleClickLogin = async ({ email, password }: FieldValues) => {
     setIsLoading(true);
 
     await signIn("credentials", {
@@ -79,10 +73,12 @@ export default function LoginForm() {
     });
   };
 
-
   return (
     <>
-      <motion.div key="login" id="container" className="bg-black py-1 px-6 rounded-md bg-opacity-50 shadow-[0px_0px_40px] shadow-black w-[25rem]"
+      <motion.div
+        key="login"
+        id="container"
+        className="bg-black py-1 px-6 rounded-md bg-opacity-50 shadow-[0px_0px_40px] shadow-black w-[25rem]"
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{
@@ -108,7 +104,10 @@ export default function LoginForm() {
             error={errors}
             required
           />
-          <button className="mt-1 transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]" type="submit">
+          <button
+            className="mt-1 mb-2 transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]"
+            type="submit"
+          >
             {!isLoading ? (
               <>
                 <span>Enviar</span>
@@ -128,7 +127,6 @@ export default function LoginForm() {
             Não tem conta? <b>Cadastre-se</b>
           </Link>
         </div> */}
-
       </motion.div>
       <ToastContainer />
     </>
