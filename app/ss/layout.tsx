@@ -14,20 +14,18 @@ export default async function RootLayout({
   const schedules = await getSchedule();
 
   return (
-    <>
-      <PageWrapper>
-        <MotionPage>
-          <section className="bg-[url('/images/backgroundConfig.gif')] bg-no-repeat bg-auto h-screen">
-            <Navbar currentUser={currentUser} schedules={schedules} />
-            <NextTopLoader
-              color="#000000"
-              shadow="0 40px 50px #ffffff,0 40px 50px #ffffff"
-              showSpinner={false}
-            />
-            {children}
-          </section>
-        </MotionPage>
-      </PageWrapper>
-    </>
+    <PageWrapper>
+      <MotionPage>
+        <section className="bg-[url('/images/backgroundConfig.gif')] bg-black bg-no-repeat bg-cover h-full min-h-screen">
+          <Navbar currentUser={currentUser} schedules={schedules} />
+          <NextTopLoader
+            color="#000000"
+            shadow="0 40px 50px #ffffff,0 40px 50px #ffffff"
+            showSpinner={false}
+          />
+          {children}
+        </section>
+      </MotionPage>
+    </PageWrapper>
   );
 }

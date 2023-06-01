@@ -53,6 +53,7 @@ function ConfigForm({
   const [oltCompany, setOltCompany] = useState("");
   const [onuModel, setOnuModel] = useState("");
   const [onuType, setOnuType] = useState("");
+  const [customVlan, setCustomVlan] = useState<number>();
   const route = useRouter();
 
   useEffect(() => {
@@ -72,16 +73,20 @@ function ConfigForm({
   }, [sn, selectedRadio, oltDatacomData, oltIntelbrasData, oltZteChimaData]);
 
   const handleVlan = (vlan?: number) => {
-    if (vlan) {
+    if (vlan && !customVlan) {
       return vlan;
     } else if (!vlan) {
       return Number(pon.replace(/[/]/gi, ""));
+    } else if (customVlan) {
+      return customVlan;
     }
   };
 
   const handleVlanDatacom = (vlan?: number) => {
-    if (vlan) {
+    if (vlan && !customVlan) {
       return vlan;
+    } else if (customVlan) {
+      return customVlan;
     }
     const lastPon = pon.split("/");
     const lastVlanSlot1 = 0 + lastPon[2];
@@ -89,6 +94,9 @@ function ConfigForm({
   };
 
   const handleVlanItapoa2 = () => {
+    if (customVlan) {
+      return customVlan;
+    }
     const lastPon = pon.split("/");
     const lastVlanSlot1 = 0 + lastPon[2];
     const lastVlanSlot2 = parseInt(lastPon[2]) + 16;
@@ -169,13 +177,12 @@ function ConfigForm({
       )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}\ncommit`;
   };
 
-  const comandoZte = `show pon power attenuation gpon-onu_${pon}:${id}`;
-
-  const comandoIntelbrasG = `onu power show 1-1-${pon}-${id}`;
-
-  const comandoIntelbrasI = `onu status gpon ${pon} onu ${id}`;
-
-  const comandoDatacom = `do show interface gpon ${pon} onu ${id}`;
+  const comando = {
+    ZTE: `show pon power attenuation gpon-onu_${pon}:${id}`,
+    IntelbrasG: `onu power show 1-1-${pon}-${id}`,
+    IntelbrasI: `onu status gpon ${pon} onu ${id}`,
+    Datacom: `do show interface gpon ${pon} onu ${id}`,
+  };
 
   const cadastroText = (comando: string) => {
     const date = new Date();
@@ -219,6 +226,7 @@ function ConfigForm({
         pon: pon,
         idLivre: id,
         idOnu: onuId,
+        customVlan,
         cliente: cliente,
         id: currentUser!.id,
       })
@@ -246,27 +254,28 @@ function ConfigForm({
             case "VILA NOVA":
             case "ITINGA":
             case "ESTRADA DA ILHA":
-              setCadastroText(cadastroText(comandoZte));
+              setCadastroText(cadastroText(comando.ZTE));
               return sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(zteText(handleVlan(oltZteChimaData[x].vlan)))
                 : setConfigText(chimaText(handleVlan(oltZteChimaData[x].vlan)));
             case "ITAPOA2":
-              setCadastroText(cadastroText(comandoZte));
+              setCadastroText(cadastroText(comando.ZTE));
               return setConfigText(chimaText(handleVlanItapoa2()));
             default:
-              setCadastroText(cadastroText(comandoZte));
+              setCadastroText(cadastroText(comando.ZTE));
               return setConfigText(chimaText(handleVlan()));
           }
         }
       }
     }
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "Intelbras") {
+      setOnuType("");
       for (let x in oltIntelbrasData) {
         if (selected.olt == oltIntelbrasData[x].olt) {
           switch (selected.olt) {
             case "GARUVA":
             case "SFS":
-              setCadastroText(cadastroText(comandoIntelbrasG));
+              setCadastroText(cadastroText(comando.IntelbrasG));
 
               return onuModel == "ITBS"
                 ? setConfigText(
@@ -276,7 +285,7 @@ function ConfigForm({
                     intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
                   );
             case "ERVINO":
-              setCadastroText(cadastroText(comandoIntelbrasI));
+              setCadastroText(cadastroText(comando.IntelbrasI));
               setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
               setOnuId(null);
               break;
@@ -289,23 +298,36 @@ function ConfigForm({
       for (let x in oltDatacomData) {
         if (selected.olt == oltDatacomData[x].olt) {
           switch (selected.olt) {
+            case "JACU":
+              setCadastroText(cadastroText(comando.Datacom));
+              if (onuType == "ONU") {
+                setConfigText(
+                  datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
+                );
+                setOnuType("");
+              }
+              if (onuType == "ONT") {
+                setConfigText(
+                  datacomTextOnt(handleVlanDatacom(oltDatacomData[x].vlan))
+                );
+                setOnuType("");
+              }
+              break;
             case "ARAQUARI":
             case "BS1":
             case "ITAPOCU":
             case "SNL101":
-            case "JACU":
             default:
-              setCadastroText(cadastroText(comandoDatacom));
+              setCadastroText(cadastroText(comando.Datacom));
               if (onuType == "ONU") {
-                return setConfigText(
+                setConfigText(
                   datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
                 );
               }
               if (onuType == "ONT") {
-                return setConfigText(
-                  datacomTextOnt(handleVlanDatacom(oltDatacomData[x].vlan))
-                );
+                setConfigText(datacomTextOnt(handleVlanDatacom(119)));
               }
+              break;
           }
         }
       }
@@ -315,10 +337,7 @@ function ConfigForm({
     <div>
       <section className="lg:grid lg:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
         <form className="row-span-2 h-full z-5" onSubmit={handleConfigSubmit}>
-          <div className=" flex flex-col bg-black opacity-95 border-gray-900 border-2 rounded-xl p-6 space-y-5">
-            <h1 className="text-white flex justify-center text-xl bg-gray-900 rounded-md p-1">
-              SELECIONE O SCRIPT
-            </h1>
+          <div className=" flex flex-col bg-black opacity-95 border-gray-900 border-2 rounded-xl p-5 space-y-2">
             <RadioGroup value={selectedRadio} onChange={setSelectedRadio}>
               <RadioGroup.Label className="sr-only">
                 Server size
@@ -455,7 +474,7 @@ function ConfigForm({
                           leaveFrom="opacity-100"
                           leaveTo="opacity-0"
                         >
-                          <Listbox.Options className="absolute max-h-[25rem] w-full overflow-auto rounded-b-md border-black border-t-0 bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                          <Listbox.Options className="absolute max-h-[19rem] w-full overflow-auto rounded-b-md border-black border-t-0 bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                             {oltCompanyArray.map((name: any) => (
                               <Listbox.Option
                                 key={name.id}
@@ -563,9 +582,21 @@ function ConfigForm({
               id="cliente"
               onChange={(e: any) => setCliente(e.target.value)}
             />
+            <InputWLabel
+              label="Vlan"
+              placeholder="Custom Vlan"
+              id="customVlan"
+              onChange={(e: any) => setCustomVlan(e.target.value)}
+            />
             <div className="flex w-full gap-2">
               <button
                 type="reset"
+                onClick={() => {
+                  setConfigText("");
+                  setCadastroText("");
+                  setpppoeText("");
+                  setpppoeText2("");
+                }}
                 className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none"
               >
                 LIMPAR
