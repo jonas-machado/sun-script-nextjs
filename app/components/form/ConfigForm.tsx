@@ -240,6 +240,58 @@ function ConfigForm({
         if (selected.olt == oltZteChimaData[x].olt) {
           switch (selected.olt) {
             case "BRV04":
+              setCadastroText(cadastroText(comando.ZTE));
+              const ponException = [
+                {
+                  pon: "1/5/1",
+                  vlan: 141,
+                },
+                {
+                  pon: "1/5/2",
+                  vlan: 132,
+                },
+                {
+                  pon: "1/5/3",
+                  vlan: 133,
+                },
+                {
+                  pon: "1/5/4",
+                  vlan: 134,
+                },
+                {
+                  pon: "1/5/5",
+                  vlan: 135,
+                },
+                {
+                  pon: "1/5/6",
+                  vlan: 136,
+                },
+                {
+                  pon: "1/5/7",
+                  vlan: 137,
+                },
+                {
+                  pon: "1/5/8",
+                  vlan: 138,
+                },
+                {
+                  pon: "1/5/9",
+                  vlan: 121,
+                },
+              ];
+              for (let i = 0; i < ponException.length; i++) {
+                if (pon == ponException[i].pon) {
+                  return sn.substring(0, 4) == "ZTEG"
+                    ? setConfigText(zteText(handleVlan(ponException[i].vlan)))
+                    : setConfigText(
+                        chimaText(handleVlan(ponException[i].vlan))
+                      );
+                }
+              }
+              sn.substring(0, 4) == "ZTEG"
+                ? setConfigText(zteText(handleVlan(oltZteChimaData[x].vlan)))
+                : setConfigText(chimaText(handleVlan(oltZteChimaData[x].vlan)));
+              break;
             case "PENHA":
             case "PIÇARRAS":
             case "VIAPIANA NEW":
@@ -625,7 +677,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black sm:text-md text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[0.87rem] text-white p-4 z-0"
             value={cadastroTextArea}
             spellCheck="false"
             onChange={(e) => setCadastroText(e.target.value)}
@@ -635,7 +687,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full text-xl rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black  text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem]  text-white p-4 z-0"
             value={pppoeTextArea}
             spellCheck="false"
             onChange={(e) => setpppoeText(e.target.value)}
@@ -645,7 +697,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-xl text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem] text-white p-4 z-0"
             defaultValue={""}
             spellCheck="false"
             value={pppoeTextArea2}
