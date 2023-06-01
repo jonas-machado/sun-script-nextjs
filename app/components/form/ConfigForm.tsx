@@ -75,7 +75,7 @@ function ConfigForm({
   const handleVlan = (vlan?: number) => {
     if (vlan && !customVlan) {
       return vlan;
-    } else if (!vlan) {
+    } else if (!vlan && !customVlan) {
       return Number(pon.replace(/[/]/gi, ""));
     } else if (customVlan) {
       return customVlan;
@@ -288,10 +288,6 @@ function ConfigForm({
                       );
                 }
               }
-              sn.substring(0, 4) == "ZTEG"
-                ? setConfigText(zteText(handleVlan(oltZteChimaData[x].vlan)))
-                : setConfigText(chimaText(handleVlan(oltZteChimaData[x].vlan)));
-              break;
             case "PENHA":
             case "PIÇARRAS":
             case "VIAPIANA NEW":
