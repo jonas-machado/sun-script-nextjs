@@ -79,7 +79,7 @@ model OltIntelbras {
 model OltDatacom {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   olt       String
-    vlan      Int?
+  vlan      Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -88,6 +88,7 @@ model Configured {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   userId    String   @db.ObjectId
   serial    String   @unique
+  onuType   String?
   olt       String
   pon       String
   idLivre   String
@@ -99,8 +100,8 @@ model Configured {
 }
 
 model Schedule {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
   company String
-  link  String
-  month Int
+  link    String
+  month   Int
 }

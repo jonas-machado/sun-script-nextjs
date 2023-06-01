@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 //import io from "socket.io-client";
 import { Listbox, Transition, RadioGroup } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
@@ -57,7 +57,7 @@ function ConfigForm({
 
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
-      if (sn.substring(0, 4) == "CMSZ" || sn.substring(0, 4) == "ZTEG") {
+      if (isNaN(sn[0] as any)) {
         setOltCompanyArray(oltZteChimaData);
         setOltCompany("ZTE");
       } else {
@@ -195,7 +195,6 @@ function ConfigForm({
     const filtered = array.filter(function (el) {
       return !toFilter.includes(el);
     });
-    console.log(filtered);
     return filtered.flatMap((v, i) =>
       filtered.slice(i + 1).map((w) => v + "." + w)
     );
@@ -214,6 +213,7 @@ function ConfigForm({
     values.preventDefault();
     axios
       .post("/api/configManual", {
+        onuType,
         serial: sn,
         olt: selected.olt,
         pon: pon,
@@ -373,29 +373,46 @@ function ConfigForm({
               </div>
             </RadioGroup>
             {selectedRadio.name == "Datacom" && (
-              <div className="flex w-full justify-between gap-2">
-                <button
-                  className={`transition rounded-md text-gray-200 font-black w-full p-2 ${
-                    onuType == "ONU" ? "bg-gray-600" : "bg-gray-900"
-                  }`}
-                  onClick={() => {
-                    setOnuType("ONU");
-                  }}
+              <RadioGroup
+                value={onuType}
+                onChange={setOnuType}
+                className="flex w-full justify-between gap-2"
+              >
+                <RadioGroup.Option
+                  value="ONU"
+                  className={({ active, checked }) =>
+                    `
+                  ${
+                    checked
+                      ? "bg-gray-700 bg-opacity-75 text-white"
+                      : "bg-gray-900 "
+                  }
+                    relative flex cursor-pointer rounded-lg px-5 py-2 shadow-md focus:outline-none w-full transition-all justify-center`
+                  }
                 >
-                  ONU
-                </button>
-                <button
-                  className={`transition rounded-md text-gray-200 font-black w-full p-2 ${
-                    onuType == "ONT" ? "bg-gray-600" : "bg-gray-900"
-                  }`}
-                  onClick={() => {
-                    setOnuType("ONT");
-                  }}
+                  {({ checked }) => (
+                    <span className={`text-gray-200 font-black`}>ONU</span>
+                  )}
+                </RadioGroup.Option>
+                <RadioGroup.Option
+                  value="ONT"
+                  className={({ active, checked }) =>
+                    `
+                  ${
+                    checked
+                      ? "bg-gray-700 bg-opacity-75 text-white"
+                      : "bg-gray-900 "
+                  }
+                    relative flex cursor-pointer rounded-lg px-5 py-2 shadow-md focus:outline-none w-full transition-all justify-center`
+                  }
                 >
-                  ONT
-                </button>
-              </div>
+                  {({ checked }) => (
+                    <span className={`text-gray-200 font-black`}>ONT</span>
+                  )}
+                </RadioGroup.Option>
+              </RadioGroup>
             )}
+
             <InputWLabel
               label="SN"
               placeholder="Serial"

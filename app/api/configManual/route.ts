@@ -3,13 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { serial, olt, pon, idLivre, idOnu, cliente, id } = body;
+  const { onuType, serial, olt, pon, idLivre, idOnu, cliente, id } = body;
   console.log(body);
   const onu = await prisma.configured.upsert({
     where: {
       serial,
     },
     update: {
+      onuType,
       olt,
       pon,
       idLivre,
@@ -23,6 +24,7 @@ export async function POST(request: Request) {
     },
     create: {
       serial,
+      onuType,
       olt,
       pon,
       idLivre,
