@@ -230,21 +230,21 @@ function ConfigForm({
 
   const handleConfigSubmit = async (values: any) => {
     values.preventDefault();
-    // axios
-    //   .post("/api/configManual", {
-    //     onuType,
-    //     serial: sn,
-    //     olt: selected.olt,
-    //     pon: pon,
-    //     idLivre: id,
-    //     idOnu: onuId,
-    //     customVlan,
-    //     cliente: cliente,
-    //     id: currentUser!.id,
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .post("/api/configManual", {
+        onuType,
+        serial: sn,
+        olt: selected.olt,
+        pon: pon,
+        idLivre: id,
+        idOnu: onuId,
+        customVlan,
+        cliente: cliente,
+        id: currentUser!.id,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setpppoeText(pppoeText().join("\n"));
     setpppoeText2(pppoeText2().join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
