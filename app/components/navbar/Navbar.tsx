@@ -470,21 +470,28 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                               leaveTo="transform scale-95 opacity-0"
                             >
                               <Disclosure.Panel className="text-gray-200 bg-gray-900 px-2 rounded-md mr-2 ">
-                                {schedules.map((item: any) => (
-                                  <a
-                                    key={item.id}
-                                    href={item.link}
-                                    className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
-                                  >
-                                    <item.icon
-                                      className="h-6 w-6 flex-shrink-0 text-white"
-                                      aria-hidden="true"
-                                    />
-                                    <span className="ml-3 text-base font-medium text-gray-200">
-                                      {"Agenda " + item.company}
-                                    </span>
-                                  </a>
-                                ))}
+                                {schedules.map((item: any) =>
+                                  item.month > date.getMonth() ? (
+                                    <a
+                                      key={item.id}
+                                      href={item.link}
+                                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
+                                      target="_blank"
+                                    >
+                                      <CalendarIcon
+                                        className="h-6 w-6 flex-shrink-0 text-white"
+                                        aria-hidden="true"
+                                      />
+                                      <span className="ml-3 text-base font-medium text-gray-200">
+                                        {`Agenda ${item.company} ${
+                                          month[item.month - 1]
+                                        }`}
+                                      </span>
+                                    </a>
+                                  ) : (
+                                    ""
+                                  )
+                                )}
                               </Disclosure.Panel>
                             </Transition>
                           </>
@@ -517,6 +524,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     key={item.name}
                                     href={item.href}
                                     className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
+                                    target="_blank"
                                   >
                                     <item.icon
                                       className="h-6 w-6 flex-shrink-0 text-white"
@@ -536,7 +544,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                         {({ open }) => (
                           <>
                             <Disclosure.Button className="flex w-full items-center justify-between px-2 text-left font-medium text-gray-200 focus:outline-none">
-                              Planilhas
+                              Utilitários
                               <ChevronRightIcon
                                 className={
                                   open
@@ -559,6 +567,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     key={item.name}
                                     href={item.href}
                                     className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
+                                    target="_blank"
                                   >
                                     <item.icon
                                       className="h-6 w-6 flex-shrink-0 text-white"
