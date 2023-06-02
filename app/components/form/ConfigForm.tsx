@@ -87,10 +87,10 @@ function ConfigForm({
       return vlan;
     } else if (customVlan) {
       return customVlan;
-    }
+    } else if(!vlan && !customVlan){
     const lastPon = pon.split("/");
     const lastVlanSlot1 = 0 + lastPon[2];
-    return Number("1" + lastVlanSlot1.slice(-2));
+    return Number("1" + lastVlanSlot1.slice(-2));}
   };
 
   const handleVlanItapoa2 = () => {
@@ -352,13 +352,11 @@ function ConfigForm({
                 setConfigText(
                   datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
                 );
-                setOnuType("");
               }
               if (onuType == "ONT") {
                 setConfigText(
                   datacomTextOnt(handleVlanDatacom(oltDatacomData[x].vlan))
                 );
-                setOnuType("");
               }
               break;
             case "ARAQUARI":

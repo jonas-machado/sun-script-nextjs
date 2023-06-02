@@ -24,60 +24,41 @@ const mapas = [
   {
     name: "Mapa GPON OT",
 
-    href: "#",
+    href: "https://www.google.com/maps/d/u/0/edit?mid=1IVAPyNuKuxWNHAcNfgj5sxWWHNh-bOBj&ll=-26.430388824095346%2C-48.817334430078134&z=10",
     icon: MapIcon,
   },
   {
     name: "Mapa GPON Vou",
 
-    href: "#",
+    href: "https://www.google.com/maps/d/u/0/edit?mid=1JWL-Gg4crvyhEqToyYdY4Fb3EAJqCekc&ll=-26.429054997432665%2C-48.741997897741506&z=8",
     icon: MapIcon,
   },
   {
     name: "Mapa GPON Atele",
-    href: "#",
+    href: "https://www.google.com/maps/d/u/0/edit?mid=1liBsTRud98BTzO0HQR4WHs7q6OryH_Yw&ll=-24.869473096400633%2C-43.631779099999996&z=7",
     icon: MapIcon,
   },
   {
     name: "Mapa de torres",
-    href: "#",
+    href: "https://www.google.com/maps/d/u/0/viewer?ll=-26.298121885472842%2C-48.82330632565968&z=13&mid=1u-Mv_yq--xRnrWvfQNQKar5gZfE",
     icon: MapIcon,
   },
 ];
 const utilitarios = [
   {
-    name: "Salgadinho",
-    href: "#",
+    name: "Scripts",
+    href: "http://177.200.131.51/scripts2.html",
+    icon: TableCellsIcon,
+  },
+  {
+    name: "Aferir CDA",
+    href: "http://177.200.131.51/baterCDA.html",
     icon: TableCellsIcon,
   },
   {
     name: "Wiki",
-    href: "http://172.16.40.6/doku.php?id=start",
+    href: "http://131.255.132.6:8887/doku.php",
     icon: DocumentDuplicateIcon,
-  },
-];
-
-const agendas = [
-  {
-    name: "Agenda OT",
-    description:
-      "Get all of your questions answered in our forums or contact support.",
-    href: "#",
-    icon: CalendarIcon,
-  },
-  {
-    name: "Agenda Vou",
-    description:
-      "Learn how to maximize our platform to get the most out of it.",
-    href: "#",
-    icon: CalendarIcon,
-  },
-  {
-    name: "Agenda Atele",
-    description:
-      "See what meet-ups and other events we might be planning near you.",
-    href: "#",
-    icon: CalendarIcon,
   },
 ];
 
@@ -93,6 +74,21 @@ interface NavbarProps {
 function Navbar({ currentUser, schedules }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const date = new Date();
+  const month = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
   return (
     <header>
       <nav>
@@ -167,27 +163,33 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                       >
-                        <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-[14rem] -translate-x-1/2 transform px-2 sm:px-0">
+                        <Popover.Panel className="absolute left-1/2 z-10 mt-3 -translate-x-1/2 transform px-2 sm:px-0">
                           <div className=" overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                             <div className=" relative grid gap-6 shadow-xl bg-black opacity-90 border-gray-900 border-2 rounded-lg px-5 py-6 sm:gap-8 sm:p-8">
-                              {schedules.map((item: any) => (
-                                <a
-                                  key={item.id}
-                                  href={item.link}
-                                  target="_blank"
-                                  className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
-                                >
-                                  <CalendarIcon
-                                    className="h-6 w-6 flex-shrink-0 text-indigo-200"
-                                    aria-hidden="true"
-                                  />
-                                  <div className="ml-4">
-                                    <p className="text-base font-medium text-gray-200 whitespace-nowrap">
-                                      {"Agenda " + item.company}
-                                    </p>
-                                  </div>
-                                </a>
-                              ))}
+                              {schedules.map((item: any) =>
+                                item.month > date.getMonth() ? (
+                                  <a
+                                    key={item.id}
+                                    href={item.link}
+                                    target="_blank"
+                                    className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
+                                  >
+                                    <CalendarIcon
+                                      className="h-6 w-6 flex-shrink-0 text-indigo-200"
+                                      aria-hidden="true"
+                                    />
+                                    <div className="ml-4">
+                                      <p className="text-base font-medium text-gray-200 whitespace-nowrap">
+                                        {`Agenda ${item.company} ${
+                                          month[item.month - 1]
+                                        }`}
+                                      </p>
+                                    </div>
+                                  </a>
+                                ) : (
+                                  ""
+                                )
+                              )}
                             </div>
                           </div>
                         </Popover.Panel>
@@ -231,6 +233,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                   key={item.name}
                                   href={item.href}
                                   className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
+                                  target="_blank"
                                 >
                                   <item.icon
                                     className="h-6 w-6 flex-shrink-0 text-indigo-200"
@@ -286,6 +289,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                   key={item.name}
                                   href={item.href}
                                   className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
+                                  target="_blank"
                                 >
                                   <item.icon
                                     className="h-6 w-6 flex-shrink-0 text-indigo-200"
@@ -305,7 +309,6 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                     </>
                   )}
                 </Popover>
-
               </Popover.Group>
               <div className="hidden items-center justify-end lg:flex md:flex-1 lg:w-0">
                 <button
@@ -467,10 +470,10 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                               leaveTo="transform scale-95 opacity-0"
                             >
                               <Disclosure.Panel className="text-gray-200 bg-gray-900 px-2 rounded-md mr-2 ">
-                                {agendas.map((item) => (
+                                {schedules.map((item: any) => (
                                   <a
-                                    key={item.name}
-                                    href={item.href}
+                                    key={item.id}
+                                    href={item.link}
                                     className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
                                   >
                                     <item.icon
@@ -478,7 +481,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                       aria-hidden="true"
                                     />
                                     <span className="ml-3 text-base font-medium text-gray-200">
-                                      {item.name}
+                                      {"Agenda " + item.company}
                                     </span>
                                   </a>
                                 ))}
@@ -571,7 +574,6 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                           </>
                         )}
                       </Disclosure>
-
                     </nav>
                   </div>
                 </div>
