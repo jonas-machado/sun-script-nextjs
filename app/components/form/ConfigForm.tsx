@@ -42,7 +42,7 @@ function ConfigForm({
   const [selectedRadio, setSelectedRadio] = useState(plans[0]);
   const [sn, setSn] = useState("");
   const [pon, setPon] = useState("");
-  const [id, setId] = useState<number>();
+  const [id, setId] = useState<number | null>();
   const [onuId, setOnuId] = useState<number | null>();
   const [cliente, setCliente] = useState("");
   const [oltCompanyArray, setOltCompanyArray] = useState([]);
@@ -53,7 +53,7 @@ function ConfigForm({
   const [oltCompany, setOltCompany] = useState("");
   const [onuModel, setOnuModel] = useState("");
   const [onuType, setOnuType] = useState("");
-  const [customVlan, setCustomVlan] = useState<number>();
+  const [customVlan, setCustomVlan] = useState<number | null>();
   const route = useRouter();
 
   useEffect(() => {
@@ -650,10 +650,18 @@ function ConfigForm({
               <button
                 type="reset"
                 onClick={() => {
+                  setSn("");
+                  setPon("");
+                  setId(null);
+                  setOnuId(null);
+                  setCliente("");
                   setConfigText("");
                   setCadastroText("");
                   setpppoeText("");
                   setpppoeText2("");
+                  setOnuModel("");
+                  setOnuType("");
+                  setCustomVlan(null);
                 }}
                 className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none"
               >
