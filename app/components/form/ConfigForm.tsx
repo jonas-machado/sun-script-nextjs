@@ -230,21 +230,21 @@ function ConfigForm({
 
   const handleConfigSubmit = async (values: any) => {
     values.preventDefault();
-    axios
-      .post("/api/configManual", {
-        onuType,
-        serial: sn,
-        olt: selected.olt,
-        pon: pon,
-        idLivre: id,
-        idOnu: onuId,
-        customVlan,
-        cliente: cliente,
-        id: currentUser!.id,
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .post("/api/configManual", {
+    //     onuType,
+    //     serial: sn,
+    //     olt: selected.olt,
+    //     pon: pon,
+    //     idLivre: id,
+    //     idOnu: onuId,
+    //     customVlan,
+    //     cliente: cliente,
+    //     id: currentUser!.id,
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     setpppoeText(pppoeText().join("\n"));
     setpppoeText2(pppoeText2().join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
@@ -312,6 +312,55 @@ function ConfigForm({
             case "SAGUAÇU":
             case "VILA DA GLORIA":
             case "VILA NOVA":
+              sn.substring(0, 4) == "ZTEG"
+                ? setConfigText(
+                    `\
+interface gpon-olt_${pon}
+onu ${id} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${id}
+description ${cliente
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+switchport mode trunk vport 1
+switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
+!
+pon-onu-mng gpon-onu_${pon}:${id}
+service dataservice type internet gemport 1 cos 0 vlan ${handleVlan(
+                      oltZteChimaData[x].vlan
+                    )}
+switchport-bind switch_0/1 iphost 1
+vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
+vlan-filter iphost 1 priority 0 vid ${handleVlan(oltZteChimaData[x].vlan)}
+vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
+security-mng 1 state enable mode permit
+!`
+                  )
+                : setConfigText(
+                    `\
+interface gpon-olt_${pon}
+onu ${id} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${id}
+description ${cliente
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+switchport mode trunk vport 1
+switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
+! 
+pon-onu-mng gpon-onu_${pon}:${id}
+service inter gemport 1 vlan ${handleVlan(oltZteChimaData[x].vlan)}
+performance ethuni eth_0/1 start
+vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
+!`
+                  );
+              break;
             case "ITINGA":
             case "ESTRADA DA ILHA":
               setCadastroText(cadastroText(comando.ZTE));
