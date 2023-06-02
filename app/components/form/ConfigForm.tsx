@@ -87,10 +87,11 @@ function ConfigForm({
       return vlan;
     } else if (customVlan) {
       return customVlan;
-    } else if(!vlan && !customVlan){
-    const lastPon = pon.split("/");
-    const lastVlanSlot1 = 0 + lastPon[2];
-    return Number("1" + lastVlanSlot1.slice(-2));}
+    } else if (!vlan && !customVlan) {
+      const lastPon = pon.split("/");
+      const lastVlanSlot1 = 0 + lastPon[2];
+      return Number("1" + lastVlanSlot1.slice(-2));
+    }
   };
 
   const handleVlanItapoa2 = () => {
@@ -197,7 +198,13 @@ function ConfigForm({
   };
 
   const pppoeText = () => {
-    const array = cliente.toLowerCase().replace(/[0-9]/g, "").split(" ");
+    const array = cliente
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[0-9]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
+      .split(" ");
+    console.log(array);
     const toFilter = ["", "das", "dos", "de", "do", "da"];
     const filtered = array.filter(function (el) {
       return !toFilter.includes(el);
@@ -207,7 +214,12 @@ function ConfigForm({
     );
   };
   const pppoeText2 = () => {
-    const array = cliente.toLowerCase().replace(/[0-9]/g, ``).split(" ");
+    const array = cliente
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[0-9]/g, ``)
+      .replace(/[\u0300-\u036f]/g, "")
+      .split(" ");
     const toFilter = ["", "das", "dos", "de", "do", "da"];
     const filtered = array.filter(function (el) {
       return !toFilter.includes(el);
