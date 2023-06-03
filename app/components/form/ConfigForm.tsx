@@ -10,16 +10,11 @@ import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-const plans = [
-  {
-    name: "ZTE/ITBS",
-    description: "Script para OLT ZTE e Intelbras",
-  },
-  {
-    name: "Datacom",
-    description: "Script para OLT Datacom",
-  },
-];
+import Input from "../inputs/inputLabelUseForm";
+
+//constants
+
+import { plans } from "@/app/constants/plans";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -38,23 +33,31 @@ function ConfigForm({
   oltIntelbrasData,
   oltDatacomData,
 }: ConfigProps) {
+  //selections
   const [selected, setSelected] = useState({ olt: "Selecione a OLT" });
   const [selectedRadio, setSelectedRadio] = useState(plans[0]);
+
+  //inputs config
   const [sn, setSn] = useState("");
   const [pon, setPon] = useState("");
   const [id, setId] = useState<number | null>();
   const [onuId, setOnuId] = useState<number | null>();
   const [cliente, setCliente] = useState("");
+  const [customVlan, setCustomVlan] = useState<number | null>();
+
+  //models handlers
   const [oltCompanyArray, setOltCompanyArray] = useState([]);
+  const [oltCompany, setOltCompany] = useState("");
+  const [onuType, setOnuType] = useState("");
+  const [onuModel, setOnuModel] = useState("");
+
+  //text areas
   const [configText, setConfigText] = useState("");
   const [cadastroTextArea, setCadastroText] = useState("");
   const [pppoeTextArea, setpppoeText] = useState<string>();
   const [pppoeTextArea2, setpppoeText2] = useState<string>();
-  const [oltCompany, setOltCompany] = useState("");
-  const [onuModel, setOnuModel] = useState("");
-  const [onuType, setOnuType] = useState("");
-  const [customVlan, setCustomVlan] = useState<number | null>();
-  const route = useRouter();
+
+  const router = useRouter();
 
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
@@ -179,6 +182,35 @@ function ConfigForm({
       )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}\ncommit`;
   };
 
+  //excessoẽs
+  const vilaNovaText = (vlan: number | undefined) => {
+    return `\
+interface gpon-olt_${pon}
+onu ${id} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${id}
+description ${cliente
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+switchport mode trunk vport 1
+switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
+!
+pon-onu-mng gpon-onu_${pon}:${id}
+service dataservice type internet gemport 1 cos 0 vlan ${handleVlan(
+      oltZteChimaData[x].vlan
+    )}
+switchport-bind switch_0/1 iphost 1
+vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
+vlan-filter iphost 1 priority 0 vid ${handleVlan(oltZteChimaData[x].vlan)}
+vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
+security-mng 1 state enable mode permit
+!`;
+  };
+
+  //comandos
   const comando = {
     ZTE: `show pon power attenuation gpon-onu_${pon}:${id}`,
     IntelbrasG: `onu power show 1-1-${pon}-${id}`,
@@ -304,50 +336,27 @@ function ConfigForm({
             case "VILA NOVA":
               sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(
-                    `\
-    interface gpon-olt_${pon}
-    onu ${id} type ZTE-F601 sn ${sn}
-    !
-    interface gpon-onu_${pon}:${id}
-    description ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}
-    tcont 2 name Tcont100M profile OT
-    gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
-    switchport mode trunk vport 1
-    switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
-    !
-    pon-onu-mng gpon-onu_${pon}:${id}
-    service dataservice type internet gemport 1 cos 0 vlan ${handleVlan(
-      oltZteChimaData[x].vlan
-    )}
-    switchport-bind switch_0/1 iphost 1
-    vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
-    vlan-filter iphost 1 priority 0 vid ${handleVlan(oltZteChimaData[x].vlan)}
-    vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
-    security-mng 1 state enable mode permit
-    !`
+                    vilaNovaText(handleVlan(oltZteChimaData[x].vlan))
                   )
                 : setConfigText(
                     `\
-    interface gpon-olt_${pon}
-    onu ${id} type ZTE-F601 sn ${sn}
-    !
-    interface gpon-onu_${pon}:${id}
-    description ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}
-    tcont 2 name Tcont100M profile OT
-    gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
-    switchport mode trunk vport 1
-    switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
-    ! 
-    pon-onu-mng gpon-onu_${pon}:${id}
-    service inter gemport 1 vlan ${handleVlan(oltZteChimaData[x].vlan)}
-    performance ethuni eth_0/1 start
-    vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
+interface gpon-olt_${pon}
+onu ${id} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${id}
+description ${cliente
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+switchport mode trunk vport 1
+switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
+! 
+pon-onu-mng gpon-onu_${pon}:${id}
+ervice inter gemport 1 vlan ${handleVlan(oltZteChimaData[x].vlan)}
+performance ethuni eth_0/1 start
+vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
     !`
                   );
               break;
@@ -498,8 +507,7 @@ security-mng 1 state enable mode permit
                             <div className="text-sm">
                               <RadioGroup.Label
                                 as="p"
-                                className={`font-medium text-white
-                                  }`}
+                                className={`font-medium text-white`}
                               >
                                 {plan.name}
                               </RadioGroup.Label>
@@ -756,7 +764,7 @@ security-mng 1 state enable mode permit
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black sm:text-md text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-sm text-white p-4 z-0"
             value={configText}
             autoComplete="false"
             spellCheck="false"

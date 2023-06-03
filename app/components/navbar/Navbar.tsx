@@ -9,7 +9,6 @@ import {
   CalendarIcon,
   XMarkIcon,
   TableCellsIcon,
-  WrenchScrewdriverIcon,
   DocumentDuplicateIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
@@ -20,47 +19,11 @@ import { useRouter, usePathname } from "next/navigation";
 import { User } from "@prisma/client";
 import Modal from "../modals/Modal";
 
-const mapas = [
-  {
-    name: "Mapa GPON OT",
+//constants
 
-    href: "https://www.google.com/maps/d/u/0/edit?mid=1IVAPyNuKuxWNHAcNfgj5sxWWHNh-bOBj&ll=-26.430388824095346%2C-48.817334430078134&z=10",
-    icon: MapIcon,
-  },
-  {
-    name: "Mapa GPON Vou",
-
-    href: "https://www.google.com/maps/d/u/0/edit?mid=1JWL-Gg4crvyhEqToyYdY4Fb3EAJqCekc&ll=-26.429054997432665%2C-48.741997897741506&z=8",
-    icon: MapIcon,
-  },
-  {
-    name: "Mapa GPON Atele",
-    href: "https://www.google.com/maps/d/u/0/edit?mid=1liBsTRud98BTzO0HQR4WHs7q6OryH_Yw&ll=-24.869473096400633%2C-43.631779099999996&z=7",
-    icon: MapIcon,
-  },
-  {
-    name: "Mapa de torres",
-    href: "https://www.google.com/maps/d/u/0/viewer?ll=-26.298121885472842%2C-48.82330632565968&z=13&mid=1u-Mv_yq--xRnrWvfQNQKar5gZfE",
-    icon: MapIcon,
-  },
-];
-const utilitarios = [
-  {
-    name: "Scripts",
-    href: "http://177.200.131.51/scripts2.html",
-    icon: TableCellsIcon,
-  },
-  {
-    name: "Aferir CDA",
-    href: "http://177.200.131.51/baterCDA.html",
-    icon: TableCellsIcon,
-  },
-  {
-    name: "Wiki",
-    href: "http://131.255.132.6:8887/doku.php",
-    icon: DocumentDuplicateIcon,
-  },
-];
+import { mapas } from "@/app/constants/mapas";
+import { utilitarios } from "@/app/constants/utilitarios";
+import { empresasParceiras } from "@/app/constants/empresasParceiras";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -116,18 +79,6 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                 </Popover.Button>
               </div>
               <Popover.Group className="hidden space-x-10 lg:flex">
-                <Link
-                  href={
-                    pathname == "/ss/config/manual"
-                      ? "/ss/config/automatic"
-                      : "/ss/config/manual"
-                  }
-                  className="text-base font-medium text-gray-300 hover:text-white"
-                >
-                  {pathname == "/ss/config/manual"
-                    ? "Auto config"
-                    : "Manual Config"}
-                </Link>
                 <a
                   href="#"
                   className="text-base font-medium text-gray-300 hover:text-white"
@@ -292,6 +243,62 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                   target="_blank"
                                 >
                                   <item.icon
+                                    className="h-6 w-6 flex-shrink-0 text-indigo-200"
+                                    aria-hidden="true"
+                                  />
+                                  <div className="ml-4">
+                                    <p className="text-base font-medium text-gray-200 whitespace-nowrap">
+                                      {item.name}
+                                    </p>
+                                  </div>
+                                </a>
+                              ))}
+                            </div>
+                          </div>
+                        </Popover.Panel>
+                      </Transition>
+                    </>
+                  )}
+                </Popover>
+                <Popover className="relative">
+                  {({ open }) => (
+                    <>
+                      <Popover.Button
+                        className={classNames(
+                          open ? "text-white" : "text-gray-300",
+                          "border-transparent focus:border-transparent focus:ring-offset-0 group inline-flex items-center rounded-md bg-transparent text-base font-medium hover:text-white focus:outline-none"
+                        )}
+                      >
+                        <span>Empresas</span>
+                        <ChevronDownIcon
+                          className={classNames(
+                            open ? "text-white" : "text-gray-300",
+                            "ml-2 h-5 w-5 group-hover:text-white"
+                          )}
+                          aria-hidden="true"
+                        />
+                      </Popover.Button>
+
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                          <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div className="relative grid gap-6 bg-black opacity-90 border-gray-900 border-2 rounded-lg px-5 py-6 sm:gap-8 sm:p-8">
+                              {empresasParceiras.map((item) => (
+                                <a
+                                  key={item.name}
+                                  href={item.link}
+                                  className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
+                                  target="_blank"
+                                >
+                                  <TableCellsIcon
                                     className="h-6 w-6 flex-shrink-0 text-indigo-200"
                                     aria-hidden="true"
                                   />
