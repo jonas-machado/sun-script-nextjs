@@ -15,6 +15,7 @@ import Input from "../inputs/inputLabelUseForm";
 //constants
 
 import { plans } from "@/app/constants/plans";
+import { brv04 } from "@/app/constants/ponException";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -117,8 +118,10 @@ function ConfigForm({
     return `interface gpon-olt_${pon}\nonu ${id} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${id}\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")
-      .toLowerCase()}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${id}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
+      .replace(
+        / /g,
+        "_"
+      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${id}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
 
   const zteText = (vlan: number | undefined) => {
@@ -183,7 +186,57 @@ function ConfigForm({
   };
 
   //excessoẽs
-  const vilaNovaText = (vlan: number | undefined) => {
+  const vilaNovaText = (
+    vlan: number | undefined,
+    onuCompany?: string | undefined
+  ) => {
+    if (onuCompany == "ZTEG") {
+      return `\
+interface gpon-olt_${pon}
+onu ${id} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${id}
+description ${cliente
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+switchport mode trunk vport 1
+switchport vlan ${vlan} tag vport 1
+!
+pon-onu-mng gpon-onu_${pon}:${id}
+service dataservice type internet gemport 1 cos 0 vlan ${vlan}
+switchport-bind switch_0/1 iphost 1
+vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
+vlan-filter iphost 1 priority 0 vid ${vlan}
+vlan port eth_0/1 mode tag vlan ${vlan}
+security-mng 1 state enable mode permit
+!`;
+    } else {
+      return `\
+interface gpon-olt_${pon}
+onu ${id} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${id}
+description ${cliente
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+switchport mode trunk vport 1
+switchport vlan ${vlan} tag vport 1
+! 
+pon-onu-mng gpon-onu_${pon}:${id}
+ervice inter gemport 1 vlan ${vlan}
+performance ethuni eth_0/1 start
+vlan port eth_0/1 mode tag vlan ${vlan}
+!`;
+    }
+  };
+
+  const itapoaText = (vlan: number | undefined) => {
     return `\
 interface gpon-olt_${pon}
 onu ${id} type ZTE-F601 sn ${sn}
@@ -194,18 +247,16 @@ description ${cliente
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}
 tcont 2 name Tcont100M profile OT
-gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
+gemport 1 name Gemport1 unicast tcont 2 dir both
 switchport mode trunk vport 1
-switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
+switchport vlan ${vlan} tag vport 1
 !
 pon-onu-mng gpon-onu_${pon}:${id}
-service dataservice type internet gemport 1 cos 0 vlan ${handleVlan(
-      oltZteChimaData[x].vlan
-    )}
+service dataservice type internet gemport 1 cos 0 vlan ${vlan}
 switchport-bind switch_0/1 iphost 1
 vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
-vlan-filter iphost 1 priority 0 vid ${handleVlan(oltZteChimaData[x].vlan)}
-vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
+vlan-filter iphost 1 priority 0 vid ${vlan}
+vlan port eth_0/1 mode tag vlan ${vlan}
 security-mng 1 state enable mode permit
 !`;
   };
@@ -237,14 +288,23 @@ security-mng 1 state enable mode permit
       .replace(/[0-9]/g, "")
       .replace(/[\u0300-\u036f]/g, "")
       .split(" ");
-    console.log(array);
     const toFilter = ["", "das", "dos", "de", "do", "da"];
     const filtered = array.filter(function (el) {
       return !toFilter.includes(el);
     });
-    return filtered.flatMap((v, i) =>
-      filtered.slice(i + 1).map((w) => v + "." + w)
-    );
+    return filtered
+      .flatMap((v) =>
+        filtered.map((w) => {
+          if (v != w) {
+            return v + "." + w;
+          }
+        })
+      )
+      .filter((el) => {
+        if (el != undefined) {
+          return el;
+        }
+      });
   };
   const pppoeText2 = () => {
     const array = cliente
@@ -281,112 +341,29 @@ security-mng 1 state enable mode permit
     setpppoeText(pppoeText().join("\n"));
     setpppoeText2(pppoeText2().join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
+      setCadastroText(cadastroText(comando.ZTE));
       for (let x in oltZteChimaData) {
         if (selected.olt == oltZteChimaData[x].olt) {
           switch (selected.olt) {
             case "BRV04":
-              setCadastroText(cadastroText(comando.ZTE));
-              const ponException = [
-                {
-                  pon: "1/5/1",
-                  vlan: 141,
-                },
-                {
-                  pon: "1/5/2",
-                  vlan: 132,
-                },
-                {
-                  pon: "1/5/3",
-                  vlan: 133,
-                },
-                {
-                  pon: "1/5/4",
-                  vlan: 134,
-                },
-                {
-                  pon: "1/5/5",
-                  vlan: 135,
-                },
-                {
-                  pon: "1/5/6",
-                  vlan: 136,
-                },
-                {
-                  pon: "1/5/7",
-                  vlan: 137,
-                },
-                {
-                  pon: "1/5/8",
-                  vlan: 138,
-                },
-                {
-                  pon: "1/5/9",
-                  vlan: 121,
-                },
-              ];
-              for (let i = 0; i < ponException.length; i++) {
-                if (pon == ponException[i].pon) {
+              for (let i = 0; i < brv04.length; i++) {
+                if (pon == brv04[i].pon) {
                   return sn.substring(0, 4) == "ZTEG"
-                    ? setConfigText(zteText(handleVlan(ponException[i].vlan)))
-                    : setConfigText(
-                        chimaText(handleVlan(ponException[i].vlan))
-                      );
+                    ? setConfigText(zteText(handleVlan(brv04[i].vlan)))
+                    : setConfigText(chimaText(handleVlan(brv04[i].vlan)));
                 }
               }
             case "VILA NOVA":
               sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(
-                    vilaNovaText(handleVlan(oltZteChimaData[x].vlan))
+                    vilaNovaText(handleVlan(oltZteChimaData[x].vlan), "ZTEG")
                   )
                 : setConfigText(
-                    `\
-interface gpon-olt_${pon}
-onu ${id} type ZTE-F601 sn ${sn}
-!
-interface gpon-onu_${pon}:${id}
-description ${cliente
-                      .normalize("NFD")
-                      .replace(/[\u0300-\u036f]/g, "")
-                      .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile OT
-gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
-switchport mode trunk vport 1
-switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
-! 
-pon-onu-mng gpon-onu_${pon}:${id}
-ervice inter gemport 1 vlan ${handleVlan(oltZteChimaData[x].vlan)}
-performance ethuni eth_0/1 start
-vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
-    !`
+                    vilaNovaText(handleVlan(oltZteChimaData[x].vlan))
                   );
               break;
             case "ITAPOA":
-              setConfigText(
-                `\
-interface gpon-olt_${pon}
-onu ${id} type ZTE-F601 sn ${sn}
-!
-interface gpon-onu_${pon}:${id}
-description ${cliente
-                  .normalize("NFD")
-                  .replace(/[\u0300-\u036f]/g, "")
-                  .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile OT
-gemport 1 name Gemport1 unicast tcont 2 dir both
-switchport mode trunk vport 1
-switchport vlan ${handleVlan(oltZteChimaData[x].vlan)} tag vport 1
-!
-pon-onu-mng gpon-onu_${pon}:${id}
-service dataservice type internet gemport 1 cos 0 vlan ${handleVlan(
-                  oltZteChimaData[x].vlan
-                )}
-switchport-bind switch_0/1 iphost 1
-vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
-vlan-filter iphost 1 priority 0 vid ${handleVlan(oltZteChimaData[x].vlan)}
-vlan port eth_0/1 mode tag vlan ${handleVlan(oltZteChimaData[x].vlan)}
-security-mng 1 state enable mode permit
-!`
-              );
+              setConfigText(itapoaText(handleVlan(oltZteChimaData[x].vlan)));
               break;
             case "PENHA":
             case "PIÇARRAS":
@@ -400,28 +377,30 @@ security-mng 1 state enable mode permit
             case "VILA DA GLORIA":
             case "ITINGA":
             case "ESTRADA DA ILHA":
-              setCadastroText(cadastroText(comando.ZTE));
               return sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(zteText(handleVlan(oltZteChimaData[x].vlan)))
                 : setConfigText(chimaText(handleVlan(oltZteChimaData[x].vlan)));
             case "ITAPOA2":
-              setCadastroText(cadastroText(comando.ZTE));
               return setConfigText(chimaText(handleVlanItapoa2()));
             default:
-              setCadastroText(cadastroText(comando.ZTE));
               return setConfigText(chimaText(handleVlan()));
           }
         }
       }
     }
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "Intelbras") {
+      setCadastroText(cadastroText(comando.IntelbrasG));
       for (let x in oltIntelbrasData) {
         if (selected.olt == oltIntelbrasData[x].olt) {
           switch (selected.olt) {
+            case "ERVINO":
+              setCadastroText(cadastroText(comando.IntelbrasI));
+              setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
+              setOnuId(null);
+              break;
             case "GARUVA":
             case "SFS":
-              setCadastroText(cadastroText(comando.IntelbrasG));
-
+            default:
               return onuModel == "ITBS"
                 ? setConfigText(
                     intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
@@ -429,22 +408,16 @@ security-mng 1 state enable mode permit
                 : setConfigText(
                     intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
                   );
-            case "ERVINO":
-              setCadastroText(cadastroText(comando.IntelbrasI));
-              setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
-              setOnuId(null);
-              break;
-            default:
           }
         }
       }
     }
     if (selectedRadio.name == "Datacom" && oltCompany == "Datacom") {
+      setCadastroText(cadastroText(comando.Datacom));
       for (let x in oltDatacomData) {
         if (selected.olt == oltDatacomData[x].olt) {
           switch (selected.olt) {
             case "JACU":
-              setCadastroText(cadastroText(comando.Datacom));
               if (onuType == "ONU") {
                 setConfigText(
                   datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
@@ -461,7 +434,6 @@ security-mng 1 state enable mode permit
             case "ITAPOCU":
             case "SNL101":
             default:
-              setCadastroText(cadastroText(comando.Datacom));
               if (onuType == "ONU") {
                 setConfigText(
                   datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
