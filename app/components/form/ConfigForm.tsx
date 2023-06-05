@@ -41,7 +41,7 @@ function ConfigForm({
   //inputs config
   const [sn, setSn] = useState("");
   const [pon, setPon] = useState("");
-  const [id, setId] = useState<number | null>();
+  const [oltId, setId] = useState<number | null>();
   const [onuId, setOnuId] = useState<number | null>();
   const [cliente, setCliente] = useState("");
   const [customVlan, setCustomVlan] = useState<number | null>();
@@ -115,47 +115,47 @@ function ConfigForm({
   };
 
   const chimaText = (vlan: number | undefined) => {
-    return `interface gpon-olt_${pon}\nonu ${id} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${id}\ndescription ${cliente
+    return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(
         / /g,
         "_"
-      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${id}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
+      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
 
   const zteText = (vlan: number | undefined) => {
-    return `interface gpon-olt_${pon}\nonu ${id} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${id}\ndescription ${cliente
+    return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(
         / /g,
         "_"
-      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${id}\nservice dataservice gemport 1 cos 0 vlan ${vlan}\nswitchport-bind switch_0/1 iphost 1\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
+      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice dataservice gemport 1 cos 0 vlan ${vlan}\nswitchport-bind switch_0/1 iphost 1\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
 
   const intelbrasItbsText = (vlan: number | undefined) => {
-    return `onu set 1/${pon}/${id} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\ncreate gpon-olt-onu-config 1-1-${pon}-${id}/gpononu\nset serial-no-vendor-id = ITBS\ncommit gpon-olt-onu-config 1-1-${pon}-${id}/gpononu\nbridge add 1-1-${pon}-${id}/gpononu  downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${id}/gpononu ${cliente
+    return `onu set 1/${pon}/${oltId} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\ncreate gpon-olt-onu-config 1-1-${pon}-${oltId}/gpononu\nset serial-no-vendor-id = ITBS\ncommit gpon-olt-onu-config 1-1-${pon}-${oltId}/gpononu\nbridge add 1-1-${pon}-${oltId}/gpononu  downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${oltId}/gpononu ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}`;
   };
 
   const intelbrasZntsText = (vlan: number | undefined) => {
-    return `onu set 1/${pon}/${id} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\nbridge add 1-1-${pon}-${id}/gpononu downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${id}/gpononu ${cliente
+    return `onu set 1/${pon}/${oltId} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\nbridge add 1-1-${pon}-${oltId}/gpononu downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${oltId}/gpononu ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}`;
   };
 
   const intelbrasI = (vlan: number | undefined) => {
-    return `onu set gpon ${pon} onu ${id} id ${onuId} meprof intelbras-110g\nbridge add gpon ${pon} onu ${id} downlink vlan ${vlan} tagged eth 1\nonu description add gpon ${pon} onu ${id} text ${cliente
+    return `onu set gpon ${pon} onu ${oltId} id ${onuId} meprof intelbras-110g\nbridge add gpon ${pon} onu ${oltId} downlink vlan ${vlan} tagged eth 1\nonu description add gpon ${pon} onu ${oltId} text ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}`;
   };
   const datacomTextOnu = (vlan: number | undefined) => {
-    return `interface gpon ${pon}\nonu ${id}\nname ${cliente
+    return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(
@@ -167,11 +167,11 @@ function ConfigForm({
       .replace(
         / /g,
         "_"
-      )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
+      )}\ngpon ${pon} onu ${oltId} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
   };
 
   const datacomTextOnt = (vlan: number | undefined) => {
-    return `interface gpon ${pon}\nonu ${id}\nname ${cliente
+    return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
@@ -182,7 +182,7 @@ function ConfigForm({
       .replace(
         / /g,
         "_"
-      )}\ngpon ${pon} onu ${id} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}\ncommit`;
+      )}\ngpon ${pon} onu ${oltId} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}\ncommit`;
   };
 
   //excessoẽs
@@ -193,9 +193,9 @@ function ConfigForm({
     if (onuCompany == "ZTEG") {
       return `\
 interface gpon-olt_${pon}
-onu ${id} type ZTE-F601 sn ${sn}
+onu ${oltId} type ZTE-F601 sn ${sn}
 !
-interface gpon-onu_${pon}:${id}
+interface gpon-onu_${pon}:${oltId}
 description ${cliente
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -205,7 +205,7 @@ gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
 !
-pon-onu-mng gpon-onu_${pon}:${id}
+pon-onu-mng gpon-onu_${pon}:${oltId}
 service dataservice type internet gemport 1 cos 0 vlan ${vlan}
 switchport-bind switch_0/1 iphost 1
 vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
@@ -216,9 +216,9 @@ security-mng 1 state enable mode permit
     } else {
       return `\
 interface gpon-olt_${pon}
-onu ${id} type ZTE-F601 sn ${sn}
+onu ${oltId} type ZTE-F601 sn ${sn}
 !
-interface gpon-onu_${pon}:${id}
+interface gpon-onu_${pon}:${oltId}
 description ${cliente
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -228,7 +228,7 @@ gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
 ! 
-pon-onu-mng gpon-onu_${pon}:${id}
+pon-onu-mng gpon-onu_${pon}:${oltId}
 ervice inter gemport 1 vlan ${vlan}
 performance ethuni eth_0/1 start
 vlan port eth_0/1 mode tag vlan ${vlan}
@@ -239,9 +239,9 @@ vlan port eth_0/1 mode tag vlan ${vlan}
   const itapoaText = (vlan: number | undefined) => {
     return `\
 interface gpon-olt_${pon}
-onu ${id} type ZTE-F601 sn ${sn}
+onu ${oltId} type ZTE-F601 sn ${sn}
 !
-interface gpon-onu_${pon}:${id}
+interface gpon-onu_${pon}:${oltId}
 description ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -251,7 +251,7 @@ gemport 1 name Gemport1 unicast tcont 2 dir both
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
 !
-pon-onu-mng gpon-onu_${pon}:${id}
+pon-onu-mng gpon-onu_${pon}:${oltId}
 service dataservice type internet gemport 1 cos 0 vlan ${vlan}
 switchport-bind switch_0/1 iphost 1
 vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
@@ -263,10 +263,10 @@ security-mng 1 state enable mode permit
 
   //comandos
   const comando = {
-    ZTE: `show pon power attenuation gpon-onu_${pon}:${id}`,
-    IntelbrasG: `onu power show 1-1-${pon}-${id}`,
-    IntelbrasI: `onu status gpon ${pon} onu ${id}`,
-    Datacom: `do show interface gpon ${pon} onu ${id}`,
+    ZTE: `show pon power attenuation gpon-onu_${pon}:${oltId}`,
+    IntelbrasG: `onu power show 1-1-${pon}-${oltId}`,
+    IntelbrasI: `onu status gpon ${pon} onu ${oltId}`,
+    Datacom: `do show interface gpon ${pon} onu ${oltId}`,
   };
 
   const cadastroText = (comando: string) => {
@@ -329,7 +329,7 @@ security-mng 1 state enable mode permit
         serial: sn,
         olt: selected.olt,
         pon: pon,
-        idLivre: id,
+        idLivre: oltId,
         idOnu: onuId,
         customVlan,
         cliente: cliente,
