@@ -64,12 +64,10 @@ export default function LoginForm() {
       callbackUrl: "/ss/config/manual",
     }).then((callback) => {
       setIsLoading(false);
-      if (callback?.ok) {
-        router.push("/ss/config/manual");
-      }
       if (callback?.error) {
-        notify(callback.error);
+        return notify(callback.error);
       }
+      router.push("/ss/config/manual");
     });
   };
 

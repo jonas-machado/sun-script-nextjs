@@ -9,6 +9,7 @@ import InputWLabel from "../inputs/InputWLabel";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 import Input from "../inputs/inputLabelUseForm";
 
@@ -34,6 +35,15 @@ function ConfigForm({
   oltIntelbrasData,
   oltDatacomData,
 }: ConfigProps) {
+  const session = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.status != "authenticated") {
+      router.push("/");
+    }
+  }, [session?.status, router]);
+
   //selections
   const [selected, setSelected] = useState({ olt: "Selecione a OLT" });
   const [selectedRadio, setSelectedRadio] = useState(plans[0]);
@@ -57,8 +67,6 @@ function ConfigForm({
   const [cadastroTextArea, setCadastroText] = useState("");
   const [pppoeTextArea, setpppoeText] = useState<string>();
   const [pppoeTextArea2, setpppoeText2] = useState<string>();
-
-  const router = useRouter();
 
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
@@ -389,7 +397,6 @@ security-mng 1 state enable mode permit
       }
     }
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "Intelbras") {
-      setCadastroText(cadastroText(comando.IntelbrasG));
       for (let x in oltIntelbrasData) {
         if (selected.olt == oltIntelbrasData[x].olt) {
           switch (selected.olt) {
@@ -401,6 +408,7 @@ security-mng 1 state enable mode permit
             case "GARUVA":
             case "SFS":
             default:
+              setCadastroText(cadastroText(comando.IntelbrasG));
               return onuModel == "ITBS"
                 ? setConfigText(
                     intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
