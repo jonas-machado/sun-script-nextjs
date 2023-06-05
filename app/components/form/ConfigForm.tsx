@@ -39,7 +39,7 @@ function ConfigForm({
   const router = useRouter();
 
   useEffect(() => {
-    if (session?.status != "authenticated") {
+    if (session?.status == "unauthenticated") {
       router.push("/");
     }
   }, [session?.status, router]);
@@ -51,10 +51,24 @@ function ConfigForm({
   //inputs config
   const [sn, setSn] = useState("");
   const [pon, setPon] = useState("");
-  const [oltId, setId] = useState<number | null>();
-  const [onuId, setOnuId] = useState<number | null>();
+  const [oltId, setId] = useState("");
+  const [onuId, setOnuId] = useState("");
   const [cliente, setCliente] = useState("");
-  const [customVlan, setCustomVlan] = useState<number | null>();
+  const [customVlan, setCustomVlan] = useState("");
+
+  const resetForm = () => {
+    setSn("");
+    setPon("");
+    setId("");
+    setOnuId("");
+    setCliente("");
+    setConfigText("");
+    setCadastroText("");
+    setpppoeText("");
+    setpppoeText2("");
+    setOnuModel("");
+    setCustomVlan("");
+  };
 
   //models handlers
   const [oltCompanyArray, setOltCompanyArray] = useState([]);
@@ -67,6 +81,10 @@ function ConfigForm({
   const [cadastroTextArea, setCadastroText] = useState("");
   const [pppoeTextArea, setpppoeText] = useState<string>();
   const [pppoeTextArea2, setpppoeText2] = useState<string>();
+
+  useEffect(() => {
+    console.log(sn, pon, oltId, cliente);
+  }, [sn, pon, oltId, cliente]);
 
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
@@ -122,7 +140,7 @@ function ConfigForm({
     }
   };
 
-  const chimaText = (vlan: number | undefined) => {
+  const chimaText = (vlan: number | undefined | string) => {
     return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -132,7 +150,7 @@ function ConfigForm({
       )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
 
-  const zteText = (vlan: number | undefined) => {
+  const zteText = (vlan: number | undefined | string) => {
     return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -142,27 +160,27 @@ function ConfigForm({
       )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice dataservice gemport 1 cos 0 vlan ${vlan}\nswitchport-bind switch_0/1 iphost 1\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
 
-  const intelbrasItbsText = (vlan: number | undefined) => {
+  const intelbrasItbsText = (vlan: number | undefined | string) => {
     return `onu set 1/${pon}/${oltId} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\ncreate gpon-olt-onu-config 1-1-${pon}-${oltId}/gpononu\nset serial-no-vendor-id = ITBS\ncommit gpon-olt-onu-config 1-1-${pon}-${oltId}/gpononu\nbridge add 1-1-${pon}-${oltId}/gpononu  downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${oltId}/gpononu ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}`;
   };
 
-  const intelbrasZntsText = (vlan: number | undefined) => {
+  const intelbrasZntsText = (vlan: number | undefined | string) => {
     return `onu set 1/${pon}/${oltId} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\nbridge add 1-1-${pon}-${oltId}/gpononu downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${oltId}/gpononu ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}`;
   };
 
-  const intelbrasI = (vlan: number | undefined) => {
+  const intelbrasI = (vlan: number | undefined | string) => {
     return `onu set gpon ${pon} onu ${oltId} id ${onuId} meprof intelbras-110g\nbridge add gpon ${pon} onu ${oltId} downlink vlan ${vlan} tagged eth 1\nonu description add gpon ${pon} onu ${oltId} text ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}`;
   };
-  const datacomTextOnu = (vlan: number | undefined) => {
+  const datacomTextOnu = (vlan: number | undefined | string) => {
     return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -178,7 +196,7 @@ function ConfigForm({
       )}\ngpon ${pon} onu ${oltId} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
   };
 
-  const datacomTextOnt = (vlan: number | undefined) => {
+  const datacomTextOnt = (vlan: number | undefined | string) => {
     return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -195,7 +213,7 @@ function ConfigForm({
 
   //excessoẽs
   const vilaNovaText = (
-    vlan: number | undefined,
+    vlan: number | undefined | string,
     onuCompany?: string | undefined
   ) => {
     if (onuCompany == "ZTEG") {
@@ -244,7 +262,7 @@ vlan port eth_0/1 mode tag vlan ${vlan}
     }
   };
 
-  const itapoaText = (vlan: number | undefined) => {
+  const itapoaText = (vlan: number | undefined | string) => {
     return `\
 interface gpon-olt_${pon}
 onu ${oltId} type ZTE-F601 sn ${sn}
@@ -403,7 +421,7 @@ security-mng 1 state enable mode permit
             case "ERVINO":
               setCadastroText(cadastroText(comando.IntelbrasI));
               setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
-              setOnuId(null);
+              setOnuId("");
               break;
             case "GARUVA":
             case "SFS":
@@ -555,6 +573,7 @@ security-mng 1 state enable mode permit
             )}
 
             <InputWLabel
+              value={sn}
               label="SN"
               placeholder="Serial"
               id="serial"
@@ -677,12 +696,14 @@ security-mng 1 state enable mode permit
               )}
             </div>
             <InputWLabel
+              value={pon}
               label="PON"
               placeholder={oltCompany == "Intelbras" ? "0" : "0/0/0"}
               id="pon"
               onChange={(e: any) => setPon(e.target.value)}
             />
             <InputWLabel
+              value={oltId}
               label="ID Livre"
               placeholder="Posição"
               id="idLivre"
@@ -691,6 +712,7 @@ security-mng 1 state enable mode permit
             {selected.olt == "ERVINO" && oltCompany == "Intelbras" && (
               <>
                 <InputWLabel
+                  value={onuId}
                   label="ID Onu"
                   placeholder="ID Onu"
                   id="idOnu"
@@ -699,12 +721,14 @@ security-mng 1 state enable mode permit
               </>
             )}
             <InputWLabel
+              value={cliente}
               label="Cliente"
               placeholder="Nome"
               id="cliente"
               onChange={(e: any) => setCliente(e.target.value)}
             />
             <InputWLabel
+              value={customVlan}
               label="Vlan"
               placeholder="Custom Vlan"
               id="customVlan"
@@ -712,21 +736,8 @@ security-mng 1 state enable mode permit
             />
             <div className="flex w-full gap-2">
               <button
-                type="reset"
-                onClick={() => {
-                  setSn("");
-                  setPon("");
-                  setId(null);
-                  setOnuId(null);
-                  setCliente("");
-                  setConfigText("");
-                  setCadastroText("");
-                  setpppoeText("");
-                  setpppoeText2("");
-                  setOnuModel("");
-                  setOnuType("");
-                  setCustomVlan(null);
-                }}
+                type="button"
+                onClick={resetForm}
                 className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none"
               >
                 LIMPAR

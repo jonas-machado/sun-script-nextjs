@@ -4,14 +4,16 @@ interface input {
   id?: string;
   name?: string;
   onChange?: any;
+  value?: any;
 }
-const Input = ({ label, placeholder, id, name, onChange }: input) => {
+const Input = ({ label, placeholder, id, name, onChange, value }: input) => {
   return (
     <div className="mt-1 flex rounded-md shadow-sm">
       <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200">
         {label}
       </span>
       <input
+        value={value}
         onChange={onChange}
         type="text"
         name={name}
