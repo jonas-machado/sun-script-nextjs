@@ -211,7 +211,7 @@ function ConfigForm({
       )}\ngpon ${pon} onu ${oltId} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}\ncommit`;
   };
 
-  //excessoẽs
+  //excessões
   const vilaNovaText = (
     vlan: number | undefined | string,
     onuCompany?: string | undefined
@@ -284,6 +284,27 @@ vlan-filter-mode iphost 1 tag-filter vid-filter untag-filter discard
 vlan-filter iphost 1 priority 0 vid ${vlan}
 vlan port eth_0/1 mode tag vlan ${vlan}
 security-mng 1 state enable mode permit
+!`;
+  };
+
+  const valeNetText = (vlan: number | undefined | string) => {
+    return `\
+interface gpon-olt_${pon}
+onu ${oltId} type ZTE-F601 sn ${sn}
+!
+interface gpon-onu_${pon}:${oltId}
+description ${cliente
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/ /g, "_")}
+tcont 2 name Tcont100M profile OT
+gemport 1 name Gemport1 tcont 2 queue 1
+switchport mode trunk vport 1
+service-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}
+!
+pon-onu-mng gpon-onu_${pon}:${oltId}
+service dataservice gemport 1 cos 0 vlan ${vlan} 
+performance ethuni eth_0/1 start
 !`;
   };
 
@@ -370,15 +391,12 @@ security-mng 1 state enable mode permit
       setCadastroText(cadastroText(comando.ZTE));
       for (let x in oltZteChimaData) {
         if (selected.olt == oltZteChimaData[x].olt) {
+          if (sn.substring(0, 5) == "ZTEG3") {
+            return setConfigText(
+              valeNetText(handleVlan(oltZteChimaData[x].vlan))
+            );
+          }
           switch (selected.olt) {
-            case "BRV04":
-              for (let i = 0; i < brv04.length; i++) {
-                if (pon == brv04[i].pon) {
-                  return sn.substring(0, 4) == "ZTEG"
-                    ? setConfigText(zteText(handleVlan(brv04[i].vlan)))
-                    : setConfigText(chimaText(handleVlan(brv04[i].vlan)));
-                }
-              }
             case "VILA NOVA":
               sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(
@@ -391,6 +409,14 @@ security-mng 1 state enable mode permit
             case "ITAPOA":
               setConfigText(itapoaText(handleVlan(oltZteChimaData[x].vlan)));
               break;
+            case "BRV04":
+              for (let i = 0; i < brv04.length; i++) {
+                if (pon == brv04[i].pon) {
+                  return sn.substring(0, 4) == "ZTEG"
+                    ? setConfigText(zteText(handleVlan(brv04[i].vlan)))
+                    : setConfigText(chimaText(handleVlan(brv04[i].vlan)));
+                }
+              }
             case "PENHA":
             case "PIÇARRAS":
             case "VIAPIANA NEW":
