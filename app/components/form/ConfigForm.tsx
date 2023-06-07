@@ -11,12 +11,10 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
-import Input from "../inputs/inputLabelUseForm";
-
 //constants
 
 import { plans } from "@/app/constants/plans";
-import { brv04 } from "@/app/constants/ponException";
+import { brv04, viapiana } from "@/app/constants/ponException";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -89,7 +87,7 @@ function ConfigForm({
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
       setOnuType("");
-      if (isNaN(sn[0] as any)) {
+      if (sn.length > 8) {
         setOltCompanyArray(oltZteChimaData);
         setOltCompany("ZTE");
       } else {
@@ -417,9 +415,16 @@ performance ethuni eth_0/1 start
                     : setConfigText(chimaText(handleVlan(brv04[i].vlan)));
                 }
               }
+            case "VIAPIANA NEW":
+              for (let i = 0; i < viapiana.length; i++) {
+                if (pon == viapiana[i].pon) {
+                  return sn.substring(0, 4) == "ZTEG"
+                    ? setConfigText(zteText(handleVlan(viapiana[i].vlan)))
+                    : setConfigText(chimaText(handleVlan(viapiana[i].vlan)));
+                }
+              }
             case "PENHA":
             case "PIÇARRAS":
-            case "VIAPIANA NEW":
             case "NOVA BRASÍLIA":
             case "JOINVILLE":
             case "MIRANDA":

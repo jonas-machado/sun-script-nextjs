@@ -36,3 +36,10 @@ export const brv04 = [
     vlan: 121,
   },
 ];
+
+export const viapiana = [
+  {
+    pon: "1/4/6",
+    vlan: 129,
+  },
+]
