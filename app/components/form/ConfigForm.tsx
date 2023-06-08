@@ -2,7 +2,7 @@
 
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 //import io from "socket.io-client";
-import { Listbox, Transition, RadioGroup } from "@headlessui/react";
+import { Listbox, Transition, RadioGroup, Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import InputWLabel from "../inputs/InputWLabel";
@@ -10,7 +10,6 @@ import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-
 //constants
 
 import { plans } from "@/app/constants/plans";
@@ -19,6 +18,15 @@ import { brv04, viapiana } from "@/app/constants/ponException";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
+
+const people = [
+  { id: 1, name: "Wade Cooper" },
+  { id: 2, name: "Arlene Mccoy" },
+  { id: 3, name: "Devon Webb" },
+  { id: 4, name: "Tom Cook" },
+  { id: 5, name: "Tanya Fox" },
+  { id: 6, name: "Hellen Schmidt" },
+];
 
 interface ConfigProps {
   currentUser?: User | null;
@@ -44,6 +52,8 @@ function ConfigForm({
 
   //selections
   const [selected, setSelected] = useState({ olt: "Selecione a OLT" });
+  const [query, setQuery] = useState("");
+
   const [selectedRadio, setSelectedRadio] = useState(plans[0]);
 
   //inputs config
@@ -69,7 +79,7 @@ function ConfigForm({
   };
 
   //models handlers
-  const [oltCompanyArray, setOltCompanyArray] = useState([]);
+  const [oltCompanyArray, setOltCompanyArray] = useState<any[]>([]);
   const [oltCompany, setOltCompany] = useState("");
   const [onuType, setOnuType] = useState("");
   const [onuModel, setOnuModel] = useState("");
@@ -253,7 +263,7 @@ switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
 ! 
 pon-onu-mng gpon-onu_${pon}:${oltId}
-ervice inter gemport 1 vlan ${vlan}
+service inter gemport 1 vlan ${vlan}
 performance ethuni eth_0/1 start
 vlan port eth_0/1 mode tag vlan ${vlan}
 !`;
@@ -505,6 +515,14 @@ performance ethuni eth_0/1 start
       }
     }
   };
+
+  const filteredOlt =
+    query === ""
+      ? oltCompanyArray
+      : oltCompanyArray.filter((olt) => {
+          return olt.olt.toLowerCase().includes(query.toLowerCase());
+        });
+
   return (
     <div>
       <section className="lg:grid lg:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
@@ -611,94 +629,82 @@ performance ethuni eth_0/1 start
               onChange={(e: any) => setSn(e.target.value)}
             />
             <div className="flex w-full flex-col lg:flex-row space-y-5 lg:space-y-0">
-              <Listbox value={selected} onChange={setSelected}>
-                {({ open }) => (
-                  <>
-                    <div className="flex w-full">
-                      <Listbox.Label className="flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200">
-                        OLT
-                      </Listbox.Label>
-                      <div className="relative w-full">
-                        <Listbox.Button
-                          className={`${
-                            open ? "rounded-br-none" : ""
-                          } w-full relative cursor-default ${
-                            oltCompany == "Intelbras" ? "lg:rounded-none" : ""
-                          } bg-gray-900 rounded-r-md py-3 pl-3 pr-10 text-left shadow-sm overflow-hidden focus:outline-none sm:text-sm`}
-                        >
-                          <span className="flex items-center">
-                            <span className="block truncate text-white font-medium">
-                              {selected.olt}
-                            </span>
-                          </span>
-                          <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
-                            <ChevronUpDownIcon
-                              className="h-5 w-5 text-gray-300"
-                              aria-hidden="true"
-                            />
-                          </span>
-                        </Listbox.Button>
-
-                        <Transition
-                          show={open}
-                          as={Fragment}
-                          leave="transition ease-in duration-100"
-                          leaveFrom="opacity-100"
-                          leaveTo="opacity-0"
-                        >
-                          <Listbox.Options className="absolute max-h-[19rem] w-full overflow-auto rounded-b-md border-black border-t-0 bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {oltCompanyArray.map((name: any) => (
-                              <Listbox.Option
-                                key={name.id}
-                                className={({ active }) =>
-                                  classNames(
-                                    active
-                                      ? "text-white bg-indigo-600"
-                                      : "text-gray-200",
-                                    "relative cursor-default select-none py-2 pr-9"
-                                  )
-                                }
-                                value={name}
-                              >
-                                {({ selected, active }) => (
-                                  <>
-                                    <span
-                                      className={classNames(
-                                        selected
-                                          ? "font-semibold"
-                                          : "font-normal",
-                                        "ml-3 block truncate text-gray-300"
-                                      )}
-                                    >
-                                      {name.olt}
-                                    </span>
-
-                                    {selected ? (
-                                      <span
-                                        className={classNames(
-                                          active
-                                            ? "text-white"
-                                            : "text-indigo-600",
-                                          "absolute inset-y-0 right-0 flex items-center pr-4"
-                                        )}
-                                      >
-                                        <CheckIcon
-                                          className="h-5 w-5"
-                                          aria-hidden="true"
-                                        />
-                                      </span>
-                                    ) : null}
-                                  </>
-                                )}
-                              </Listbox.Option>
-                            ))}
-                          </Listbox.Options>
-                        </Transition>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </Listbox>
+              <Combobox value={selected} onChange={setSelected}>
+                <div className="relative mt-1 ">
+                  <div className="flex relative  w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                    <label
+                      htmlFor="olt"
+                      className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200"
+                    >
+                      OLT
+                    </label>
+                    <Combobox.Input
+                      id="olt"
+                      className="border-2 border-black w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900"
+                      onChange={(event) => setQuery(event.target.value)}
+                    />
+                    <Combobox.Button className="rounded-lg border-2 border-black absolute inset-y-0 right-0 flex items-center pr-2">
+                      <ChevronUpDownIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
+                    </Combobox.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    leave="transition ease-in duration-100"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                    afterLeave={() => setQuery("")}
+                  >
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                      {filteredOlt.length === 0 && query !== "" ? (
+                        <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                          Nothing found.
+                        </div>
+                      ) : (
+                        filteredOlt.map((olt) => (
+                          <Combobox.Option
+                            key={olt.olt}
+                            className={({ active }) =>
+                              `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                active
+                                  ? "bg-teal-600 text-white"
+                                  : "text-gray-900"
+                              }`
+                            }
+                            value={olt}
+                          >
+                            {({ selected, active }) => (
+                              <>
+                                <span
+                                  className={`block truncate ${
+                                    selected ? "font-medium" : "font-normal"
+                                  }`}
+                                >
+                                  {olt.olt}
+                                </span>
+                                {selected ? (
+                                  <span
+                                    className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                                      active ? "text-white" : "text-teal-600"
+                                    }`}
+                                  >
+                                    <CheckIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </Combobox.Option>
+                        ))
+                      )}
+                    </Combobox.Options>
+                  </Transition>
+                </div>
+              </Combobox>
               {oltCompany == "Intelbras" && selected.olt != "ERVINO" && (
                 <div className="flex">
                   <button

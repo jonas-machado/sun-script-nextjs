@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import TabBody from "@/app/components/tab/TabBody";
 import TabHead from "@/app/components/tab/TabHead";
+import { RadioGroup } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
 //constants
 import { tabScript } from "@/app/constants/tabScript";
@@ -11,6 +13,9 @@ import Input from "@/app/components/inputs/inputLabelUseForm";
 
 const ScriptForm = () => {
   const [openTab, setOpenTab] = useState("padraoEmail");
+
+  const [plan, setPlan] = useState("startup");
+
   console.log(openTab);
   const {
     register,
@@ -74,12 +79,16 @@ const ScriptForm = () => {
               required
             />
             <div>
-              {/* <Controller
+              <Controller
+                name="base"
                 control={control}
-                name="ReactDatepicker"
-                //render={({ field: { onChange, onBlur, value, ref } }) => (
-                //)}
-              /> */}
+                render={({ field }) => <></>}
+              />
+              <Controller
+                name="base"
+                control={control}
+                render={({ field }) => <></>}
+              />
             </div>
           </form>
 
