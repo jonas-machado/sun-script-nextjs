@@ -19,15 +19,6 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const people = [
-  { id: 1, name: "Wade Cooper" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
-];
-
 interface ConfigProps {
   currentUser?: User | null;
   oltZteChimaData: any;
@@ -51,7 +42,7 @@ function ConfigForm({
   }, [session?.status, router]);
 
   //selections
-  const [selected, setSelected] = useState({ olt: "Selecione a OLT" });
+  const [selected, setSelected] = useState<any>();
   const [query, setQuery] = useState("");
 
   const [selectedRadio, setSelectedRadio] = useState(plans[0]);
@@ -630,8 +621,8 @@ performance ethuni eth_0/1 start
             />
             <div className="flex w-full flex-col lg:flex-row space-y-5 lg:space-y-0">
               <Combobox value={selected} onChange={setSelected}>
-                <div className="relative mt-1 ">
-                  <div className="flex relative  w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                <div className="relative w-full">
+                  <div className="flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm">
                     <label
                       htmlFor="olt"
                       className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200"
@@ -640,10 +631,12 @@ performance ethuni eth_0/1 start
                     </label>
                     <Combobox.Input
                       id="olt"
-                      className="border-2 border-black w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900"
+                      placeholder="Selecione a OLT"
+                      className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900"
+                      displayValue={(olt: any)=> olt.olt}
                       onChange={(event) => setQuery(event.target.value)}
                     />
-                    <Combobox.Button className="rounded-lg border-2 border-black absolute inset-y-0 right-0 flex items-center pr-2">
+                    <Combobox.Button className="rounded-lg absolute inset-y-0 right-0 flex items-center pr-2">
                       <ChevronUpDownIcon
                         className="h-5 w-5 text-gray-400"
                         aria-hidden="true"
@@ -657,7 +650,7 @@ performance ethuni eth_0/1 start
                     leaveTo="opacity-0"
                     afterLeave={() => setQuery("")}
                   >
-                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                       {filteredOlt.length === 0 && query !== "" ? (
                         <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                           Nothing found.
@@ -669,8 +662,8 @@ performance ethuni eth_0/1 start
                             className={({ active }) =>
                               `relative cursor-default select-none py-2 pl-10 pr-4 ${
                                 active
-                                  ? "bg-teal-600 text-white"
-                                  : "text-gray-900"
+                                  ? "bg-purple-600 text-white"
+                                  : "text-gray-300 bg-gray-900"
                               }`
                             }
                             value={olt}
