@@ -54,6 +54,7 @@ function ConfigForm({
   const [onuId, setOnuId] = useState("");
   const [cliente, setCliente] = useState("");
   const [customVlan, setCustomVlan] = useState("");
+  const [customProfile, setCustomProfile] = useState("");
 
   const resetForm = () => {
     setSn("");
@@ -67,6 +68,7 @@ function ConfigForm({
     setpppoeText2("");
     setOnuModel("");
     setCustomVlan("");
+    setCustomProfile("")
   };
 
   //models handlers
@@ -96,7 +98,7 @@ function ConfigForm({
         setOltCompany("Intelbras");
       }
     }
-    if (selectedRadio.name == "Datacom") {
+    if (selectedRadio.name == "Datacom" && sn) {
       setOltCompanyArray(oltDatacomData);
       setOltCompany("Datacom");
     }
@@ -148,7 +150,7 @@ function ConfigForm({
         "_"
       )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
-
+console.log(oltCompany, selectedRadio)
   const zteText = (vlan: number | undefined | string) => {
     return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
       .normalize("NFD")
@@ -186,7 +188,7 @@ function ConfigForm({
       .replace(
         / /g,
         "_"
-      )}\nserial-number ${sn}\nline-profile 1000Mdow1000Mup\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
+      )}\nserial-number ${sn}\nline-profile ${customProfile ? customProfile : "1000Mdow1000Mup"}\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(
@@ -199,7 +201,7 @@ function ConfigForm({
     return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
+      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${customProfile ? customProfile : 
       selected?.olt == "ARAQUARI" ? "PPPoEROUTER" : "PPPoE-ROUTER"
     }\nveip 1\ntop\nservice-port new\ndescription ${cliente
       .normalize("NFD")
@@ -225,7 +227,7 @@ description ${cliente
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile OT
+tcont 2 name Tcont100M profile "OT"
 gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
@@ -248,7 +250,7 @@ description ${cliente
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile OT
+tcont 2 name Tcont100M profile "OT"
 gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
@@ -271,7 +273,7 @@ description ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile OT
+tcont 2 name Tcont100M profile "OT"
 gemport 1 name Gemport1 unicast tcont 2 dir both
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
@@ -296,7 +298,7 @@ description ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile OT
+tcont 2 name Tcont100M profile "OT"
 gemport 1 name Gemport1 tcont 2 queue 1
 switchport mode trunk vport 1
 service-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}
@@ -764,6 +766,15 @@ performance ethuni eth_0/1 start
               id="customVlan"
               onChange={(e: any) => setCustomVlan(e.target.value)}
             />
+            {oltCompany == "Datacom" &&
+            <InputWLabel
+              value={customProfile}
+              label="Profile"
+              placeholder="Custom Profile"
+              id="customProfile"
+              onChange={(e: any) => setCustomProfile(e.target.value)}
+            />
+}
             <div className="flex w-full gap-2">
               <button
                 type="button"
