@@ -200,7 +200,7 @@ function ConfigForm({
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
-      selected.olt == "ARAQUARI" ? "PPPoEROUTER" : "PPPoE-ROUTER"
+      selected?.olt == "ARAQUARI" ? "PPPoEROUTER" : "PPPoE-ROUTER"
     }\nveip 1\ntop\nservice-port new\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -323,7 +323,7 @@ performance ethuni eth_0/1 start
       "0" +
       (date.getMonth() + 1)
     ).slice(-2)}/${date.getFullYear()}\nOLT: ${
-      selected.olt
+      selected?.olt
     }\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
   };
 
@@ -373,7 +373,7 @@ performance ethuni eth_0/1 start
       .post("/api/configManual", {
         onuType,
         serial: sn,
-        olt: selected.olt,
+        olt: selected?.olt,
         pon: pon,
         idLivre: oltId,
         idOnu: onuId,
@@ -389,13 +389,13 @@ performance ethuni eth_0/1 start
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
       setCadastroText(cadastroText(comando.ZTE));
       for (let x in oltZteChimaData) {
-        if (selected.olt == oltZteChimaData[x].olt) {
+        if (selected?.olt == oltZteChimaData[x].olt) {
           if (sn.substring(0, 5) == "ZTEG3") {
             return setConfigText(
               valeNetText(handleVlan(oltZteChimaData[x].vlan))
             );
           }
-          switch (selected.olt) {
+          switch (selected?.olt) {
             case "VILA NOVA":
               sn.substring(0, 4) == "ZTEG"
                 ? setConfigText(
@@ -448,8 +448,8 @@ performance ethuni eth_0/1 start
     }
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "Intelbras") {
       for (let x in oltIntelbrasData) {
-        if (selected.olt == oltIntelbrasData[x].olt) {
-          switch (selected.olt) {
+        if (selected?.olt == oltIntelbrasData[x].olt) {
+          switch (selected?.olt) {
             case "ERVINO":
               setCadastroText(cadastroText(comando.IntelbrasI));
               setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
@@ -473,8 +473,8 @@ performance ethuni eth_0/1 start
     if (selectedRadio.name == "Datacom" && oltCompany == "Datacom") {
       setCadastroText(cadastroText(comando.Datacom));
       for (let x in oltDatacomData) {
-        if (selected.olt == oltDatacomData[x].olt) {
-          switch (selected.olt) {
+        if (selected?.olt == oltDatacomData[x].olt) {
+          switch (selected?.olt) {
             case "JACU":
               if (onuType == "ONU") {
                 setConfigText(
@@ -698,7 +698,7 @@ performance ethuni eth_0/1 start
                   </Transition>
                 </div>
               </Combobox>
-              {oltCompany == "Intelbras" && selected.olt != "ERVINO" && (
+              {oltCompany == "Intelbras" && selected?.olt != "ERVINO" && (
                 <div className="flex">
                   <button
                     onClick={() => {
@@ -739,7 +739,7 @@ performance ethuni eth_0/1 start
               id="idLivre"
               onChange={(e: any) => setId(e.target.value)}
             />
-            {selected.olt == "ERVINO" && oltCompany == "Intelbras" && (
+            {selected?.olt == "ERVINO" && oltCompany == "Intelbras" && (
               <>
                 <InputWLabel
                   value={onuId}
