@@ -1,21 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import TabBody from "@/app/components/tab/TabBody";
 import TabHead from "@/app/components/tab/TabHead";
 import { RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-
+import TextAreaUseForm from "../inputs/textAreaLabelUseForm";
+import ControlledInput from "../inputs/controlledInput";
+import Input from "@/app/components/inputs/inputLabelUseForm";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { User } from "@prisma/client";
 //constants
 import { tabScript } from "@/app/constants/tabScript";
-import Input from "@/app/components/inputs/inputLabelUseForm";
+import { bases } from "@/app/constants/bases";
+import { sla } from "@/app/constants/sla";
 
-const ScriptForm = () => {
+const ScriptForm = ({currentUser}: {currentUser?: User | null}) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
+  
+  const [text, setText] = useState("");
 
-  const [plan, setPlan] = useState("startup");
+  const session = useSession();
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (session?.status == "unauthenticated") {
+      router.push("/");
+    }
+  }, [session?.status, router]);
 
+console.log(currentUser)
   console.log(openTab);
   const {
     register,
@@ -23,12 +39,40 @@ const ScriptForm = () => {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = ({base, client, protocol, addres, sla, name, tel, description, cda, loc, clientLost}: any) => {
+    if (openTab == "padraoEmail") {
+      setText(`\
+Chamado aberto: ${base} ${client} - SLA ${sla}
+
+Cliente: ${client}
+Protocolo: ${protocol}
+Endereço: ${addres}
+SLA: ${sla}
+Responsável pelo atendimmento: ${name} // ${tel}
+
+Qualquer dúvida entrar em contato.
+Mais informações na O.S.
+
+att,
+
+${currentUser?.name.split(" ").slice(0, 2).join(" ")}.
+      `)
+    }
+    if (openTab == "padraoManutencao") {
+      const filtered = bases.filter((bs:any) => bs.name.includes(base))
+      setText(`\
+Protocolo: ${protocol}
+Motivo: ${description}
+Cliente afetado: ${clientLost}
+${cda}
+${loc}
+Chamado aberto: ${base} ${filtered[0].maintenance}
+      `)
+    }
   };
   return (
     <>
-      <div className="container bg-gray-800 bg-opacity-90 w-11/12 mx-auto mt-8">
+      <div className="container bg-gray-800 bg-opacity-90 w-11/12 mx-auto rounded-xl">
         <TabBody>
           {tabScript.map((tab) => (
             <TabHead
@@ -41,58 +85,119 @@ const ScriptForm = () => {
             </TabHead>
           ))}
         </TabBody>
-        <div className="grid grid-cols-[30%,70%]">
-          <form className="p-4" onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              label="CLIENTE"
-              placeholder="Nome e código"
-              id="client"
-              register={register}
-              required
-            />
-            <Input
+        <div className="grid lg:grid-cols-[40%,60%]">
+          <form className="p-4 space-y-1" onSubmit={handleSubmit(onSubmit)}>
+            {openTab == "padraoEmail" && (
+              <>
+            <div>
+              <ControlledInput
+                id="base"
+                name="base"
+                array={bases}
+                control={control}
+              />
+            </div>
+              <Input
+                label="CLIENTE"
+                placeholder="Nome e código"
+                id="client"
+                register={register}
+                required
+              />
+            
+            
+              <Input
               label="PROTOCOLO"
-              placeholder="N20230000000000"
+              placeholder="20230000000000"
               id="protocol"
               register={register}
               required
             />
-            <Input
-              label="ENDEREÇO"
-              placeholder="Endereço"
-              id="addres"
-              register={register}
-              required
-            />
-            <Input
-              label="RESPONSÁVEL"
-              placeholder="Nome"
-              id="name"
-              register={register}
-              required
-            />
-            <Input
-              label="TELEFONE"
-              placeholder="(xx) xxxxx-xxxx"
-              id="tel"
-              register={register}
-              required
-            />
-            <div>
-              <Controller
+                <TextAreaUseForm
+                  label="ENDEREÇO"
+                  placeholder="Endereço"
+                  id="addres"
+                  register={register}
+                  required
+                />
+                <div>
+                  <ControlledInput
+                    id="sla"
+                    name="sla"
+                    array={sla}
+                    control={control}
+                  />
+                </div>
+                <Input
+                  label="RESPONSÁVEL"
+                  placeholder="Nome"
+                  id="name"
+                  register={register}
+                  required
+                />
+                <Input
+                  label="TELEFONE"
+                  placeholder="(xx) xxxxx-xxxx"
+                  id="tel"
+                  register={register}
+                  required
+                />
+              </>
+            )}
+            {openTab == "padraoManutencao" && (
+              <>
+              <div>
+              <ControlledInput
+                id="base"
                 name="base"
+                array={bases}
                 control={control}
-                render={({ field }) => <></>}
               />
-              <Controller
-                name="base"
-                control={control}
-                render={({ field }) => <></>}
-              />
+            </div>
+              <Input
+              label="PROTOCOLO"
+              placeholder="20230000000000"
+              id="protocol"
+              register={register}
+              required
+            />
+                <TextAreaUseForm
+                  label="MOTIVO"
+                  id="description"
+                  register={register}
+                  required
+                />
+                <Input
+                  label="CLIENTE"
+                  placeholder="Código e nome"
+                  id="clientLost"
+                  register={register}
+                  required
+                />
+                <Input
+                  label="CDA"
+                  placeholder="PON, CDA e OLT"
+                  id="cda"
+                  register={register}
+                  required
+                />
+                <Input
+                  label="LOCALIZAÇÃO"
+                  placeholder="XX.XXXXXX,XX.XXXXXX"
+                  id="loc"
+                  register={register}
+                  required
+                />
+              </>
+            )}
+            <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
+              <button type="submit" className="flex w-full justify-center ">
+                GERAR
+              </button>
             </div>
           </form>
 
-          <textarea className="m-4 bg-gray-900"></textarea>
+          <textarea value={text} onChange={(e)=> setText(e.target.value)} className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 outline-none p-4 rounded-md text-gray-300"></textarea>
         </div>
       </div>
     </>

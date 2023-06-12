@@ -18,7 +18,7 @@ const Input = ({ label, placeholder, id, name, onChange, value }: input) => {
         type="text"
         name={name}
         id={id}
-        className="block caret-gray-200 outline-none w-full h-11 flex-1 rounded-none rounded-r-md bg-gray-900 pl-3 text-gray-200 border-gray-900 sm:text-sm autofill:shadow-[inset_0_0_0px_1000px_rgb(17,24,39,0.7)] border-b-[1px] border-t-[1px]"
+        className="block caret-gray-200 outline-none w-full h-10 flex-1 rounded-none rounded-r-md bg-gray-900 pl-3 text-gray-200 border-gray-900 sm:text-sm autofill:shadow-[inset_0_0_0px_1000px_rgb(17,24,39,0.7)] border-b-[1px] border-t-[1px]"
         placeholder={placeholder}
         spellCheck="false"
       />

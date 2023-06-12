@@ -11,7 +11,7 @@ interface input {
   required: boolean;
   register: UseFormRegister<FieldValues>;
 }
-const Input = ({
+const TextAreaUseForm = ({
   label,
   id,
   name,
@@ -25,16 +25,16 @@ const Input = ({
       <span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200">
         {label}
       </span>
-      <input
-        type="text"
+      <textarea
         id={id}
-        className="block caret-gray-200 outline-none w-full h-11 flex-1 rounded-none rounded-r-md bg-gray-900 pl-3 text-gray-200 border-gray-900 sm:text-sm autofill:shadow-[inset_0_0_0px_1000px_rgb(17,24,39,0.7)] border-b-[1px] border-t-[1px]"
+        className=" items-center overflow-hidden caret-gray-200 outline-none w-full p-3 rounded-none rounded-r-md bg-gray-900 pl-3 text-gray-200 border-gray-900 sm:text-sm autofill:shadow-[inset_0_0_0px_1000px_rgb(17,24,39,0.7)] border-b-[1px] border-t-[1px]"
         placeholder={placeholder}
         spellCheck="false"
+        rows={1}
         {...register(id, { required })}
       />
     </div>
   );
 };
 
-export default Input;
+export default TextAreaUseForm;

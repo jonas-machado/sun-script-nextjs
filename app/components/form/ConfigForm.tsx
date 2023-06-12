@@ -537,7 +537,7 @@ performance ethuni eth_0/1 start
                       ? "bg-gray-700 bg-opacity-75 text-white"
                       : "bg-gray-900 "
                   }
-                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none w-full transition-all`
+                    relative flex cursor-pointer rounded-lg px-3 py-2 shadow-md focus:outline-none w-full transition-all`
                     }
                   >
                     {({ active, checked }) => (
@@ -766,7 +766,7 @@ performance ethuni eth_0/1 start
               id="customVlan"
               onChange={(e: any) => setCustomVlan(e.target.value)}
             />
-            {oltCompany == "Datacom" &&
+            {selectedRadio.name == "Datacom" &&
             <InputWLabel
               value={customProfile}
               label="Profile"
