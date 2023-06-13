@@ -68,7 +68,7 @@ function ConfigForm({
     setpppoeText2("");
     setOnuModel("");
     setCustomVlan("");
-    setCustomProfile("")
+    setCustomProfile("");
   };
 
   //models handlers
@@ -150,7 +150,7 @@ function ConfigForm({
         "_"
       )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
   };
-console.log(oltCompany, selectedRadio)
+  console.log(oltCompany, selectedRadio);
   const zteText = (vlan: number | undefined | string) => {
     return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
       .normalize("NFD")
@@ -185,10 +185,9 @@ console.log(oltCompany, selectedRadio)
     return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      )}\nserial-number ${sn}\nline-profile ${customProfile ? customProfile : "1000Mdow1000Mup"}\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
+      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
+      customProfile ? customProfile : "1000Mdow1000Mup"
+    }\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(
@@ -201,8 +200,12 @@ console.log(oltCompany, selectedRadio)
     return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${customProfile ? customProfile : 
-      selected?.olt == "ARAQUARI" ? "PPPoEROUTER" : "PPPoE-ROUTER"
+      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
+      customProfile
+        ? customProfile
+        : selected?.olt == "ARAQUARI"
+        ? "PPPoEROUTER"
+        : "PPPoE-ROUTER"
     }\nveip 1\ntop\nservice-port new\ndescription ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -273,7 +276,7 @@ description ${cliente
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile "OT"
+tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 unicast tcont 2 dir both
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
@@ -635,7 +638,7 @@ performance ethuni eth_0/1 start
                       id="olt"
                       placeholder="Selecione a OLT"
                       className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900"
-                      displayValue={(olt: any)=> olt.olt}
+                      displayValue={(olt: any) => olt.olt}
                       onChange={(event) => setQuery(event.target.value)}
                     />
                     <Combobox.Button className="rounded-lg absolute inset-y-0 right-0 flex items-center pr-2">
@@ -766,15 +769,15 @@ performance ethuni eth_0/1 start
               id="customVlan"
               onChange={(e: any) => setCustomVlan(e.target.value)}
             />
-            {selectedRadio.name == "Datacom" &&
-            <InputWLabel
-              value={customProfile}
-              label="Profile"
-              placeholder="Custom Profile"
-              id="customProfile"
-              onChange={(e: any) => setCustomProfile(e.target.value)}
-            />
-}
+            {selectedRadio.name == "Datacom" && (
+              <InputWLabel
+                value={customProfile}
+                label="Profile"
+                placeholder="Custom Profile"
+                id="customProfile"
+                onChange={(e: any) => setCustomProfile(e.target.value)}
+              />
+            )}
             <div className="flex w-full gap-2">
               <button
                 type="button"

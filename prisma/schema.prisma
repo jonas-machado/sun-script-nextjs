@@ -106,3 +106,9 @@ model Schedule {
   link    String
   month   Int
 }
+
+model Solutions {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  text    String
+}

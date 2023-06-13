@@ -79,12 +79,12 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                 </Popover.Button>
               </div>
               <Popover.Group className="hidden space-x-10 lg:flex">
-                <a
-                  href="#"
+                <Link
+                  href="/ss/solutionBank"
                   className="text-base font-medium text-gray-300 hover:text-white"
                 >
                   Banco de soluções
-                </a>
+                </Link>
 
                 <Popover className="relative">
                   {({ open }) => (
