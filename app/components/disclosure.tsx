@@ -13,7 +13,7 @@ export default function DisclosureBank({ title, children }: disclosure) {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex w-full justify-between rounded-lg bg-gray-900 px-4 py-2 text-left text-sm font-medium text-gray-300 hover:bg-gray-800 focus:outline-none">
+          <Disclosure.Button className="flex w-full transition justify-between rounded-lg bg-black px-4 py-2 text-left text-sm font-medium text-gray-300 hover:bg-opacity-60 focus:outline-none">
             <span>{title}</span>
             <ChevronUpIcon
               className={`${
@@ -21,8 +21,8 @@ export default function DisclosureBank({ title, children }: disclosure) {
               } h-5 w-5 text-gray-300`}
             />
           </Disclosure.Button>
-          <Disclosure.Panel className="px-4 py-4 text-sm text-gray-300 bg-gray-800 bg-opacity-70 rounded-xl ">
-            {children}
+          <Disclosure.Panel className="px-4 py-4 text-sm text-gray-300 bg-gray-700 bg-opacity-70 rounded-xl ">
+            <p className="whitespace-pre-line">{children}</p>
           </Disclosure.Panel>
         </>
       )}
