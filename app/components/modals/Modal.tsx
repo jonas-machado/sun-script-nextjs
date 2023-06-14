@@ -51,7 +51,7 @@ const Modal = ({ isOpen, currentUser, make, cancel, children }: ModalProp) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-gray-800 text-left shadow-xl transition-all sm:my-8 w-2/3">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-gray-800 bg-opacity-80 text-left shadow-xl transition-all sm:my-8 w-2/3">
                 <div className="px-4 py-3 sm:px-6">
                   <div className="w-full">{children}</div>
                   <div className=" flex flex-row-reverse mt-4 gap-2">

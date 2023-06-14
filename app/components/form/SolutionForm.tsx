@@ -1,23 +1,36 @@
 "use client";
 
 import DisclosureBank from "@/app/components/disclosure";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Search from "../inputs/search";
 import Modal from "../modals/Modal";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TabBody from "../tab/TabBody";
+import TabHead from "../tab/TabHead";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+
+//constants
+import { tabSolution } from "@/app/constants/tabSolutions";
 
 const SolutionForm = ({ solutions }: any) => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [openTab, setOpenTab] = useState("Adicionar");
+  const [solutionsArray, setSolutionsArray] = useState([]);
+
+  useEffect(() => {
+    setSolutionsArray(solutions);
+  }, [solutions]);
 
   const filtered =
     query === ""
-      ? solutions
-      : solutions.filter((sol: any) =>
+      ? solutionsArray
+      : solutionsArray.filter((sol: any) =>
           sol.title
             .toLowerCase()
             .replace(/\s+/g, "")
@@ -40,6 +53,8 @@ const SolutionForm = ({ solutions }: any) => {
     });
   };
 
+  const router = useRouter();
+
   const solutionBank = () => {
     axios
       .post("/api/solution", {
@@ -51,9 +66,29 @@ const SolutionForm = ({ solutions }: any) => {
         if (callback?.error) {
           return notify(callback.error);
         } else {
+          router.refresh();
           setIsOpen(false);
           setText("");
           setTitle("");
+          return notifySuc(callback.data.msg);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const excluir = (id: string) => {
+    axios
+      .post("/api/solutionExclude", {
+        id,
+      })
+      .then((callback: any) => {
+        console.log(callback);
+        router.refresh();
+        if (callback?.error) {
+          return notify(callback.error);
+        } else {
           return notifySuc(callback.data.msg);
         }
       })
@@ -97,22 +132,84 @@ const SolutionForm = ({ solutions }: any) => {
           setIsOpen(false);
         }}
       >
-        <div className="w-full flex flex-col gap-2">
-          <input
-            type="text"
-            className="w-full bg-gray-900 rounded-lg outline-none p-3 text-gray-300"
-            placeholder="Título"
-            value={title}
-            onChange={(e: any) => setTitle(e.target.value)}
-            required
-          />
-          <textarea
-            value={text}
-            onChange={(e: any) => setText(e.target.value)}
-            className="w-full min-h-[15rem] p-3 outline-none bg-gray-900 rounded-lg text-gray-300"
-            required
-          />
+        <div className="mb-4">
+          <TabBody>
+            {tabSolution.map((tab) => (
+              <TabHead
+                key={tab}
+                state={openTab}
+                id={tab}
+                onClick={() => setOpenTab(tab)}
+              >
+                {tab}
+              </TabHead>
+            ))}
+          </TabBody>
         </div>
+        {openTab == "Adicionar" && (
+          <div className="w-full flex flex-col gap-2">
+            <input
+              type="text"
+              className="w-full bg-gray-900 rounded-lg outline-none p-3 text-gray-300"
+              placeholder="Título"
+              value={title}
+              onChange={(e: any) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              value={text}
+              onChange={(e: any) => setText(e.target.value)}
+              className="w-full min-h-[15rem] p-3 outline-none bg-gray-900 rounded-lg text-gray-300"
+              required
+            />
+          </div>
+        )}
+        {openTab == "Listagem" && (
+          <div className="relative overflow-x-auto">
+            <table className="w-full bg-gray-900 rounded-lg text-sm text-left text-gray-300 dark:text-gray-400">
+              <thead className="text-xs text-gray-300 uppercase">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Título
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Texto
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Excluir
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {solutionsArray.map((sol: any) => (
+                  <tr className="bg-gray-900 border-b" key={sol.id}>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-300 dark:text-white"
+                    >
+                      {sol.title}
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium whitespace-pre-line text-gray-300 dark:text-white"
+                    >
+                      {sol.text}
+                    </td>
+                    <td
+                      scope="row"
+                      className="px-6 py-4 font-medium text-sm whitespace-pre-line text-gray-300 dark:text-white"
+                    >
+                      <XMarkIcon
+                        className="cursor-pointer"
+                        onClick={() => excluir(sol.id)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </Modal>
       <ToastContainer />
     </>
