@@ -13,7 +13,7 @@ export default function DisclosureBank({ title, children }: disclosure) {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className="flex w-full transition justify-between rounded-lg bg-black px-4 py-2 text-left text-sm font-medium text-gray-300 hover:bg-opacity-60 focus:outline-none">
+          <Disclosure.Button className="flex w-full transition justify-between rounded-lg bg-gray-900 px-4 py-2 text-left text-sm font-medium text-gray-300 hover:bg-opacity-80 focus:outline-none">
             <span>{title}</span>
             <ChevronUpIcon
               className={`${

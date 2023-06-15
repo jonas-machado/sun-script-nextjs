@@ -98,7 +98,7 @@ const SolutionForm = ({ solutions }: any) => {
   };
   return (
     <>
-      <div className="mx-auto w-full max-w-5xl rounded-2xl bg-gray-900 bg-opacity-90 p-2 flex flex-col gap-2">
+      <div className="mx-auto w-full max-w-5xl rounded-2xl bg-black bg-opacity-95 p-3 flex flex-col gap-2">
         <div className="flex p-2 w-full items-center justify-between">
           <h1 className="text-2xl whitespace-nowrap text-gray-300 ">
             Banco de soluções
@@ -116,7 +116,7 @@ const SolutionForm = ({ solutions }: any) => {
         <div className="fixed bottom-10 right-12">
           <button
             type="button"
-            className="shadow-[inset_0_-2px_20px_rgba(0,0,0,0.6)] shadow-yellow-500 text-yellow-500 hover:text-white border-2 border-yellow-500 focus:outline-none font-bold rounded-md text-xl px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900"
+            className="shadow-[inset_0_-2px_20px_rgba(0,0,0,0.6)] shadow-yellow-500 text-yellow-500 hover:text-white border-2 border-yellow-500 focus:outline-none font-bold rounded-md text-xl px-5 py-2.5 text-center mr-2 mb-2"
             onClick={() => {
               setIsOpen(true);
             }}
@@ -150,7 +150,7 @@ const SolutionForm = ({ solutions }: any) => {
           <div className="w-full flex flex-col gap-2">
             <input
               type="text"
-              className="w-full bg-gray-900 rounded-lg outline-none p-3 text-gray-300"
+              className="w-full bg-gray-800 bg-opacity-70 rounded-lg outline-none p-3 text-gray-300"
               placeholder="Título"
               value={title}
               onChange={(e: any) => setTitle(e.target.value)}
@@ -159,14 +159,14 @@ const SolutionForm = ({ solutions }: any) => {
             <textarea
               value={text}
               onChange={(e: any) => setText(e.target.value)}
-              className="w-full min-h-[15rem] p-3 outline-none bg-gray-900 rounded-lg text-gray-300"
+              className="w-full min-h-[15rem] p-3 outline-none bg-gray-800 bg-opacity-70 rounded-lg text-gray-300"
               required
             />
           </div>
         )}
         {openTab == "Listagem" && (
           <div className="relative overflow-x-auto">
-            <table className="w-full bg-gray-900 rounded-lg text-sm text-left text-gray-300 dark:text-gray-400">
+            <table className="w-full bg-gray-800 bg-opacity-80 text-sm text-left text-gray-300 dark:text-gray-400">
               <thead className="text-xs text-gray-300 uppercase">
                 <tr>
                   <th scope="col" className="px-6 py-3">
@@ -182,7 +182,10 @@ const SolutionForm = ({ solutions }: any) => {
               </thead>
               <tbody>
                 {solutionsArray.map((sol: any) => (
-                  <tr className="bg-gray-900 border-b" key={sol.id}>
+                  <tr
+                    className="bg-gray-900 bg-opacity-60 border-b"
+                    key={sol.id}
+                  >
                     <td
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-300 dark:text-white"
@@ -197,7 +200,7 @@ const SolutionForm = ({ solutions }: any) => {
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-4 font-medium text-sm whitespace-pre-line text-gray-300 dark:text-white"
+                      className="px-6 py-4 font-medium whitespace-pre-line text-red-600"
                     >
                       <XMarkIcon
                         className="cursor-pointer"
