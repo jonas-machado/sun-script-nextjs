@@ -522,7 +522,11 @@ performance ethuni eth_0/1 start
   return (
     <div>
       <section className="lg:grid lg:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
-        <form className="row-span-2 h-full z-5" onSubmit={handleConfigSubmit}>
+        <form
+          className="row-span-2 h-full z-5"
+          onSubmit={handleConfigSubmit}
+          autoComplete="off"
+        >
           <div className=" flex flex-col bg-black opacity-95 border-gray-900 border-2 rounded-xl p-5 space-y-2">
             <RadioGroup value={selectedRadio} onChange={setSelectedRadio}>
               <RadioGroup.Label className="sr-only">

@@ -61,7 +61,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
               <div className="flex justify-start mr-10">
                 <span className="sr-only">Your Company</span>
                 <Image
-                  className="w-auto"
+                  className="w-auto cursor-pointer"
                   src="/images/Sun.png"
                   alt=""
                   width={40}
