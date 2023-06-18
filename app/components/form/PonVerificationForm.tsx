@@ -96,7 +96,7 @@ const PonVerificationForm = ({
             </TabHead>
           ))}
         </TabBody>
-        <div className="grid lg:grid-cols-[40%,60%]">
+        <div className="grid lg:grid-cols-1">
           <form className="p-4 space-y-1" onSubmit={handleSubmit(onSubmit)}>
             {openTab == "Verificar posição livre" && (
               <>
@@ -105,14 +105,14 @@ const PonVerificationForm = ({
                     <div className="flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm">
                       <label
                         htmlFor="olt"
-                        className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200"
+                        className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 bg-opacity-70 px-3 text-sm text-gray-200"
                       >
                         OLT
                       </label>
                       <Combobox.Input
                         id="olt"
                         placeholder="Selecione a OLT"
-                        className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900"
+                        className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900 bg-opacity-70"
                         displayValue={(olt: any) => olt}
                         onChange={(event) => setQuery(event.target.value)}
                       />
@@ -179,38 +179,9 @@ const PonVerificationForm = ({
                   </div>
                 </Combobox>
                 <Input
-                  label="CLIENTE"
-                  placeholder="Nome e código"
-                  id="client"
-                  register={register}
-                  required
-                />
-
-                <Input
-                  label="PROTOCOLO"
-                  placeholder="20230000000000"
-                  id="protocol"
-                  register={register}
-                  required
-                />
-                <TextAreaUseForm
-                  label="ENDEREÇO"
-                  placeholder="Endereço"
-                  id="addres"
-                  register={register}
-                  required
-                />
-                <Input
-                  label="RESPONSÁVEL"
-                  placeholder="Nome"
-                  id="name"
-                  register={register}
-                  required
-                />
-                <Input
-                  label="TELEFONE"
-                  placeholder="(xx) xxxxx-xxxx"
-                  id="tel"
+                  label="PON"
+                  placeholder="x/x/x"
+                  id="pon"
                   register={register}
                   required
                 />
@@ -227,7 +198,7 @@ const PonVerificationForm = ({
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 bg-opacity-70 outline-none p-4 rounded-md text-gray-300"
+            className="m-4 mt-0 overflow-hidden min-h-[20rem] bg-gray-900 bg-opacity-70 outline-none p-4 rounded-md text-gray-300"
           ></textarea>
         </div>
       </div>

@@ -20,7 +20,13 @@ import PageWrapper from "@/app/lib/pageWrapper";
 import MotionPage from "@/app/lib/motionPage";
 import { AnimatePresence } from "framer-motion";
 
-const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
+const ScriptForm = ({
+  currentUser,
+  isVisible,
+}: {
+  currentUser?: User | null;
+  isVisible: any;
+}) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
 
   const [text, setText] = useState("");
@@ -106,7 +112,7 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
         >
           <PageWrapper>
             {openTab == "padraoEmail" && (
-              <MotionPage id="padraoEmail" className="flex flex-col gap-2">
+              <MotionPage id={openTab} className="flex flex-col gap-2">
                 <div>
                   <ControlledInput
                     id="base"
@@ -162,7 +168,7 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
               </MotionPage>
             )}
             {openTab == "padraoManutencao" && (
-              <MotionPage id="padraoManutencao" className="flex flex-col gap-2">
+              <MotionPage id={openTab} className="flex flex-col gap-2">
                 <div>
                   <ControlledInput
                     id="base"
@@ -219,7 +225,7 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 outline-none p-4 rounded-md text-gray-300"
+          className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 bg-opacity-60 outline-none p-4 rounded-md text-gray-300"
         ></textarea>
       </div>
     </div>

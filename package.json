@@ -31,7 +31,7 @@
     "firebase": "^9.21.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.12.4",
-    "next": "^13.4.1",
+    "next": "^13.4.6",
     "next-auth": "^4.22.1",
     "nextjs-toploader": "^1.4.2",
     "postcss": "8.4.23",

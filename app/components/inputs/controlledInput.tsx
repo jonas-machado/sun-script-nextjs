@@ -28,8 +28,8 @@ const ControlledInput = ({ id, name, control, onChange, array }: input) => {
                     className={({ active, checked }) =>
                       `relative flex cursor-pointer rounded-lg px-3 py-2 shadow-sm shadow-black focus:outline-none w-full transition-all ${
                         checked
-                          ? "bg-gray-700 bg-opacity-75 text-white shadow-md shadow-black"
-                          : "bg-gray-900 "
+                          ? "bg-gray-700 bg-opacity-60 text-white shadow-md shadow-black"
+                          : "bg-gray-900 bg-opacity-60"
                       }`
                     }
                   >
