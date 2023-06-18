@@ -16,7 +16,7 @@ export default async function RootLayout({
   return (
     <PageWrapper>
       <MotionPage>
-        <div className="bg-[url('/images/backgroundConfig.gif')] bg-black bg-no-repeat bg-cover h-full min-h-screen">
+        <div className="bg-[url('/images/backgroundConfig.gif')] bg-black bg-no-repeat bg-fit h-full min-h-screen">
           <Navbar currentUser={currentUser} schedules={schedules} />
           <NextTopLoader
             color="#000000"

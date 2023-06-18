@@ -5,7 +5,7 @@ import Image from "next/image";
 import axios from "axios";
 import io from "socket.io-client";
 
-const AutoConfigForm = () => {
+const AutomaticForm = () => {
   const [server, setServer] = useState("");
   const [cmd, setCmd] = useState("");
 
@@ -87,4 +87,4 @@ const AutoConfigForm = () => {
   );
 };
 
-export default AutoConfigForm;
+export default AutomaticForm;

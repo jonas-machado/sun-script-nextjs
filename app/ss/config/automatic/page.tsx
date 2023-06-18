@@ -1,9 +1,9 @@
-import AutoConfigForm from "@/app/components/form/AutoConfigForm";
+import AutomaticForm from "@/app/components/form/AutomaticForm";
 
 const automatic = () => {
   return (
     <>
-      <AutoConfigForm />
+      <AutomaticForm />
     </>
   );
 };

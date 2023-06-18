@@ -16,22 +16,25 @@ import { User } from "@prisma/client";
 import { tabScript } from "@/app/constants/tabScript";
 import { bases } from "@/app/constants/bases";
 import { sla } from "@/app/constants/sla";
+import PageWrapper from "@/app/lib/pageWrapper";
+import MotionPage from "@/app/lib/motionPage";
+import { AnimatePresence } from "framer-motion";
 
-const ScriptForm = ({currentUser}: {currentUser?: User | null}) => {
+const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
-  
+
   const [text, setText] = useState("");
 
   const session = useSession();
   const router = useRouter();
-  
+
   useEffect(() => {
     if (session?.status == "unauthenticated") {
       router.push("/");
     }
   }, [session?.status, router]);
 
-console.log(currentUser)
+  console.log(currentUser);
   console.log(openTab);
   const {
     register,
@@ -39,7 +42,19 @@ console.log(currentUser)
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = ({base, client, protocol, addres, sla, name, tel, description, cda, loc, clientLost}: any) => {
+  const onSubmit = ({
+    base,
+    client,
+    protocol,
+    addres,
+    sla,
+    name,
+    tel,
+    description,
+    cda,
+    loc,
+    clientLost,
+  }: any) => {
     if (openTab == "padraoEmail") {
       setText(`\
 Chamado aberto: ${base} ${client} - SLA ${sla}
@@ -56,10 +71,10 @@ Mais informações na O.S.
 att,
 
 ${currentUser?.name.split(" ").slice(0, 2).join(" ")}.
-      `)
+      `);
     }
     if (openTab == "padraoManutencao") {
-      const filtered = bases.filter((bs:any) => bs.name.includes(base))
+      const filtered = bases.filter((bs: any) => bs.name.includes(base));
       setText(`\
 Protocolo: ${protocol}
 Motivo: ${description}
@@ -67,52 +82,54 @@ Cliente afetado: ${clientLost}
 ${cda}
 ${loc}
 Chamado aberto: ${base} ${filtered[0].maintenance}
-      `)
+      `);
     }
   };
   return (
-    <>
-      <div className="container bg-gray-800 bg-opacity-90 w-11/12 mx-auto rounded-xl">
-        <TabBody>
-          {tabScript.map((tab) => (
-            <TabHead
-              key={tab.id}
-              state={openTab}
-              id={tab.id}
-              onClick={() => setOpenTab(tab.id)}
-            >
-              {tab.name}
-            </TabHead>
-          ))}
-        </TabBody>
-        <div className="grid lg:grid-cols-[40%,60%]">
-          <form className="p-4 space-y-1" onSubmit={handleSubmit(onSubmit)}>
+    <div className="container bg-black bg-opacity-80 backdrop-blur w-11/12 mx-auto rounded-xl">
+      <TabBody>
+        {tabScript.map((tab) => (
+          <TabHead
+            key={tab.id}
+            state={openTab}
+            id={tab.id}
+            onClick={() => setOpenTab(tab.id)}
+          >
+            {tab.name}
+          </TabHead>
+        ))}
+      </TabBody>
+      <div className="grid lg:grid-cols-[40%,60%]">
+        <form
+          className="flex flex-col gap-2 p-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <PageWrapper>
             {openTab == "padraoEmail" && (
-              <>
-            <div>
-              <ControlledInput
-                id="base"
-                name="base"
-                array={bases}
-                control={control}
-              />
-            </div>
-              <Input
-                label="CLIENTE"
-                placeholder="Nome e código"
-                id="client"
-                register={register}
-                required
-              />
-            
-            
-              <Input
-              label="PROTOCOLO"
-              placeholder="20230000000000"
-              id="protocol"
-              register={register}
-              required
-            />
+              <MotionPage id="padraoEmail" className="flex flex-col gap-2">
+                <div>
+                  <ControlledInput
+                    id="base"
+                    name="base"
+                    array={bases}
+                    control={control}
+                  />
+                </div>
+                <Input
+                  label="CLIENTE"
+                  placeholder="Nome e código"
+                  id="client"
+                  register={register}
+                  required
+                />
+
+                <Input
+                  label="PROTOCOLO"
+                  placeholder="20230000000000"
+                  id="protocol"
+                  register={register}
+                  required
+                />
                 <TextAreaUseForm
                   label="ENDEREÇO"
                   placeholder="Endereço"
@@ -142,25 +159,25 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
                   register={register}
                   required
                 />
-              </>
+              </MotionPage>
             )}
             {openTab == "padraoManutencao" && (
-              <>
-              <div>
-              <ControlledInput
-                id="base"
-                name="base"
-                array={bases}
-                control={control}
-              />
-            </div>
-              <Input
-              label="PROTOCOLO"
-              placeholder="20230000000000"
-              id="protocol"
-              register={register}
-              required
-            />
+              <MotionPage id="padraoManutencao" className="flex flex-col gap-2">
+                <div>
+                  <ControlledInput
+                    id="base"
+                    name="base"
+                    array={bases}
+                    control={control}
+                  />
+                </div>
+                <Input
+                  label="PROTOCOLO"
+                  placeholder="20230000000000"
+                  id="protocol"
+                  register={register}
+                  required
+                />
                 <TextAreaUseForm
                   label="MOTIVO"
                   id="description"
@@ -188,19 +205,24 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
                   register={register}
                   required
                 />
-              </>
+              </MotionPage>
             )}
-            <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
-              <button type="submit" className="flex w-full justify-center ">
-                GERAR
-              </button>
-            </div>
-          </form>
+          </PageWrapper>
 
-          <textarea value={text} onChange={(e)=> setText(e.target.value)} className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 outline-none p-4 rounded-md text-gray-300"></textarea>
-        </div>
+          <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
+            <button type="submit" className="flex w-full justify-center ">
+              GERAR
+            </button>
+          </div>
+        </form>
+
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 outline-none p-4 rounded-md text-gray-300"
+        ></textarea>
       </div>
-    </>
+    </div>
   );
 };
 

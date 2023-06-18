@@ -1,18 +1,15 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PageWrapper({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <>
-            <AnimatePresence mode="wait">
-
-                {children}
-            </AnimatePresence >
-        </>
-    )
+  return (
+    <>
+      <AnimatePresence mode="wait">{children}</AnimatePresence>
+    </>
+  );
 }

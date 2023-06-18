@@ -84,10 +84,6 @@ function ConfigForm({
   const [pppoeTextArea2, setpppoeText2] = useState<string>();
 
   useEffect(() => {
-    console.log(sn, pon, oltId, cliente);
-  }, [sn, pon, oltId, cliente]);
-
-  useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
       setOnuType("");
       if (sn.length > 8) {

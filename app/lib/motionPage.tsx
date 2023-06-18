@@ -3,15 +3,19 @@
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MotionPage({
+  id,
+  className,
   children,
 }: {
+  id: string;
+  className?: string;
   children: React.ReactNode;
 }) {
   return (
     <>
       <motion.div
-        key="login"
-        id="container"
+        className={className}
+        key={id}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
