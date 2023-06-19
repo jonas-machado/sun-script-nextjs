@@ -64,6 +64,7 @@ model OltZteChima {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   olt       String
   vlan      Int?
+  ip        String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -72,6 +73,7 @@ model OltIntelbras {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   olt       String
   vlan      Int?
+  ip        String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -80,6 +82,7 @@ model OltDatacom {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   olt       String
   vlan      Int?
+  ip        String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -108,7 +111,7 @@ model Schedule {
 }
 
 model Solutions {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
   title String
-  text    String
+  text  String
 }

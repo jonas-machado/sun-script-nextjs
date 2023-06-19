@@ -4,13 +4,10 @@ import { useState, useEffect, Fragment } from "react";
 import { useForm, Controller } from "react-hook-form";
 import TabBody from "@/app/components/tab/TabBody";
 import TabHead from "@/app/components/tab/TabHead";
-import TextAreaUseForm from "../inputs/textAreaLabelUseForm";
-import ControlledInput from "../inputs/controlledInput";
 import Input from "@/app/components/inputs/inputLabelUseForm";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import io from "socket.io-client";
 import ComboboxInput from "../inputs/comboboxInput";
 //constants
 
@@ -30,7 +27,7 @@ const PonVerificationForm = ({
   const [openTab, setOpenTab] = useState("Verificar posição livre");
   const [text, setText] = useState("");
 
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState<any>();
   const [query, setQuery] = useState("");
 
   const session = useSession();
@@ -48,24 +45,41 @@ const PonVerificationForm = ({
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm();
-  const onSubmit = ({
-    base,
-    client,
-    protocol,
-    addres,
-    sla,
-    name,
-    tel,
-    description,
-    cda,
-    loc,
-    clientLost,
-  }: any) => {
+  console.log(query);
+
+  const onSubmit = ({ pon }: any) => {
     if (openTab == "Verificar posição livre") {
-      setText("");
+      const socket = io("http://localhost:3001");
+
+      // Handle connection event
+      socket.on("connect", () => {
+        console.log("Connected to the server");
+      });
+
+      // Handle disconnection event
+      socket.on("disconnect", () => {
+        console.log("Disconnected from the server");
+      });
+
+      // Handle "chat message" event
+      socket.on("telnet response", (response) => {
+        console.log("Received response:", response);
+        setText(response);
+        // Do something with the received data in the frontend
+      });
+
+      // Send a message to the server
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show gpon onu state gpon-olt_${pon}`,
+      });
+
+      // Disconnect from the server
+      return () => {
+        socket.disconnect();
+      };
     }
     if (openTab == "Aferir CTO") {
       setText("");
@@ -97,7 +111,7 @@ const PonVerificationForm = ({
             </TabHead>
           ))}
         </TabBody>
-        <div className="grid lg:grid-cols-[20%,40%,40%]">
+        <div className="grid lg:grid-cols-3">
           <form
             className="p-4 space-y-1 row-span-2"
             onSubmit={handleSubmit(onSubmit)}
@@ -186,10 +200,7 @@ const PonVerificationForm = ({
         </div>
       </div>
       <div className="container mt-2 p-4 text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
-        voluptatibus quibusdam adipisci impedit nam reiciendis ad quia corrupti
-        facilis optio exercitationem earum, excepturi nemo quas beatae molestiae
-        tempora hic ipsum?
+        {text}
       </div>
     </>
   );

@@ -316,16 +316,18 @@ performance ethuni eth_0/1 start
     Datacom: `do show interface gpon ${pon} onu ${oltId}`,
   };
 
-  const cadastroText = (comando: string) => {
+  const cadastroText = (comando: string, olt: any) => {
+    console.log(olt);
+    const olts = oltZteChimaData.concat(oltIntelbrasData, oltDatacomData);
     const date = new Date();
     return `=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n${
       currentUser!.name.split(" ")[0]
     }: ${("0" + date.getDate()).slice(-2)}/${(
       "0" +
       (date.getMonth() + 1)
-    ).slice(-2)}/${date.getFullYear()}\nOLT: ${
-      selected?.olt
-    }\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
+    ).slice(-2)}/${date.getFullYear()}\nOLT: ${olt.olt} (${
+      olt.ip
+    })\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
   };
 
   const pppoeText = () => {
@@ -388,9 +390,9 @@ performance ethuni eth_0/1 start
     setpppoeText(pppoeText().join("\n"));
     setpppoeText2(pppoeText2().join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
-      setCadastroText(cadastroText(comando.ZTE));
       for (let x in oltZteChimaData) {
         if (selected?.olt == oltZteChimaData[x].olt) {
+          setCadastroText(cadastroText(comando.ZTE, oltZteChimaData[x]));
           if (sn.substring(0, 5) == "ZTEG3") {
             return setConfigText(
               valeNetText(handleVlan(oltZteChimaData[x].vlan))
@@ -452,14 +454,18 @@ performance ethuni eth_0/1 start
         if (selected?.olt == oltIntelbrasData[x].olt) {
           switch (selected?.olt) {
             case "ERVINO":
-              setCadastroText(cadastroText(comando.IntelbrasI));
+              setCadastroText(
+                cadastroText(comando.IntelbrasI, oltIntelbrasData[x])
+              );
               setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
               setOnuId("");
               break;
             case "GARUVA":
             case "SFS":
             default:
-              setCadastroText(cadastroText(comando.IntelbrasG));
+              setCadastroText(
+                cadastroText(comando.IntelbrasG, oltIntelbrasData[x])
+              );
               return onuModel == "ITBS"
                 ? setConfigText(
                     intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
@@ -472,9 +478,9 @@ performance ethuni eth_0/1 start
       }
     }
     if (selectedRadio.name == "Datacom" && oltCompany == "Datacom") {
-      setCadastroText(cadastroText(comando.Datacom));
       for (let x in oltDatacomData) {
         if (selected?.olt == oltDatacomData[x].olt) {
+          setCadastroText(cadastroText(comando.Datacom, oltIntelbrasData[x]));
           switch (selected?.olt) {
             case "JACU":
               if (onuType == "ONU") {
