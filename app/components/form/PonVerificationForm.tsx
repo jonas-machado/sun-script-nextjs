@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import ComboboxInput from "../inputs/comboboxInput";
 //constants
 
 const tabNames = ["Verificar posição livre", "Aferir CTO"];
@@ -71,7 +72,7 @@ const PonVerificationForm = ({
     }
   };
 
-  const filteredOlt =
+  const filtered =
     query === ""
       ? olts
       : olts.filter((olt: any) =>
@@ -96,111 +97,99 @@ const PonVerificationForm = ({
             </TabHead>
           ))}
         </TabBody>
-        <div className="grid lg:grid-cols-1">
-          <form className="p-4 space-y-1" onSubmit={handleSubmit(onSubmit)}>
-            {openTab == "Verificar posição livre" && (
-              <>
-                <Combobox value={selected} onChange={setSelected}>
-                  <div className="relative mt-1">
-                    <div className="flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm">
-                      <label
-                        htmlFor="olt"
-                        className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 bg-opacity-70 px-3 text-sm text-gray-200"
-                      >
-                        OLT
-                      </label>
-                      <Combobox.Input
-                        id="olt"
-                        placeholder="Selecione a OLT"
-                        className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900 bg-opacity-70"
-                        displayValue={(olt: any) => olt}
-                        onChange={(event) => setQuery(event.target.value)}
-                      />
-                      <Combobox.Button className="rounded-lg absolute inset-y-0 right-0 flex items-center pr-2">
-                        <ChevronUpDownIcon
-                          className="h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
-                      </Combobox.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                      afterLeave={() => setQuery("")}
-                    >
-                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                        {filteredOlt.length === 0 && query !== "" ? (
-                          <div className="relative cursor-default select-none py-2 px-4 text-gray-300">
-                            Nothing found.
-                          </div>
-                        ) : (
-                          filteredOlt.map((olt: any) => (
-                            <Combobox.Option
-                              key={olt.olt}
-                              className={({ active }) =>
-                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                  active
-                                    ? "bg-purple-600 text-white"
-                                    : "text-gray-300 bg-gray-900"
-                                }`
-                              }
-                              value={olt}
-                            >
-                              {({ selected, active }) => (
-                                <>
-                                  <span
-                                    className={`block truncate ${
-                                      selected ? "font-medium" : "font-normal"
-                                    }`}
-                                  >
-                                    {olt.olt}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                        active ? "text-white" : "text-teal-600"
-                                      }`}
-                                    >
-                                      <CheckIcon
-                                        className="h-5 w-5"
-                                        aria-hidden="true"
-                                      />
-                                    </span>
-                                  ) : null}
-                                </>
-                              )}
-                            </Combobox.Option>
-                          ))
-                        )}
-                      </Combobox.Options>
-                    </Transition>
-                  </div>
-                </Combobox>
-                <Input
-                  label="PON"
-                  placeholder="x/x/x"
-                  id="pon"
-                  register={register}
-                  required
-                />
-              </>
-            )}
-            {openTab == "padraoManutencao" && <></>}
+        <div className="grid lg:grid-cols-[20%,40%,40%]">
+          <form
+            className="p-4 space-y-1 row-span-2"
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
+          >
+            <ComboboxInput
+              id="olt"
+              selected={selected}
+              onChange={setSelected}
+              onChangeInput={(e: any) =>
+                e?.target.value != undefined
+                  ? setQuery(e?.target.value)
+                  : setQuery("")
+              }
+              filtered={filtered}
+              query={query}
+              label="OLT"
+              placeHolder="Selecione a OLT"
+            />
+            <Input
+              label="PON"
+              placeholder="x/x/x"
+              id="pon"
+              register={register}
+              required
+            />
             <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
               <button type="submit" className="flex w-full justify-center ">
                 GERAR
               </button>
             </div>
           </form>
-
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="m-4 mt-0 overflow-hidden min-h-[20rem] bg-gray-900 bg-opacity-70 outline-none p-4 rounded-md text-gray-300"
-          ></textarea>
+          {openTab == "Verificar posição livre" && (
+            <>
+              <div className="mt-4">
+                <h1 className="text-gray-300">POSIÇÕES LIVRES</h1>
+                <p className="text-gray-300">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Tempora eos delectus soluta expedita eligendi dolore debitis.
+                  Dicta, libero magnam excepturi sequi, voluptatum ullam
+                  quibusdam blanditiis optio eaque nulla numquam vero?
+                </p>
+              </div>
+              <div className="mt-4">
+                <h1 className="text-gray-300">QUANTIDADE DE POSIÇÕES</h1>
+                <p className="text-gray-300">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Tempora eos delectus soluta expedita eligendi dolore debitis.
+                  Dicta, libero magnam excepturi sequi, voluptatum ullam
+                  quibusdam blanditiis optio eaque nulla numquam vero?
+                </p>
+              </div>
+              <div className="my-2">
+                <h1 className="text-gray-300">DETAIL DAS ONUS DOWN</h1>
+                <p className="text-gray-300">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Tempora eos delectus soluta expedita eligendi dolore debitis.
+                  Dicta, libero magnam excepturi sequi, voluptatum ullam
+                  quibusdam blanditiis optio eaque nulla numquam vero?
+                </p>
+              </div>
+              <div className="my-2">
+                <h1 className="text-gray-300">DETAIL DAS ONUS EM LOS</h1>
+                <p className="text-gray-300">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Tempora eos delectus soluta expedita eligendi dolore debitis.
+                  Dicta, libero magnam excepturi sequi, voluptatum ullam
+                  quibusdam blanditiis optio eaque nulla numquam vero?
+                </p>
+              </div>
+            </>
+          )}
+          {openTab == "Aferir CTO" && (
+            <>
+              <div className="mt-4 col-span-2">
+                <h1 className="text-gray-300">ONU COM QUEDA RECENTEMENTE</h1>
+                <p className="text-gray-300">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Tempora eos delectus soluta expedita eligendi dolore debitis.
+                  Dicta, libero magnam excepturi sequi, voluptatum ullam
+                  quibusdam blanditiis optio eaque nulla numquam vero?
+                </p>
+              </div>
+            </>
+          )}
         </div>
+      </div>
+      <div className="container mt-2 p-4 text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
+        voluptatibus quibusdam adipisci impedit nam reiciendis ad quia corrupti
+        facilis optio exercitationem earum, excepturi nemo quas beatae molestiae
+        tempora hic ipsum?
       </div>
     </>
   );
