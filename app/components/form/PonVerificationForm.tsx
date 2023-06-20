@@ -72,9 +72,14 @@ const PonVerificationForm = ({
 
       // Send a message to the server
       socket.emit("connectTelnet", {
-        ip: selected.ip,
-        command: `show gpon onu state gpon-olt_${pon}`,
+        ip: "10.0.0.163",
+        command: `ipconfig`,
       });
+
+      // socket.emit("connectTelnet", {
+      //   ip: selected.ip,
+      //   command: `show gpon onu state gpon-olt_${pon}`,
+      // });
 
       // Disconnect from the server
       return () => {
