@@ -226,7 +226,7 @@ description ${cliente
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile "OT"
+tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
@@ -249,7 +249,7 @@ description ${cliente
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/ /g, "_")}
-tcont 2 name Tcont100M profile "OT"
+tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1
 switchport vlan ${vlan} tag vport 1
@@ -318,15 +318,14 @@ performance ethuni eth_0/1 start
 
   const cadastroText = (comando: string, olt: any) => {
     console.log(olt);
-    const olts = oltZteChimaData.concat(oltIntelbrasData, oltDatacomData);
     const date = new Date();
     return `=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n${
       currentUser!.name.split(" ")[0]
     }: ${("0" + date.getDate()).slice(-2)}/${(
       "0" +
       (date.getMonth() + 1)
-    ).slice(-2)}/${date.getFullYear()}\nOLT: ${olt.olt} (${
-      olt.ip
+    ).slice(-2)}/${date.getFullYear()}\nOLT: ${selected.olt} (${
+      selected.ip
     })\n${comando}\nONU S/N: ${sn}\nSinal: \nCDA: \n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`;
   };
 
@@ -495,6 +494,7 @@ performance ethuni eth_0/1 start
               }
               break;
             case "ARAQUARI":
+            case "BRUSQUE":
             case "BS1":
             case "ITAPOCU":
             case "SNL101":
@@ -636,14 +636,14 @@ performance ethuni eth_0/1 start
                   <div className="flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm">
                     <label
                       htmlFor="olt"
-                      className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 px-3 text-sm text-gray-200"
+                      className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 bg-opacity-70 px-3 text-sm text-gray-200"
                     >
                       OLT
                     </label>
                     <Combobox.Input
                       id="olt"
                       placeholder="Selecione a OLT"
-                      className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900"
+                      className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900 bg-opacity-70"
                       displayValue={(olt: any) => olt.olt}
                       onChange={(event) => setQuery(event.target.value)}
                     />

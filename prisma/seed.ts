@@ -97,7 +97,16 @@ async function zte() {
   });
 }
 
-intelbras()
+const datacomUp = async () => {
+  await prismadb.oltDatacom.update({
+    where: {
+      ip: "192.168.254.66",
+    },
+    data: { olt: "ARAQUARI" },
+  });
+};
+
+datacomUp()
   .then(async () => {
     await prismadb.$disconnect();
   })
