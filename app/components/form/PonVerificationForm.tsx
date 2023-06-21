@@ -26,6 +26,10 @@ const PonVerificationForm = ({
 }: ConfigProps) => {
   const [openTab, setOpenTab] = useState("Verificar posição livre");
   const [text, setText] = useState("");
+  const [textPl, setTextPl] = useState<any[]>();
+  const [textQp, setTextQp] = useState<any[]>();
+  const [textOd, setTextOd] = useState<any[]>();
+  const [textOl, setTextOl] = useState<any[]>();
 
   const [selected, setSelected] = useState<any>();
   const [query, setQuery] = useState("");
@@ -66,20 +70,18 @@ const PonVerificationForm = ({
       // Handle "chat message" event
       socket.on("telnet response", (response) => {
         console.log("Received response:", response);
-        setText(response);
+        const res = response.replace(//g, "").split("\n");
+        setTextOl(res.filter((onu: any) => onu.includes("LOS")));
+        setText(response.replace(//g, ""));
         socket.disconnect();
+
         // Do something with the received data in the frontend
       });
 
-      // Send a message to the server
-      // socket.emit("connectTelnet", {
-      //   ip: "10.0.0.163",
-      //   command: `ipconfig`,
-      // });
-
       socket.emit("connectTelnet", {
         ip: selected.ip,
-        command: `show pon power attenuation gpon-onu_${pon}`,
+        command: `show gpon onu state gpon-olt_${pon}`,
+        //command: `show clock`,
       });
 
       // Disconnect from the server
@@ -150,16 +152,18 @@ const PonVerificationForm = ({
           {openTab == "Verificar posição livre" && (
             <>
               <div className="mt-4">
-                <h1 className="text-gray-300">POSIÇÕES LIVRES</h1>
-                <p className="text-gray-300">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempora eos delectus soluta expedita eligendi dolore debitis.
-                  Dicta, libero magnam excepturi sequi, voluptatum ullam
-                  quibusdam blanditiis optio eaque nulla numquam vero?
-                </p>
+                <h1 className="text-gray-300 text-xl font-bold">
+                  INFORMAÇÕES DA PON
+                </h1>
+                <p className="text-gray-300">Quantidade de equipamentos:</p>
+                <p className="text-gray-300">Quantidade de ONLINE:</p>
+                <p className="text-gray-300">Quantidade de DOWN:</p>
+                <p className="text-gray-300">Equipamentos em LOS:</p>
+                <p className="text-gray-300">Equipamentos em DYINGGASP:</p>
+                <p className="text-gray-300">Equipamentos OFFLINE:</p>
               </div>
               <div className="mt-4">
-                <h1 className="text-gray-300">QUANTIDADE DE POSIÇÕES</h1>
+                <h1 className="text-gray-300 text-xl font-bold">ID Livres</h1>
                 <p className="text-gray-300">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Tempora eos delectus soluta expedita eligendi dolore debitis.
@@ -178,12 +182,7 @@ const PonVerificationForm = ({
               </div>
               <div className="my-2">
                 <h1 className="text-gray-300">DETAIL DAS ONUS EM LOS</h1>
-                <p className="text-gray-300">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempora eos delectus soluta expedita eligendi dolore debitis.
-                  Dicta, libero magnam excepturi sequi, voluptatum ullam
-                  quibusdam blanditiis optio eaque nulla numquam vero?
-                </p>
+                <p className="text-gray-300">ONU em LOS: {textOl?.length}</p>
               </div>
             </>
           )}
@@ -202,7 +201,7 @@ const PonVerificationForm = ({
           )}
         </div>
       </div>
-      <div className="container mt-2 p-4 text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl">
+      <div className="container mt-2 p-4 text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl whitespace-pre-line">
         {text}
       </div>
     </>
