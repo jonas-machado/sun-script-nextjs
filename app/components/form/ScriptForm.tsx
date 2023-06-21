@@ -20,13 +20,7 @@ import PageWrapper from "@/app/lib/pageWrapper";
 import MotionPage from "@/app/lib/motionPage";
 import { AnimatePresence } from "framer-motion";
 
-const ScriptForm = ({
-  currentUser,
-  isVisible,
-}: {
-  currentUser?: User | null;
-  isVisible: any;
-}) => {
+const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
 
   const [text, setText] = useState("");

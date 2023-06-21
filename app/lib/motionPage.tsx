@@ -7,7 +7,7 @@ export default function MotionPage({
   className,
   children,
 }: {
-  id: string;
+  id?: string;
   className?: string;
   children: React.ReactNode;
 }) {

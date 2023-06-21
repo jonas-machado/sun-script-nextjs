@@ -67,24 +67,22 @@ const PonVerificationForm = ({
       socket.on("telnet response", (response) => {
         console.log("Received response:", response);
         setText(response);
+        socket.disconnect();
         // Do something with the received data in the frontend
       });
 
       // Send a message to the server
-      socket.emit("connectTelnet", {
-        ip: "10.0.0.163",
-        command: `ipconfig`,
-      });
-
       // socket.emit("connectTelnet", {
-      //   ip: selected.ip,
-      //   command: `show gpon onu state gpon-olt_${pon}`,
+      //   ip: "10.0.0.163",
+      //   command: `ipconfig`,
       // });
 
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show pon power attenuation gpon-onu_${pon}`,
+      });
+
       // Disconnect from the server
-      return () => {
-        socket.disconnect();
-      };
     }
     if (openTab == "Aferir CTO") {
       setText("");
