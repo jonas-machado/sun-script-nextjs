@@ -5,17 +5,12 @@ export const chima = (
   client: string,
   vlan: number | undefined | string
 ) => {
-  const name = client
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ /g, "_");
-
   return `\
 interface gpon-olt_${pon}
 onu ${id} type ZTE-F601 sn ${sn}
 !
 interface gpon-onu_${pon}:${id}
-description ${name}
+description ${client}
 tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 tcont 2 queue 1
 switchport mode trunk vport 1
@@ -34,17 +29,12 @@ export const zte = (
   client: string,
   vlan: number | undefined | string
 ) => {
-  const name = client
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/ /g, "_");
-
   return `\
 interface gpon-olt_${pon}
 onu ${id} type ZTE-F601 sn ${sn}
 !
 interface gpon-onu_${pon}:${id}
-description ${name}
+description ${client}
 tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 tcont 2 queue 1
 switchport mode trunk vport 1

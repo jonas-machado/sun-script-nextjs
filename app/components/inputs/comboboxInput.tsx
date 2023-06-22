@@ -17,6 +17,7 @@ interface input {
   query: string;
   label: string;
   placeHolder: string;
+  className?: any;
 }
 const ComboboxInput = ({
   id,
@@ -27,12 +28,15 @@ const ComboboxInput = ({
   onChangeInput,
   filtered,
   query,
+  className,
 }: input) => {
   return (
     <>
       <Combobox value={selected} onChange={onChange}>
         <div className="relative w-full">
-          <div className="flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm">
+          <div
+            className={`flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm ${className}`}
+          >
             <label
               htmlFor={id}
               className="inline-flex items-center rounded-l-md border border-r-0 border-gray-900 bg-gray-700 bg-opacity-70 px-3 text-sm text-gray-200"
@@ -42,7 +46,7 @@ const ComboboxInput = ({
             <Combobox.Input
               id={id}
               placeholder={placeHolder}
-              className="w-full border-none outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900 bg-opacity-70"
+              className="w-full border border-r-none border-gray-900 outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900 bg-opacity-70"
               displayValue={(olt?: any) => olt.olt}
               onChange={onChangeInput}
             />

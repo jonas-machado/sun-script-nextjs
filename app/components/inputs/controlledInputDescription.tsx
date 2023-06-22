@@ -7,7 +7,6 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 interface input {
   id: string;
   name: string;
-  control: any;
   array: any;
   selectedRadio: any;
   onChange: any;
@@ -15,7 +14,6 @@ interface input {
 const ControlledInputDescription = ({
   id,
   name,
-  control,
   array,
   selectedRadio,
   onChange,

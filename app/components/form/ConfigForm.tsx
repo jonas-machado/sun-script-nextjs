@@ -13,6 +13,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import ControlledInputDescription from "../inputs/controlledInputDescription";
 import ControlledInput from "../inputs/controlledInput";
+import ControlledInputConfig from "../inputs/controlledInputConfig";
 import { useForm, Controller, FieldValues } from "react-hook-form";
 import ComboboxInput from "../inputs/comboboxInput";
 
@@ -21,6 +22,9 @@ import { valenet } from "@/app/lib/text/valenet";
 import { vilaNova } from "@/app/lib/text/vilanova";
 import { itapoa } from "@/app/lib/text/itapoa";
 import { chima, zte } from "@/app/lib/text/padrão";
+import { intelbrasI } from "@/app/lib/text/intelbrasI";
+import { intelbrasG } from "@/app/lib/text/intelbrasG";
+import { datacom } from "@/app/lib/text/datacom";
 
 //constants
 import { plans } from "@/app/constants/plans";
@@ -31,6 +35,7 @@ function classNames(...classes: any) {
 }
 
 const ontType = [{ name: "ONU" }, { name: "ONT" }];
+const intelbrasModel = [{ name: "ITBS" }, { name: "ZNTS" }];
 
 interface ConfigProps {
   currentUser?: User | null;
@@ -80,7 +85,11 @@ function ConfigForm({
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      ontType: "ONU",
+    },
+  });
 
   const resetForm = () => {
     setSn("");
@@ -118,7 +127,11 @@ function ConfigForm({
     }
   };
 
-  const handleVlanDatacom = (vlan?: number) => {
+  const handleVlanDatacom = (
+    pon: string,
+    vlan?: number,
+    customVlan?: number
+  ) => {
     if (vlan && !customVlan) {
       return vlan;
     } else if (customVlan) {
@@ -143,80 +156,6 @@ function ConfigForm({
       case "2":
         return Number("5" + lastVlanSlot2);
     }
-  };
-
-  const chimaText = (vlan: number | undefined | string) => {
-    return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice inter gemport 1 vlan ${vlan}\nperformance ethuni eth_0/1 start\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
-  };
-  console.log(oltCompany, selectedRadio);
-  const zteText = (vlan: number | undefined | string) => {
-    return `interface gpon-olt_${pon}\nonu ${oltId} type ZTE-F601 sn ${sn}\n!\ninterface gpon-onu_${pon}:${oltId}\ndescription ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      )}\ntcont 2 name Tcont100M profile OT\ngemport 1 name Gemport1 tcont 2 queue 1\nswitchport mode trunk vport 1\nservice-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}\n!\npon-onu-mng gpon-onu_${pon}:${oltId}\nservice dataservice gemport 1 cos 0 vlan ${vlan}\nswitchport-bind switch_0/1 iphost 1\nvlan port eth_0/1 mode tag vlan ${vlan}\n!\n`;
-  };
-
-  const intelbrasItbsText = (vlan: number | undefined | string) => {
-    return `onu set 1/${pon}/${oltId} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\ncreate gpon-olt-onu-config 1-1-${pon}-${oltId}/gpononu\nset serial-no-vendor-id = ITBS\ncommit gpon-olt-onu-config 1-1-${pon}-${oltId}/gpononu\nbridge add 1-1-${pon}-${oltId}/gpononu  downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${oltId}/gpononu ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}`;
-  };
-
-  const intelbrasZntsText = (vlan: number | undefined | string) => {
-    return `onu set 1/${pon}/${oltId} meprof intelbras-110g vendorid ZNTS serno fsan ${sn}\nbridge add 1-1-${pon}-${oltId}/gpononu downlink vlan ${vlan} tagged eth 1\nport description add 1-1-${pon}-${oltId}/gpononu ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}`;
-  };
-
-  const intelbrasI = (vlan: number | undefined | string) => {
-    return `onu set gpon ${pon} onu ${oltId} id ${onuId} meprof intelbras-110g\nbridge add gpon ${pon} onu ${oltId} downlink vlan ${vlan} tagged eth 1\nonu description add gpon ${pon} onu ${oltId} text ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}`;
-  };
-  const datacomTextOnu = (vlan: number | undefined | string) => {
-    return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
-      customProfile ? customProfile : "1000Mdow1000Mup"
-    }\nethernet 1\nnegotiation\nno shutdown\ntop\nservice-port new\ndescription ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      )}\ngpon ${pon} onu ${oltId} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}\ncommit`;
-  };
-
-  const datacomTextOnt = (vlan: number | undefined | string) => {
-    return `interface gpon ${pon}\nonu ${oltId}\nname ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/ /g, "_")}\nserial-number ${sn}\nline-profile ${
-      customProfile
-        ? customProfile
-        : selected?.olt == "ARAQUARI"
-        ? "PPPoEROUTER"
-        : "PPPoE-ROUTER"
-    }\nveip 1\ntop\nservice-port new\ndescription ${cliente
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(
-        / /g,
-        "_"
-      )}\ngpon ${pon} onu ${oltId} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}\ncommit`;
   };
 
   //comandos
@@ -279,6 +218,13 @@ function ConfigForm({
     { pon, idLivre, idOnu, client, customVlan, customProfile }: FieldValues,
     value: any
   ) => {
+    const name = client
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/-/g, "")
+      .replace(/[0-9]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
+      .split(" ");
     console.log(value);
     // axios
     //   .post("/api/configManual", {
@@ -309,7 +255,7 @@ function ConfigForm({
                 pon,
                 idLivre,
                 sn,
-                client,
+                name,
                 handleVlan(pon, oltZteChimaData[x].vlan, customVlan)
               )
             );
@@ -322,7 +268,7 @@ function ConfigForm({
                       pon,
                       idLivre,
                       sn,
-                      client,
+                      name,
                       handleVlan(pon, oltZteChimaData[x].vlan, customVlan),
                       "ZTEG"
                     )
@@ -332,7 +278,7 @@ function ConfigForm({
                       pon,
                       idLivre,
                       sn,
-                      client,
+                      name,
                       handleVlan(pon, oltZteChimaData[x].vlan, customVlan)
                     )
                   );
@@ -343,7 +289,7 @@ function ConfigForm({
                   pon,
                   idLivre,
                   sn,
-                  client,
+                  name,
                   handleVlan(oltZteChimaData[x].vlan, customVlan)
                 )
               );
@@ -357,7 +303,7 @@ function ConfigForm({
                           pon,
                           idLivre,
                           sn,
-                          client,
+                          name,
                           handleVlan(pon, brv04[i].vlan, customVlan)
                         )
                       )
@@ -366,7 +312,7 @@ function ConfigForm({
                           pon,
                           idLivre,
                           sn,
-                          client,
+                          name,
                           handleVlan(pon, brv04[i].vlan, customVlan)
                         )
                       );
@@ -381,7 +327,7 @@ function ConfigForm({
                           pon,
                           idLivre,
                           sn,
-                          client,
+                          name,
                           handleVlan(pon, viapiana[i].vlan, customVlan)
                         )
                       )
@@ -390,7 +336,7 @@ function ConfigForm({
                           pon,
                           idLivre,
                           sn,
-                          client,
+                          name,
                           handleVlan(pon, viapiana[i].vlan, customVlan)
                         )
                       );
@@ -413,7 +359,7 @@ function ConfigForm({
                       pon,
                       idLivre,
                       sn,
-                      client,
+                      name,
                       handleVlan(pon, oltZteChimaData[x].vlan, customVlan)
                     )
                   )
@@ -422,7 +368,7 @@ function ConfigForm({
                       pon,
                       idLivre,
                       sn,
-                      client,
+                      name,
                       handleVlan(pon, oltZteChimaData[x].vlan, customVlan)
                     )
                   );
@@ -432,13 +378,13 @@ function ConfigForm({
                   pon,
                   idLivre,
                   sn,
-                  client,
+                  name,
                   handleVlanItapoa2(pon, customVlan)
                 )
               );
             default:
               return setConfigText(
-                chima(pon, idLivre, sn, client, handleVlan(pon, customVlan))
+                chima(pon, idLivre, sn, name, handleVlan(pon, customVlan))
               );
           }
         }
@@ -457,7 +403,15 @@ function ConfigForm({
                   sn
                 )
               );
-              setConfigText(intelbrasI(handleVlan(oltIntelbrasData[x].vlan)));
+              setConfigText(
+                intelbrasI(
+                  pon,
+                  idLivre,
+                  idOnu,
+                  name,
+                  handleVlan(oltIntelbrasData[x].vlan)
+                )
+              );
               break;
             case "GARUVA":
             case "SFS":
@@ -470,13 +424,16 @@ function ConfigForm({
                   sn
                 )
               );
-              return onuModel == "ITBS"
-                ? setConfigText(
-                    intelbrasItbsText(handleVlan(oltIntelbrasData[x].vlan))
-                  )
-                : setConfigText(
-                    intelbrasZntsText(handleVlan(oltIntelbrasData[x].vlan))
-                  );
+              return setConfigText(
+                intelbrasG(
+                  pon,
+                  idLivre,
+                  sn,
+                  name,
+                  onuModel,
+                  handleVlan(oltIntelbrasData[x].vlan)
+                )
+              );
           }
         }
       }
@@ -494,31 +451,24 @@ function ConfigForm({
           );
           switch (selected?.olt) {
             case "JACU":
-              if (onuType == "ONU") {
-                setConfigText(
-                  datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
-                );
-              }
-              if (onuType == "ONT") {
-                setConfigText(
-                  datacomTextOnt(handleVlanDatacom(oltDatacomData[x].vlan))
-                );
-              }
-              break;
             case "ARAQUARI":
             case "BRUSQUE":
             case "BS1":
             case "ITAPOCU":
             case "SNL101":
             default:
-              if (onuType == "ONU") {
-                setConfigText(
-                  datacomTextOnu(handleVlanDatacom(oltDatacomData[x].vlan))
-                );
-              }
-              if (onuType == "ONT") {
-                setConfigText(datacomTextOnt(handleVlanDatacom(119)));
-              }
+              setConfigText(
+                datacom(
+                  pon,
+                  idLivre,
+                  sn,
+                  name,
+                  onuType,
+                  selected,
+                  customProfile,
+                  handleVlanDatacom(pon, oltDatacomData[x].vlan, customVlan)
+                )
+              );
               break;
           }
         }
@@ -551,8 +501,7 @@ function ConfigForm({
             />
             {selectedRadio.name == "Datacom" && (
               <ControlledInput
-                id="base"
-                name="base"
+                name="ontType"
                 array={ontType}
                 control={control}
               />
@@ -565,7 +514,7 @@ function ConfigForm({
               id="serial"
               onChange={(e: any) => setSn(e.target.value)}
             />
-            <div className="flex w-full flex-col lg:flex-row space-y-5 lg:space-y-0">
+            <div className="flex w-full flex-col lg:flex-row gap-2 lg:gap-0 lg:space-y-0">
               <ComboboxInput
                 id="olt"
                 selected={selected}
@@ -579,35 +528,24 @@ function ConfigForm({
                 query={query}
                 label="OLT"
                 placeHolder="Selecione a OLT"
+                className={
+                  oltCompany == "Intelbras" &&
+                  selected?.olt != "ERVINO" &&
+                  "rounded-r-none"
+                }
               />
               {oltCompany == "Intelbras" && selected?.olt != "ERVINO" && (
-                <div className="flex">
-                  <button
-                    onClick={() => {
-                      setOnuModel("ZNTS");
-                    }}
-                    type="button"
-                    className={`transition w-full border rounded-l-md lg:rounded-none border-gray-900 ${
-                      onuModel == "ZNTS" ? "bg-gray-500" : "bg-gray-700"
-                    } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
-                  >
-                    ZNTS
-                  </button>
-                  <button
-                    onClick={() => {
-                      setOnuModel("ITBS");
-                    }}
-                    type="button"
-                    className={`transition w-full rounded-r-md border border-gray-900 ${
-                      onuModel == "ITBS" ? "bg-gray-500" : "bg-gray-700"
-                    } py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm focus:outline-none`}
-                  >
-                    ITBS
-                  </button>
+                <div className="flex w-full lg:w-[8rem]">
+                  {/* <ControlledInputConfig
+                    id="onuModel"
+                    name="intelbrasModel"
+                    array={intelbrasModel}
+                    control={control}
+                  /> */}
                 </div>
               )}
             </div>
-            <Input
+            {/* <Input
               label="PON"
               placeholder={oltCompany == "Intelbras" ? "0" : "0/0/0"}
               id="pon"
@@ -644,7 +582,7 @@ function ConfigForm({
               placeholder="Custom Vlan"
               id="customVlan"
               register={register}
-              required
+              required={false}
             />
             {selectedRadio.name == "Datacom" && (
               <Input
@@ -652,9 +590,9 @@ function ConfigForm({
                 placeholder="Custom Profile"
                 id="customProfile"
                 register={register}
-                required
+                required={false}
               />
-            )}
+            )} */}
             <div className="flex w-full gap-2">
               <button
                 type="button"
