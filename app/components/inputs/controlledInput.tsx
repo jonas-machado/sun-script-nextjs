@@ -35,7 +35,7 @@ const ControlledInput = ({ id, name, control, onChange, array }: input) => {
                   >
                     {({ checked }) => (
                       <div className="flex w-full justify-between ">
-                        <div>
+                        <div className="w-full text-center">
                           <span className={`text-gray-300`}>{arr.name}</span>
                         </div>
                         {checked && (

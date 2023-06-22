@@ -34,8 +34,6 @@ const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
     }
   }, [session?.status, router]);
 
-  console.log(currentUser);
-  console.log(openTab);
   const {
     register,
     handleSubmit,

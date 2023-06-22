@@ -31,7 +31,7 @@ const ComboboxInput = ({
   return (
     <>
       <Combobox value={selected} onChange={onChange}>
-        <div className="relative mt-1">
+        <div className="relative w-full">
           <div className="flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm">
             <label
               htmlFor={id}
