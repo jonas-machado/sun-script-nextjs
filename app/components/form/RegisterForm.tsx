@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Formik, Form, Field, ErrorMessage, FormikValues } from "formik";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +14,6 @@ import { z, ZodType } from "zod";
 import { useForm, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputUseForm from "../inputs/inputUseForm";
-import { Result } from "postcss";
 
 export default function RegisterForm({ isVisible }: any) {
   const router = useRouter();
@@ -28,31 +25,34 @@ export default function RegisterForm({ isVisible }: any) {
       theme: "dark",
       pauseOnFocusLoss: false,
       pauseOnHover: false,
-
     });
-  }
+  };
   const notifySuc = (text: string) => {
     toast.success(text, {
       theme: "dark",
       pauseOnFocusLoss: false,
       hideProgressBar: false,
     });
-  }
+  };
 
   //schema do zod
   const schema = z
     .object({
-      email: z.string().email({ message: "Email inválido" }).nonempty({ message: "Preencha todos os campos" }),
-      password: z.string({
-      }).nonempty({ message: "Preencha todos os campos" }),
-      confirmPassword: z.string({
-      }).nonempty({ message: "Preencha todos os campos" }),
-      name: z.string({
-      }).nonempty({ message: "Preencha todos os campos" }),
-    }).required().refine((data) => data.password === data.confirmPassword, {
+      email: z
+        .string()
+        .email({ message: "Email inválido" })
+        .nonempty({ message: "Preencha todos os campos" }),
+      password: z.string({}).nonempty({ message: "Preencha todos os campos" }),
+      confirmPassword: z
+        .string({})
+        .nonempty({ message: "Preencha todos os campos" }),
+      name: z.string({}).nonempty({ message: "Preencha todos os campos" }),
+    })
+    .required()
+    .refine((data) => data.password === data.confirmPassword, {
       message: "Senhas diferentes",
       path: ["confirmPassword"],
-    })
+    });
 
   const {
     register,
@@ -65,7 +65,7 @@ export default function RegisterForm({ isVisible }: any) {
   //use effect para verificar erros nos campos
   useEffect(() => {
     for (let error in errors) {
-      notify(errors[error]?.message)
+      notify(errors[error]?.message);
     }
   }, [errors]);
 
@@ -85,7 +85,6 @@ export default function RegisterForm({ isVisible }: any) {
         name,
       })
       .then(async (res: any) => {
-
         if (res.data.error) {
           setIsLoading(false);
           return notify(res.data.error);
@@ -169,15 +168,17 @@ export default function RegisterForm({ isVisible }: any) {
             <button
               className="transition h-10 rounded-md text-gray-400 bg-black bg-opacity-60 hover:opacity-90 w-full text-center cursor-pointer bg-[rgba(0, 0, 0, 0.455)]"
               type="submit"
-            >{!isLoading ? (
-              <>
-                <span>Enviar</span>
-              </>
-            ) : (
-              <>
-                <PulseLoader color="black" size={8} />
-              </>
-            )}</button>
+            >
+              {!isLoading ? (
+                <>
+                  <span>Enviar</span>
+                </>
+              ) : (
+                <>
+                  <PulseLoader color="black" size={8} />
+                </>
+              )}
+            </button>
           </div>
         </form>
         <div className=" w-full flex whitespace-nowrap mt-3 mb-2">

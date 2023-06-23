@@ -107,7 +107,6 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
               <MotionPage id={openTab} className="flex flex-col gap-2">
                 <div>
                   <ControlledInput
-                    id="base"
                     name="base"
                     array={bases}
                     control={control}
@@ -136,12 +135,7 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
                   required
                 />
                 <div>
-                  <ControlledInput
-                    id="sla"
-                    name="sla"
-                    array={sla}
-                    control={control}
-                  />
+                  <ControlledInput name="sla" array={sla} control={control} />
                 </div>
                 <Input
                   label="RESPONSÁVEL"
@@ -163,7 +157,6 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
               <MotionPage id={openTab} className="flex flex-col gap-2">
                 <div>
                   <ControlledInput
-                    id="base"
                     name="base"
                     array={bases}
                     control={control}
