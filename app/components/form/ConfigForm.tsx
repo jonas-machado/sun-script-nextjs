@@ -494,7 +494,7 @@ function ConfigForm({
           onSubmit={handleSubmit(handleConfigSubmit)}
           autoComplete="off"
         >
-          <div className=" flex flex-col bg-black bg-opacity-90 backdrop-blur-sm border-gray-900 border-2 rounded-xl p-5 space-y-2">
+          <div className=" flex flex-col bg-black bg-opacity-90 backdrop-blur-sm border-gray-900 border-2 rounded-xl p-4 space-y-2">
             <ControlledInputDescription
               id="oltScript"
               name="oltScript"
@@ -533,7 +533,7 @@ function ConfigForm({
               />
               {oltCompany == "Intelbras" && selected?.olt != "ERVINO" && (
                 <div className="flex w-full lg:w-[8rem]">
-                  <ControlledInput
+                  <ControlledInputConfig
                     name="intelbrasModel"
                     control={control}
                     array={ontType}
@@ -610,7 +610,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-95 backdrop-blur-sm border-black shadow-sm outline-none focus:border-black focus:ring-black text-sm text-white p-4"
+            className="lg:h-full scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent whitespace-nowrap min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-90 backdrop-blur-sm border-black shadow-sm outline-none text-sm text-white p-3"
             value={configText}
             autoComplete="false"
             spellCheck="false"
@@ -621,7 +621,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-95 backdrop-blur-sm border-black shadow-sm outline-none focus:border-black focus:ring-black text-[0.87rem] text-white p-4 z-0"
+            className="lg:h-full scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent whitespace-nowrap min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-90 backdrop-blur-sm border-black shadow-sm outline-none text-sm text-white p-3"
             value={cadastroTextArea}
             spellCheck="false"
             onChange={(e) => setCadastroText(e.target.value)}
@@ -631,7 +631,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-95 backdrop-blur-sm border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem] text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-90 backdrop-blur-sm border-black shadow-sm outline-none text-sm text-white p-3"
             value={pppoeTextArea}
             spellCheck="false"
             onChange={(e) => setpppoeText(e.target.value)}
@@ -641,7 +641,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem] text-white p-0"
+            className="lg:h-full min-h-[400px] scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 scrollbar-track-transparent lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-90 backdrop-blur-sm border-black shadow-sm outline-none text-sm text-white p-3"
             defaultValue={""}
             spellCheck="false"
             value={pppoeTextArea2}

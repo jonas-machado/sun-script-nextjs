@@ -5,19 +5,11 @@ import { RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 
 interface input {
-  id: string;
   name: string;
-  onChange?: any;
   control: any;
   array: any;
 }
-const ControlledInputConfig = ({
-  id,
-  name,
-  control,
-  onChange,
-  array,
-}: input) => {
+const ControlledInputConfig = ({ name, control, array }: input) => {
   return (
     <>
       <Controller
@@ -26,27 +18,44 @@ const ControlledInputConfig = ({
         defaultValue=""
         render={({ field }) => (
           <>
-            {array.map((arr: any) => (
-              <div key={arr.name}>
-                <input
-                  type="radio"
-                  id={id}
-                  className="hidden peer"
-                  {...field}
-                  value={arr.name}
-                />
-                <label
-                  htmlFor={id}
-                  className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-                >
-                  <div className="block">
-                    <div className="w-full text-lg font-semibold">
-                      {arr.name}
-                    </div>
-                  </div>
-                </label>
+            <RadioGroup
+              {...field}
+              onChange={(value) => field.onChange(value)}
+              value={field.value}
+              className={`w-full`}
+            >
+              <div className="flex w-full h-full items-center justify-between">
+                {array.map((arr: any) => (
+                  <RadioGroup.Option
+                    key={arr.name}
+                    value={arr.name}
+                    className={({
+                      active,
+                      checked,
+                    }: {
+                      active: any;
+                      checked: any;
+                    }) =>
+                      `z-0 relative flex cursor-pointer rounded-lg h-full min-h-[2.7rem] border border-gray-900 first:rounded-r-none lg:first:rounded-none last:rounded-l-none shadow-sm shadow-black focus:outline-none w-full transition-all ${
+                        checked
+                          ? "bg-gray-700 bg-opacity-60 text-white shadow-md shadow-black"
+                          : "bg-gray-900 bg-opacity-60"
+                      }`
+                    }
+                  >
+                    {({ checked }) => (
+                      <div className="flex w-full justify-between items-center">
+                        <div className="w-full text-center">
+                          <span className={`text-gray-300 text-sm`}>
+                            {arr.name}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </RadioGroup.Option>
+                ))}
               </div>
-            ))}
+            </RadioGroup>
           </>
         )}
       />

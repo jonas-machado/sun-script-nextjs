@@ -46,7 +46,7 @@ const ComboboxInput = ({
   return (
     <>
       <Combobox value={selected} by="id" onChange={onChange}>
-        <div className="relative w-full">
+        <div className="relative w-full z-10">
           <div
             className={`flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm ${className}`}
           >

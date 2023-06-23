@@ -18,7 +18,12 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body
+        className={
+          font.className +
+          " bg-black bg-no-repeat bg-fit h-full min-h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar scrollbar-thumb-gray-800 scrollbar-track-gray-900 scrollbar-track-rounded-md"
+        }
+      >
         <AuthContext>
           <PageWrapper>
             <MotionPage>{children}</MotionPage>
