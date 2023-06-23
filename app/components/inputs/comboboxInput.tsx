@@ -1,38 +1,51 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { FieldValues, UseFormRegister, Controller } from "react-hook-form";
 import { RadioGroup } from "@headlessui/react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Label } from "@headlessui/react/dist/components/label/label";
 
+interface selectedType {
+  createdAt: any;
+  id: string;
+  olt: string;
+  updatedAt: any;
+  vlan: number;
+}
+
 interface input {
   id: string;
-  selected: string;
+  selected: selectedType | undefined;
   onChange?: any;
-  displayValue?: any;
-  onChangeInput: any;
-  filtered: string[];
-  query: string;
   label: string;
   placeHolder: string;
   className?: any;
+  oltCompanyArray: any;
 }
+
 const ComboboxInput = ({
   id,
   label,
   placeHolder,
   selected,
   onChange,
-  onChangeInput,
-  filtered,
-  query,
   className,
+  oltCompanyArray,
 }: input) => {
+  const [query, setQuery] = useState("");
+
+  const filtered =
+    query === ""
+      ? oltCompanyArray
+      : oltCompanyArray.filter((value: any) => {
+          return value.olt.toLowerCase().includes(query.toLowerCase());
+        });
+
   return (
     <>
-      <Combobox value={selected} onChange={onChange}>
+      <Combobox value={selected} by="id" onChange={onChange}>
         <div className="relative w-full">
           <div
             className={`flex relative w-full cursor-default overflow-hidden rounded-lg text-left shadow-md focus:outline-none sm:text-sm ${className}`}
@@ -47,8 +60,8 @@ const ComboboxInput = ({
               id={id}
               placeholder={placeHolder}
               className="w-full border border-r-none border-gray-900 outline-none py-3 pl-3 pr-10 text-sm leading-5 text-gray-300 bg-gray-900 bg-opacity-70"
-              displayValue={(olt?: any) => olt.olt}
-              onChange={onChangeInput}
+              displayValue={(value: any) => value.olt}
+              onChange={(event) => setQuery(event.target.value)}
             />
             <Combobox.Button className="rounded-lg absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -59,12 +72,15 @@ const ComboboxInput = ({
           </div>
           <Transition
             as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-            afterLeave={onChangeInput}
+            enter="ease-out duration-100"
+            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enterTo="opacity-100 translate-y-0 sm:scale-100"
+            leave="ease-in duration-100"
+            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            afterLeave={() => setQuery("")}
           >
-            <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Combobox.Options className="absolute mt-1 w-full overflow-auto rounded-md bg-gray-900 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-1">
               {filtered.length === 0 && query !== "" ? (
                 <div className="relative cursor-default select-none py-2 px-4 text-gray-300">
                   Nothing found.
@@ -72,7 +88,7 @@ const ComboboxInput = ({
               ) : (
                 filtered.map((olt: any) => (
                   <Combobox.Option
-                    key={olt.olt}
+                    key={olt.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active

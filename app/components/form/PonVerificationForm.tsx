@@ -91,16 +91,6 @@ const PonVerificationForm = ({
     }
   };
 
-  const filtered =
-    query === ""
-      ? olts
-      : olts.filter((olt: any) =>
-          olt.olt
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
-
   return (
     <>
       <div className="container bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl">
@@ -122,20 +112,14 @@ const PonVerificationForm = ({
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
-            <ComboboxInput
+            {/* <ComboboxInput
               id="olt"
               selected={selected}
               onChange={setSelected}
-              onChangeInput={(e: any) =>
-                e?.target.value != undefined
-                  ? setQuery(e?.target.value)
-                  : setQuery("")
-              }
-              filtered={filtered}
-              query={query}
               label="OLT"
               placeHolder="Selecione a OLT"
-            />
+              oltCompanyArray={olts}
+            /> */}
             <Input
               label="PON"
               placeholder="x/x/x"

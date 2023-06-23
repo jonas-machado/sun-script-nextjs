@@ -6,19 +6,23 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 
 interface input {
   name: string;
-  onChange?: any;
   control: any;
   array: any;
 }
-const ControlledInput = ({ name, control, onChange, array }: input) => {
+const ControlledInput = ({ name, control, array }: input) => {
   return (
     <>
       <Controller
         name={name}
         control={control}
+        defaultValue=""
         render={({ field }) => (
           <>
-            <RadioGroup {...field}>
+            <RadioGroup
+              {...field}
+              onChange={(value) => field.onChange(value)}
+              value={field.value}
+            >
               <div className="flex w-full h-full items-center justify-between gap-2">
                 {array.map((arr: any) => (
                   <RadioGroup.Option

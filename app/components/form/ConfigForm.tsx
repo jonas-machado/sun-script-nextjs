@@ -37,6 +37,14 @@ function classNames(...classes: any) {
 const ontType = [{ name: "ONU" }, { name: "ONT" }];
 const intelbrasModel = [{ name: "ITBS" }, { name: "ZNTS" }];
 
+interface selectedType {
+  createdAt: any;
+  id: string;
+  olt: string;
+  updatedAt: any;
+  vlan: number;
+}
+
 interface ConfigProps {
   currentUser?: User | null;
   oltZteChimaData: any;
@@ -60,9 +68,7 @@ function ConfigForm({
   }, [session?.status, router]);
 
   //selections
-  const [selected, setSelected] = useState<any>();
-  const [query, setQuery] = useState("");
-
+  const [selected, setSelected] = useState<selectedType>();
   const [selectedRadio, setSelectedRadio] = useState(plans[0]);
 
   //inputs config
@@ -71,11 +77,9 @@ function ConfigForm({
   //models handlers
   const [oltCompanyArray, setOltCompanyArray] = useState<any[]>([]);
   const [oltCompany, setOltCompany] = useState("");
-  const [onuType, setOnuType] = useState("");
-  const [onuModel, setOnuModel] = useState("");
 
   //text areas
-  const [configText, setConfigText] = useState("");
+  const [configText, setConfigText] = useState<string>();
   const [cadastroTextArea, setCadastroText] = useState<string>();
   const [pppoeTextArea, setpppoeText] = useState<string>();
   const [pppoeTextArea2, setpppoeText2] = useState<string>();
@@ -84,12 +88,9 @@ function ConfigForm({
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      ontType: "ONU",
-    },
-  });
+  } = useForm();
 
   const resetForm = () => {
     setSn("");
@@ -97,12 +98,11 @@ function ConfigForm({
     setCadastroText("");
     setpppoeText("");
     setpppoeText2("");
-    setOnuModel("");
+    reset();
   };
 
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
-      setOnuType("");
       if (sn.length > 8) {
         setOltCompanyArray(oltZteChimaData);
         setOltCompany("ZTE");
@@ -172,16 +172,9 @@ function ConfigForm({
     }
   };
 
-  const pppoeText = (client: string) => {
-    const array = client
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/-/g, "")
-      .replace(/[0-9]/g, "")
-      .replace(/[\u0300-\u036f]/g, "")
-      .split(" ");
+  const pppoeText = (client: string[]) => {
     const toFilter = ["", "das", "dos", "de", "do", "da"];
-    const filtered = array.filter(function (el) {
+    const filtered = client.filter(function (el) {
       return !toFilter.includes(el);
     });
     return filtered
@@ -198,51 +191,68 @@ function ConfigForm({
         }
       });
   };
-  const pppoeText2 = (client: string) => {
-    const array = client
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/-/g, "")
-      .replace(/[0-9]/g, ``)
-      .replace(/[\u0300-\u036f]/g, "")
-      .split(" ");
-    const toFilter = ["", "das", "dos", "de", "do", "da"];
-    const filtered = array.filter(function (el) {
+  const pppoeText2 = (client: string[]) => {
+    const toFilter = ["das", "dos", "de", "do", "da", "ltda"];
+    const filtered = client.filter(function (el) {
       return !toFilter.includes(el);
     });
 
     return filtered.map((w) => "2ponto." + w);
   };
 
-  const handleConfigSubmit = async (
-    { pon, idLivre, idOnu, client, customVlan, customProfile }: FieldValues,
-    value: any
-  ) => {
+  const handleConfigSubmit = async ({
+    client,
+    customProfile,
+    customVlan,
+    idOnu,
+    idLivre,
+    intelbrasModel,
+    ontType,
+    pon,
+  }: FieldValues) => {
     const name = client
-      .toLowerCase()
       .normalize("NFD")
-      .replace(/-/g, "")
+      .replace(/-/g, " ")
       .replace(/[0-9]/g, "")
       .replace(/[\u0300-\u036f]/g, "")
+      .trim()
+      .split(" ")
+      .join("_");
+
+    const clientPPPoE = client
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/-/g, " ")
+      .replace(/[0-9]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim()
       .split(" ");
-    console.log(value);
+    // console.log(
+    //   "pon: " + pon + "\n",
+    //   "id: " + idLivre + "\n",
+    //   "id onu: " + idOnu + "\n",
+    //   "client: " + client + "\n",
+    //   "vlan: " + customVlan + "\n",
+    //   "profile: " + customProfile + "\n"
+    // );
+
     // axios
     //   .post("/api/configManual", {
     //     onuType,
     //     serial: sn,
     //     olt: selected?.olt,
-    //     pon: pon,
-    //     idLivre: oltId,
-    //     idOnu: onuId,
+    //     pon,
+    //     idLivre,
+    //     idOnu: idOnu,
     //     customVlan,
-    //     cliente: cliente,
+    //     cliente: client,
     //     id: currentUser!.id,
     //   })
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    setpppoeText(pppoeText(client).join("\n"));
-    setpppoeText2(pppoeText2(client).join("\n"));
+    setpppoeText(pppoeText(clientPPPoE).join("\n"));
+    setpppoeText2(pppoeText2(clientPPPoE).join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
       for (let x in oltZteChimaData) {
         if (selected?.olt == oltZteChimaData[x].olt) {
@@ -430,7 +440,7 @@ function ConfigForm({
                   idLivre,
                   sn,
                   name,
-                  onuModel,
+                  intelbrasModel,
                   handleVlan(oltIntelbrasData[x].vlan)
                 )
               );
@@ -463,7 +473,7 @@ function ConfigForm({
                   idLivre,
                   sn,
                   name,
-                  onuType,
+                  ontType,
                   selected,
                   customProfile,
                   handleVlanDatacom(pon, oltDatacomData[x].vlan, customVlan)
@@ -476,22 +486,15 @@ function ConfigForm({
     }
   };
 
-  const filtered =
-    query === ""
-      ? oltCompanyArray
-      : oltCompanyArray.filter((olt) => {
-          return olt.olt.toLowerCase().includes(query.toLowerCase());
-        });
-
   return (
     <div>
       <section className="lg:grid lg:grid-cols-[minmax(240px,400px),minmax(200px,900px),minmax(0,275px),minmax(0,275px)] grid-auto-rows gap-2 py-14 w-full flex flex-col justify-center">
         <form
-          className="row-span-2 h-full z-5"
+          className="row-span-2 h-full z-10"
           onSubmit={handleSubmit(handleConfigSubmit)}
           autoComplete="off"
         >
-          <div className=" flex flex-col bg-black opacity-95 border-gray-900 border-2 rounded-xl p-5 space-y-2">
+          <div className=" flex flex-col bg-black bg-opacity-90 backdrop-blur-sm border-gray-900 border-2 rounded-xl p-5 space-y-2">
             <ControlledInputDescription
               id="oltScript"
               name="oltScript"
@@ -519,33 +522,26 @@ function ConfigForm({
                 id="olt"
                 selected={selected}
                 onChange={setSelected}
-                onChangeInput={(e: any) =>
-                  e?.target.value != undefined
-                    ? setQuery(e?.target.value)
-                    : setQuery("")
-                }
-                filtered={filtered}
-                query={query}
                 label="OLT"
                 placeHolder="Selecione a OLT"
+                oltCompanyArray={oltCompanyArray}
                 className={
                   oltCompany == "Intelbras" &&
                   selected?.olt != "ERVINO" &&
-                  "rounded-r-none"
+                  "lg:rounded-r-none"
                 }
               />
               {oltCompany == "Intelbras" && selected?.olt != "ERVINO" && (
                 <div className="flex w-full lg:w-[8rem]">
-                  {/* <ControlledInputConfig
-                    id="onuModel"
+                  <ControlledInput
                     name="intelbrasModel"
-                    array={intelbrasModel}
                     control={control}
-                  /> */}
+                    array={ontType}
+                  />
                 </div>
               )}
             </div>
-            {/* <Input
+            <Input
               label="PON"
               placeholder={oltCompany == "Intelbras" ? "0" : "0/0/0"}
               id="pon"
@@ -592,7 +588,7 @@ function ConfigForm({
                 register={register}
                 required={false}
               />
-            )} */}
+            )}
             <div className="flex w-full gap-2">
               <button
                 type="button"
@@ -614,7 +610,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-sm text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-95 backdrop-blur-sm border-black shadow-sm outline-none focus:border-black focus:ring-black text-sm text-white p-4"
             value={configText}
             autoComplete="false"
             spellCheck="false"
@@ -625,7 +621,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[0.87rem] text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-95 backdrop-blur-sm border-black shadow-sm outline-none focus:border-black focus:ring-black text-[0.87rem] text-white p-4 z-0"
             value={cadastroTextArea}
             spellCheck="false"
             onChange={(e) => setCadastroText(e.target.value)}
@@ -635,7 +631,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem]  text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 bg-opacity-95 backdrop-blur-sm border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem] text-white p-4 z-0"
             value={pppoeTextArea}
             spellCheck="false"
             onChange={(e) => setpppoeText(e.target.value)}
@@ -645,7 +641,7 @@ function ConfigForm({
           <textarea
             id="about"
             name="about"
-            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem] text-white p-4 z-0"
+            className="lg:h-full min-h-[400px] lg:min-h-0 border-2 w-full rounded-md bg-gray-900 opacity-95 border-black shadow-sm outline-none focus:border-black focus:ring-black text-[1rem] text-white p-0"
             defaultValue={""}
             spellCheck="false"
             value={pppoeTextArea2}
