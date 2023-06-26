@@ -218,7 +218,6 @@ function ConfigForm({
     const name = client
       .normalize("NFD")
       .replace(/-/g, " ")
-      .replace(/[0-9]/g, "")
       .replace(/[\u0300-\u036f]/g, "")
       .trim()
       .split(" ")
