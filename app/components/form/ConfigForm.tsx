@@ -128,6 +128,7 @@ function ConfigForm({
   };
 
   const handleVlanDatacom = (
+    onuType: string,
     pon: string,
     vlan?: number,
     customVlan?: number
@@ -137,9 +138,13 @@ function ConfigForm({
     } else if (customVlan) {
       return customVlan;
     } else if (!vlan && !customVlan) {
-      const lastPon = pon.split("/");
-      const lastVlanSlot1 = 0 + lastPon[2];
-      return Number("1" + lastVlanSlot1.slice(-2));
+      if (onuType == "ONU") {
+        const lastPon = pon.split("/");
+        const lastVlanSlot1 = 0 + lastPon[2];
+        return Number("1" + lastVlanSlot1.slice(-2));
+      } else {
+        return 119;
+      }
     }
   };
 
@@ -227,30 +232,23 @@ function ConfigForm({
       .replace(/[\u0300-\u036f]/g, "")
       .trim()
       .split(" ");
-    // console.log(
-    //   "pon: " + pon + "\n",
-    //   "id: " + idLivre + "\n",
-    //   "id onu: " + idOnu + "\n",
-    //   "client: " + client + "\n",
-    //   "vlan: " + customVlan + "\n",
-    //   "profile: " + customProfile + "\n"
-    // );
 
-    // axios
-    //   .post("/api/configManual", {
-    //     onuType,
-    //     serial: sn,
-    //     olt: selected?.olt,
-    //     pon,
-    //     idLivre,
-    //     idOnu: idOnu,
-    //     customVlan,
-    //     cliente: client,
-    //     id: currentUser!.id,
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .post("/api/configManual", {
+        onutype: ontType,
+        serial: sn,
+        olt: selected?.olt,
+        pon,
+        idLivre,
+        idOnu,
+        customVlan,
+        cliente: client,
+        id: currentUser!.id,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     setpppoeText(pppoeText(clientPPPoE).join("\n"));
     setpppoeText2(pppoeText2(clientPPPoE).join("\n"));
     if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
@@ -300,7 +298,7 @@ function ConfigForm({
                   idLivre,
                   sn,
                   name,
-                  handleVlan(oltZteChimaData[x].vlan, customVlan)
+                  handleVlan(pon, oltZteChimaData[x].vlan, customVlan)
                 )
               );
               break;
@@ -476,7 +474,12 @@ function ConfigForm({
                   ontType,
                   selected,
                   customProfile,
-                  handleVlanDatacom(pon, oltDatacomData[x].vlan, customVlan)
+                  handleVlanDatacom(
+                    ontType,
+                    pon,
+                    oltDatacomData[x].vlan,
+                    customVlan
+                  )
                 )
               );
               break;

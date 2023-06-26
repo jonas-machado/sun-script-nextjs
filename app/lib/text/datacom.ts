@@ -16,29 +16,29 @@ export const datacom = (
     : "PPPoE-ROUTER";
   return onuType != "ONT"
     ? `\
-    interface gpon ${pon}
-    onu ${id}
-    name ${client}
-    serial-number ${sn}
-    line-profile ${profile}
-    ethernet 1
-    negotiation
-    no shutdown
-    top
-    service-port new
-    description ${client}
-    gpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}
-    commit`
+interface gpon ${pon}
+onu ${id}
+name ${client}
+serial-number ${sn}
+line-profile ${profile}
+ethernet 1
+negotiation
+no shutdown
+top
+service-port new
+description ${client}
+gpon ${pon} onu ${id} gem 1 match vlan vlan-id any action vlan add vlan-id ${vlan}
+commit`
     : `\
-    interface gpon ${pon}
-    onu ${id}
-    name ${client}
-    serial-number ${sn}
-    line-profile ${profileOnt}
-    veip 1
-    top
-    service-port new
-    description ${client}
-    gpon ${pon} onu ${id} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}
-    commit`;
+interface gpon ${pon}
+onu ${id}
+name ${client}
+serial-number ${sn}
+line-profile ${profileOnt}
+veip 1
+top
+service-port new
+description ${client}
+gpon ${pon} onu ${id} gem 1 match vlan vlan-id ${vlan} action vlan replace vlan-id ${vlan}
+commit`;
 };
