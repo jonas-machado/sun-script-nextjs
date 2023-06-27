@@ -67,7 +67,6 @@ const PonVerificationForm = ({
 
       // Handle "chat message" event
       socket.on("telnet response", (response) => {
-        console.log("Received response:", response);
         const res = response.replace(//g, "").split("\n");
         setTextOl(res.filter((onu: any) => onu.includes("LOS")));
         setText(response.replace(//g, ""));
@@ -77,12 +76,6 @@ const PonVerificationForm = ({
       });
 
       socket.emit("connectTelnet", {
-        ip: selected.ip,
-        command: `show gpon onu state gpon-olt_${pon}`,
-        //command: `show clock`,
-      });
-
-      socket.emit("newMessage", {
         ip: selected.ip,
         command: `show gpon onu state gpon-olt_${pon}`,
         //command: `show clock`,
