@@ -38,7 +38,6 @@ const PonVerificationForm = ({
   const router = useRouter();
 
   const olts = oltZteChimaData.concat(oltIntelbrasData, oltDatacomData);
-  console.log(olts);
 
   useEffect(() => {
     if (session?.status == "unauthenticated") {
@@ -51,7 +50,50 @@ const PonVerificationForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  console.log(query);
+
+  // const onSubmit = ({ pon }: any) => {
+  //   if (openTab == "Verificar posição livre") {
+  //     const socket = io("http://localhost:3001");
+
+  //     // Handle connection event
+  //     socket.on("connect", () => {
+  //       console.log("Connected to the server");
+  //     });
+
+  //     // Handle disconnection event
+  //     socket.on("disconnect", () => {
+  //       console.log("Disconnected from the server");
+  //     });
+
+  //     // Handle "chat message" event
+  //     socket.on("telnet response", (response) => {
+  //       console.log("Received response:", response);
+  //       const res = response.replace(//g, "").split("\n");
+  //       setTextOl(res.filter((onu: any) => onu.includes("LOS")));
+  //       setText(response.replace(//g, ""));
+  //       socket.disconnect();
+
+  //       // Do something with the received data in the frontend
+  //     });
+
+  //     socket.emit("connectTelnet", {
+  //       ip: selected.ip,
+  //       command: `show gpon onu state gpon-olt_${pon}`,
+  //       //command: `show clock`,
+  //     });
+
+  //     socket.emit("newMessage", {
+  //       ip: selected.ip,
+  //       command: `show gpon onu state gpon-olt_${pon}`,
+  //       //command: `show clock`,
+  //     });
+
+  //     // Disconnect from the server
+  //   }
+  //   if (openTab == "Aferir CTO") {
+  //     setText("");
+  //   }
+  // };
 
   const onSubmit = ({ pon }: any) => {
     if (openTab == "Verificar posição livre") {
@@ -68,17 +110,13 @@ const PonVerificationForm = ({
       });
 
       // Handle "chat message" event
-      socket.on("telnet response", (response) => {
+      socket.on("onMessage", (response) => {
         console.log("Received response:", response);
-        const res = response.replace(//g, "").split("\n");
-        setTextOl(res.filter((onu: any) => onu.includes("LOS")));
-        setText(response.replace(//g, ""));
-        socket.disconnect();
 
         // Do something with the received data in the frontend
       });
 
-      socket.emit("connectTelnet", {
+      socket.emit("newMessage", {
         ip: selected.ip,
         command: `show gpon onu state gpon-olt_${pon}`,
         //command: `show clock`,
@@ -112,14 +150,14 @@ const PonVerificationForm = ({
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
-            {/* <ComboboxInput
+            <ComboboxInput
               id="olt"
               selected={selected}
               onChange={setSelected}
               label="OLT"
               placeHolder="Selecione a OLT"
               oltCompanyArray={olts}
-            /> */}
+            />
             <Input
               label="PON"
               placeholder="x/x/x"

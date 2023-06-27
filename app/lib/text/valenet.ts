@@ -11,7 +11,7 @@ onu ${id} type ZTE-F601 sn ${sn}
 !
 interface gpon-onu_${pon}:${id}
 description ${client}
-tcont 2 name Tcont100M profile "OT"
+tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 tcont 2 queue 1
 switchport mode trunk vport 1
 service-port 1 vport 1 user-vlan ${vlan} vlan ${vlan}
