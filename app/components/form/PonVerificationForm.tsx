@@ -51,50 +51,6 @@ const PonVerificationForm = ({
     formState: { errors },
   } = useForm();
 
-  // const onSubmit = ({ pon }: any) => {
-  //   if (openTab == "Verificar posição livre") {
-  //     const socket = io("http://localhost:3001");
-
-  //     // Handle connection event
-  //     socket.on("connect", () => {
-  //       console.log("Connected to the server");
-  //     });
-
-  //     // Handle disconnection event
-  //     socket.on("disconnect", () => {
-  //       console.log("Disconnected from the server");
-  //     });
-
-  //     // Handle "chat message" event
-  //     socket.on("telnet response", (response) => {
-  //       console.log("Received response:", response);
-  //       const res = response.replace(//g, "").split("\n");
-  //       setTextOl(res.filter((onu: any) => onu.includes("LOS")));
-  //       setText(response.replace(//g, ""));
-  //       socket.disconnect();
-
-  //       // Do something with the received data in the frontend
-  //     });
-
-  //     socket.emit("connectTelnet", {
-  //       ip: selected.ip,
-  //       command: `show gpon onu state gpon-olt_${pon}`,
-  //       //command: `show clock`,
-  //     });
-
-  //     socket.emit("newMessage", {
-  //       ip: selected.ip,
-  //       command: `show gpon onu state gpon-olt_${pon}`,
-  //       //command: `show clock`,
-  //     });
-
-  //     // Disconnect from the server
-  //   }
-  //   if (openTab == "Aferir CTO") {
-  //     setText("");
-  //   }
-  // };
-
   const onSubmit = ({ pon }: any) => {
     if (openTab == "Verificar posição livre") {
       const socket = io("http://localhost:3001");
@@ -110,10 +66,20 @@ const PonVerificationForm = ({
       });
 
       // Handle "chat message" event
-      socket.on("onMessage", (response) => {
+      socket.on("telnet response", (response) => {
         console.log("Received response:", response);
+        const res = response.replace(//g, "").split("\n");
+        setTextOl(res.filter((onu: any) => onu.includes("LOS")));
+        setText(response.replace(//g, ""));
+        socket.disconnect();
 
         // Do something with the received data in the frontend
+      });
+
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show gpon onu state gpon-olt_${pon}`,
+        //command: `show clock`,
       });
 
       socket.emit("newMessage", {
