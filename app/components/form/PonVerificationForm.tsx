@@ -54,7 +54,7 @@ const PonVerificationForm = ({
     formState: { errors },
   } = useForm();
 
-  const onDetail = (ont?: string, todos?: string[]) => {
+  const onDetail = (ont: any, todos?: boolean) => {
     const socket = io("http://localhost:3001");
 
     // Handle connection event
@@ -82,12 +82,13 @@ const PonVerificationForm = ({
         //command: `show clock`,
       });
     } else {
-      const all = todos.map((el) => `show gpon onu detail-info gpon-onu_${el}`);
-      socket.emit("connectTelnet", {
-        ip: selected.ip,
-        command: `show gpon onu detail-info gpon-onu_${ont}`,
-        //command: `show clock`,
-      });
+      for (let i = 0; i < ont.length; i++) {
+        socket.emit("connectTelnet", {
+          ip: selected.ip,
+          command: `show gpon onu detail-info gpon-onu_${ont}`,
+          //command: `show clock`,
+        });
+      }
     }
   };
 
@@ -289,7 +290,10 @@ const PonVerificationForm = ({
                       </button>
                     </>
                   ))}
-                  <button className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md">
+                  <button
+                    onClick={() => onDetail(onuLos, true)}
+                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                  >
                     TODOS
                   </button>
                 </div>
