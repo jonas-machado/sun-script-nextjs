@@ -54,123 +54,120 @@ const PonVerificationForm = ({
     formState: { errors },
   } = useForm();
 
-  // const onSubmit = ({ pon }: any) => {
-  //   if (openTab == "Verificar posição livre") {
-  //     const socket = io("http://localhost:3001");
+  const onDetail = (ont?: string, todos?: string[]) => {
+    const socket = io("http://localhost:3001");
 
-  //     // Handle connection event
-  //     socket.on("connect", () => {
-  //       console.log("Connected to the server");
-  //     });
+    // Handle connection event
+    socket.on("connect", () => {
+      console.log("Connected to the server");
+    });
 
-  //     // Handle disconnection event
-  //     socket.on("disconnect", () => {
-  //       console.log("Disconnected from the server");
-  //     });
+    // Handle disconnection event
+    socket.on("disconnect", () => {
+      console.log("Disconnected from the server");
+    });
 
-  //     // Handle "chat message" event
-  //     socket.on("telnet response", (response) => {
-  //       const res = response.replace(//g, "").split("\n");
-  //       setTextOl(res.filter((onu: any) => onu.includes("LOS")));
-  //       setText(response.replace(//g, ""));
-  //       socket.disconnect();
+    // Handle "chat message" event
+    socket.on("telnet response", (response) => {
+      const res = response.replace(//g, "");
+      setText(res);
+      socket.disconnect();
 
-  //       // Do something with the received data in the frontend
-  //     });
-
-  //     socket.emit("connectTelnet", {
-  //       ip: selected.ip,
-  //       command: `show gpon onu state gpon-olt_${pon}`,
-  //       //command: `show clock`,
-  //     });
-
-  //     // Disconnect from the server
-  //   }
-  //   if (openTab == "Aferir CTO") {
-  //     setText("");
-  //   }
-  // };
+      // Do something with the received data in the frontend
+    });
+    if (!todos) {
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show gpon onu detail-info gpon-onu_${ont}`,
+        //command: `show clock`,
+      });
+    } else {
+      const all = todos.map((el) => `show gpon onu detail-info gpon-onu_${el}`);
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show gpon onu detail-info gpon-onu_${ont}`,
+        //command: `show clock`,
+      });
+    }
+  };
 
   const onSubmit = ({ pon }: any) => {
     setIdLivre([]);
     if (openTab == "Verificar posição livre") {
-      const response = `\
-show gpon onu state gpon-olt_1/2/1
-OnuIndex   Admin State  OMCC State  Phase State  Channel
---------------------------------------------------------------
-1/2/1:1     enable       disable     OffLine      1(GPON)
-1/2/1:2     enable       disable     OffLine      1(GPON)
-1/2/1:3     enable       disable     OffLine      1(GPON)
-1/2/1:4     enable       enable      working      1(GPON)
-1/2/1:5     enable       disable     LOS          1(GPON)
-1/2/1:6     enable       enable      working      1(GPON)
-1/2/1:7     enable       enable      working      1(GPON)
-1/2/1:8     enable       enable      working      1(GPON)
-1/2/1:9     enable       enable      working      1(GPON)
-1/2/1:10    enable       enable      working      1(GPON)
-1/2/1:11    enable       enable      working      1(GPON)
-1/2/1:12    enable       enable      working      1(GPON)
-1/2/1:13    enable       enable      working      1(GPON)
-1/2/1:14    enable       disable     OffLine      1(GPON)
-1/2/1:15    enable       enable      working      1(GPON)
-1/2/1:16    enable       enable      working      1(GPON)
-1/2/1:17    enable       enable      working      1(GPON)
-1/2/1:18    enable       disable     OffLine      1(GPON)
-1/2/1:19    enable       enable      working      1(GPON)
-1/2/1:20    enable       enable      working      1(GPON)
-1/2/1:21    enable       enable      working      1(GPON)
-1/2/1:22    enable       enable      working      1(GPON)
-1/2/1:23    enable       disable     DyingGasp    1(GPON)
-1/2/1:24    enable       enable      working      1(GPON)
-1/2/1:25    enable       enable      working      1(GPON)
-1/2/1:26    enable       enable      working      1(GPON)
-1/2/1:27    enable       enable      working      1(GPON)
-1/2/1:28    enable       enable      working      1(GPON)
-1/2/1:29    enable       enable      working      1(GPON)
-1/2/1:30    enable       enable      working      1(GPON)
-1/2/1:31    enable       enable      working      1(GPON)
-1/2/1:32    enable       enable      working      1(GPON)
-1/2/1:33    enable       enable      working      1(GPON)
-1/2/1:34    enable       disable     LOS          1(GPON)
-1/2/1:35    enable       disable     DyingGasp    1(GPON)
-1/2/1:37    enable       disable     OffLine      1(GPON)
-1/2/1:38    enable       enable      working      1(GPON)
-1/2/1:52    enable       disable     OffLine      1(GPON)
-1/2/1:53    enable       enable      working      1(GPON)
-1/2/1:101   enable       disable     OffLine      1(GPON)
-ONU Number: 28/40
-OLT_POP_SAGUACU`;
-      const res = response.split("\n");
-      const toMatch = res.filter((el) => el.includes("ONU Number"));
-      const onuTotal = res.filter((el) => el.includes(`${pon}:`));
-      const startString = "ONU Number: ";
+      const socket = io("http://localhost:3001");
 
-      // Create a regular expression pattern using the start and end strings
-      const pattern = `${startString}(.*)`;
+      // Handle connection event
+      socket.on("connect", () => {
+        console.log("Connected to the server");
+      });
 
-      // Execute the regular expression and retrieve the captured substring
-      const match = toMatch[0].match(new RegExp(pattern));
-      if (match && match.length > 1) {
-        const capturedSubstring = match[1];
-        console.log(`${pon}:`);
-        setQuantidadeOnu(capturedSubstring);
-      }
-      setOnuDown(res.filter((onu: any) => !onu.includes("working")));
-      setOnuDyingGasp(res.filter((onu: any) => onu.includes("DyingGasp")));
-      setOnuOff(res.filter((onu: any) => onu.includes("OffLine")));
-      setOnuLos(res.filter((onu: any) => onu.includes("LOS")));
-      setText(onuTotal.join("\n"));
+      // Handle disconnection event
+      socket.on("disconnect", () => {
+        console.log("Disconnected from the server");
+      });
 
-      for (let i = 1; i <= 128; i++) {
-        const idToCheck = `${pon}:${i} `;
-        const verify = response.includes(idToCheck);
-        if (verify) {
-          console.log(`${idToCheck} exists in onuTotal array.`);
-        } else {
-          setIdLivre((prevState) => [...prevState, i]);
-          console.log(`${idToCheck} does not exist in onuTotal array.`);
+      // Handle "chat message" event
+      socket.on("telnet response", (response) => {
+        const res = response.replace(//g, "").split("\n");
+        const toMatch = res.filter((el: any) => el.includes("ONU Number"));
+        const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
+        const startString = "ONU Number: ";
+        const teste = res
+          .filter((onu: any) => onu.includes("OffLine"))
+          .map((el: any) => el.split(" ")[0]);
+        console.log(teste);
+        // Create a regular expression pattern using the start and end strings
+        const pattern = `${startString}(.*)`;
+
+        // Execute the regular expression and retrieve the captured substring
+        const match = toMatch[0].match(new RegExp(pattern));
+        if (match && match.length > 1) {
+          const capturedSubstring = match[1];
+          console.log(`${pon}:`);
+          setQuantidadeOnu(capturedSubstring);
         }
-      }
+        setOnuDown(
+          res
+            .filter((onu: any) => !onu.includes("working"))
+            .map((el: any) => el.split(" ")[0])
+        );
+        setOnuDyingGasp(
+          res
+            .filter((onu: any) => onu.includes("DyingGasp"))
+            .map((el: any) => el.split(" ")[0])
+        );
+        setOnuOff(
+          res
+            .filter((onu: any) => onu.includes("OffLine"))
+            .map((el: any) => el.split(" ")[0])
+        );
+        setOnuLos(
+          res
+            .filter((onu: any) => onu.includes("LOS"))
+            .map((el: any) => el.split(" ")[0])
+        );
+        setText(onuTotal.join("\n"));
+
+        for (let i = 1; i <= 128; i++) {
+          const idToCheck = `${pon}:${i} `;
+          const verify = response.includes(idToCheck);
+          if (verify) {
+          } else {
+            setIdLivre((prevState) => [...prevState, i]);
+          }
+        }
+        socket.disconnect();
+
+        // Do something with the received data in the frontend
+      });
+
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show gpon onu state gpon-olt_${pon}`,
+        //command: `show clock`,
+      });
+
+      // Disconnect from the server
     }
     if (openTab == "Aferir CTO") {
       setText("");
@@ -192,71 +189,131 @@ OLT_POP_SAGUACU`;
             </TabHead>
           ))}
         </TabBody>
-        <div className="grid lg:grid-cols-3">
-          <form
-            className="p-4 space-y-1 row-span-2"
-            onSubmit={handleSubmit(onSubmit)}
-            autoComplete="off"
-          >
-            <ComboboxInput
-              id="olt"
-              selected={selected}
-              onChange={setSelected}
-              label="OLT"
-              placeHolder="Selecione a OLT"
-              oltCompanyArray={olts}
-            />
-            <Input
-              label="PON"
-              placeholder="x/x/x"
-              id="pon"
-              register={register}
-              required
-            />
-            <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
-              <button type="submit" className="flex w-full justify-center ">
-                GERAR
-              </button>
-            </div>
-          </form>
+        <div className="grid lg:grid-cols-4">
+          <div>
+            <form
+              className="p-4 space-y-1 row-span-2"
+              onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off"
+            >
+              <ComboboxInput
+                id="olt"
+                selected={selected}
+                onChange={setSelected}
+                label="OLT"
+                placeHolder="Selecione a OLT"
+                oltCompanyArray={olts}
+              />
+              <Input
+                label="PON"
+                placeholder="x/x/x"
+                id="pon"
+                register={register}
+                required
+              />
+              <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
+                <button type="submit" className="flex w-full justify-center ">
+                  GERAR
+                </button>
+              </div>
+            </form>
+            {openTab == "Verificar posição livre" && (
+              <div className="bg-gray-900 bg-opacity-60 rounded-xl py-2 m-4">
+                <div className="m-4 ">
+                  <h1 className="text-gray-300 text-md font-bold">
+                    INFORMAÇÕES DA PON
+                  </h1>
+                  <div className="mt-4">
+                    <p className="text-gray-300">
+                      ONTs configuradas: {quantidadeOnu}
+                    </p>
+                    <p className="text-gray-300">
+                      Quantidade DOWN: {onuDown?.length}
+                    </p>
+                    <p className="text-gray-300">
+                      Equipamentos em LOS: {onuLos?.length}
+                    </p>
+                    <p className="text-gray-300">
+                      Equipamentos em DYINGGASP: {onuDyingGasp?.length}
+                    </p>
+                    <p className="text-gray-300">
+                      Equipamentos OFFLINE: {onuOff?.length}
+                    </p>
+                  </div>
+                </div>
+                <div className="m-4">
+                  <h1 className="text-gray-300 text-xl font-bold">ID Livres</h1>
+                  <div className="mt-4">
+                    <p className="text-gray-300">{idLivre?.join(" // ")}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           {openTab == "Verificar posição livre" && (
             <>
-              <div className="mt-4">
-                <h1 className="text-gray-300 text-xl font-bold">
-                  INFORMAÇÕES DA PON
+              <div className="my-2">
+                <h1 className="text-gray-300 text-xl font-bold text-center">
+                  DETAIL DAS ONUS OFFLINE
                 </h1>
-                <p className="text-gray-300">
-                  Quantidade de equipamentos: {quantidadeOnu}
-                </p>
-                <p className="text-gray-300">
-                  Quantidade DOWN: {onuDown?.length}
-                </p>
-                <p className="text-gray-300">
-                  Equipamentos em LOS: {onuLos?.length}
-                </p>
-                <p className="text-gray-300">
-                  Equipamentos em DYINGGASP: {onuDyingGasp?.length}
-                </p>
-                <p className="text-gray-300">
-                  Equipamentos OFFLINE: {onuOff?.length}
-                </p>
-              </div>
-              <div className="mt-4">
-                <h1 className="text-gray-300 text-xl font-bold">ID Livres</h1>
-                <p className="text-gray-300">{idLivre?.join(" // ")}</p>
+                <div className="flex flex-col gap-1 m-4">
+                  {onuOff?.map((onu: any) => (
+                    <>
+                      <button
+                        key={onu}
+                        onClick={() => onDetail(onu)}
+                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                      >
+                        {onu}
+                      </button>
+                    </>
+                  ))}
+                  <button className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md">
+                    TODOS
+                  </button>
+                </div>
               </div>
               <div className="my-2">
-                <h1 className="text-gray-300">DETAIL DAS ONUS DOWN</h1>
-                <p className="text-gray-300">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Tempora eos delectus soluta expedita eligendi dolore debitis.
-                  Dicta, libero magnam excepturi sequi, voluptatum ullam
-                  quibusdam blanditiis optio eaque nulla numquam vero?
-                </p>
+                <h1 className="text-gray-300 text-xl font-bold text-center">
+                  DETAIL DAS ONUS EM LOS
+                </h1>
+                <div className="flex flex-col gap-1 m-4">
+                  {onuLos?.map((onu: any) => (
+                    <>
+                      <button
+                        key={onu}
+                        onClick={() => onDetail(onu)}
+                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                      >
+                        {onu}
+                      </button>
+                    </>
+                  ))}
+                  <button className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md">
+                    TODOS
+                  </button>
+                </div>
               </div>
               <div className="my-2">
-                <h1 className="text-gray-300">DETAIL DAS ONUS EM LOS</h1>
-                <p className="text-gray-300">ONU em LOS: </p>
+                <h1 className="text-gray-300 text-xl font-bold text-center">
+                  DETAIL DAS ONUS EM DYINGGASP
+                </h1>
+                <div className="flex flex-col gap-1 m-4">
+                  {onuDyingGasp?.map((onu: any) => (
+                    <>
+                      <button
+                        key={onu}
+                        onClick={() => onDetail(onu)}
+                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                      >
+                        {onu}
+                      </button>
+                    </>
+                  ))}
+                  <button className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md">
+                    TODOS
+                  </button>
+                </div>
               </div>
             </>
           )}
