@@ -27,15 +27,13 @@ const PonVerificationForm = ({
   const [openTab, setOpenTab] = useState("Verificar posição livre");
   const [text, setText] = useState<string>();
   const [quantidadeOnu, setQuantidadeOnu] = useState<string>();
-  const [textPl, setTextPl] = useState<number>();
   const [idLivre, setIdLivre] = useState<number[]>([]);
-  const [onuDown, setOnuDown] = useState<string[]>();
-  const [onuLos, setOnuLos] = useState<string[]>();
-  const [onuDyingGasp, setOnuDyingGasp] = useState<string[]>();
-  const [onuOff, setOnuOff] = useState<string[]>();
+  const [onuDown, setOnuDown] = useState<string[]>([]);
+  const [onuLos, setOnuLos] = useState<string[]>([]);
+  const [onuDyingGasp, setOnuDyingGasp] = useState<string[]>([]);
+  const [onuOff, setOnuOff] = useState<string[]>([]);
 
   const [selected, setSelected] = useState<any>();
-  const [query, setQuery] = useState("");
 
   const session = useSession();
   const router = useRouter();
@@ -55,6 +53,7 @@ const PonVerificationForm = ({
   } = useForm();
 
   const onDetail = (ont: any, todos?: boolean) => {
+    setText("");
     const socket = io("http://localhost:3001");
 
     // Handle connection event
@@ -68,31 +67,35 @@ const PonVerificationForm = ({
     });
 
     // Handle "chat message" event
-    socket.on("telnet response", (response) => {
+    socket.on("multipleResponses", (response) => {
+      console.log(response);
       const res = response.replace(//g, "");
-      setText(res);
-      socket.disconnect();
-
-      // Do something with the received data in the frontend
+      setText((prev) => prev + res);
+      let i = 0;
+      if (todos) {
+        if (i == ont.length) {
+          socket.disconnect();
+        }
+        i++;
+      }
     });
     if (!todos) {
       socket.emit("connectTelnet", {
         ip: selected.ip,
         command: `show gpon onu detail-info gpon-onu_${ont}`,
-        //command: `show clock`,
       });
     } else {
-      for (let i = 0; i < ont.length; i++) {
-        socket.emit("connectTelnet", {
-          ip: selected.ip,
-          command: `show gpon onu detail-info gpon-onu_${ont}`,
-          //command: `show clock`,
-        });
-      }
+      socket.emit("multipleCommands", {
+        ip: selected.ip,
+        commands: ont.map(
+          (el: any) => `show gpon onu detail-info gpon-onu_${el}`
+        ),
+      });
     }
   };
 
   const onSubmit = ({ pon }: any) => {
+    setText("");
     setIdLivre([]);
     if (openTab == "Verificar posição livre") {
       const socket = io("http://localhost:3001");
@@ -113,41 +116,40 @@ const PonVerificationForm = ({
         const toMatch = res.filter((el: any) => el.includes("ONU Number"));
         const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
         const startString = "ONU Number: ";
-        const teste = res
-          .filter((onu: any) => onu.includes("OffLine"))
-          .map((el: any) => el.split(" ")[0]);
-        console.log(teste);
+
         // Create a regular expression pattern using the start and end strings
         const pattern = `${startString}(.*)`;
 
         // Execute the regular expression and retrieve the captured substring
-        const match = toMatch[0].match(new RegExp(pattern));
+        const match = toMatch[0]?.match(new RegExp(pattern));
         if (match && match.length > 1) {
           const capturedSubstring = match[1];
-          console.log(`${pon}:`);
           setQuantidadeOnu(capturedSubstring);
         }
-        setOnuDown(
-          res
-            .filter((onu: any) => !onu.includes("working"))
-            .map((el: any) => el.split(" ")[0])
-        );
+        const include = (value: any, find: any, not?: boolean) => {
+          return value
+            .filter((onu: any) =>
+              not ? !onu.includes(find) : onu.includes(find)
+            )
+            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0]);
+        };
+        setOnuDown(include(onuTotal, "working", true));
         setOnuDyingGasp(
-          res
+          onuTotal
             .filter((onu: any) => onu.includes("DyingGasp"))
-            .map((el: any) => el.split(" ")[0])
+            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0])
         );
         setOnuOff(
-          res
+          onuTotal
             .filter((onu: any) => onu.includes("OffLine"))
-            .map((el: any) => el.split(" ")[0])
+            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0])
         );
         setOnuLos(
-          res
+          onuTotal
             .filter((onu: any) => onu.includes("LOS"))
-            .map((el: any) => el.split(" ")[0])
+            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0])
         );
-        setText(onuTotal.join("\n"));
+        setText(onuTotal);
 
         for (let i = 1; i <= 128; i++) {
           const idToCheck = `${pon}:${i} `;
@@ -177,7 +179,7 @@ const PonVerificationForm = ({
 
   return (
     <>
-      <div className="container bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl">
+      <div className="container relative bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl z-20">
         <TabBody>
           {tabNames.map((tab) => (
             <TabHead
@@ -212,8 +214,11 @@ const PonVerificationForm = ({
                 register={register}
                 required
               />
-              <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
-                <button type="submit" className="flex w-full justify-center ">
+              <div className="w-full ">
+                <button
+                  type="submit"
+                  className="flex w-full justify-center py-2 px-3 rounded-md border border-gray-900 bg-gray-900  text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none"
+                >
                   GERAR
                 </button>
               </div>
@@ -222,7 +227,7 @@ const PonVerificationForm = ({
               <div className="bg-gray-900 bg-opacity-60 rounded-xl py-2 m-4">
                 <div className="m-4 ">
                   <h1 className="text-gray-300 text-md font-bold">
-                    INFORMAÇÕES DA PON
+                    INFORMAÇÕES
                   </h1>
                   <div className="mt-4">
                     <p className="text-gray-300">
@@ -255,7 +260,7 @@ const PonVerificationForm = ({
             <>
               <div className="my-2">
                 <h1 className="text-gray-300 text-xl font-bold text-center">
-                  DETAIL DAS ONUS OFFLINE
+                  DETAIL OFFLINE
                 </h1>
                 <div className="flex flex-col gap-1 m-4">
                   {onuOff?.map((onu: any) => (
@@ -269,14 +274,17 @@ const PonVerificationForm = ({
                       </button>
                     </>
                   ))}
-                  <button className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md">
+                  <button
+                    onClick={() => onDetail(onuOff, true)}
+                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                  >
                     TODOS
                   </button>
                 </div>
               </div>
               <div className="my-2">
                 <h1 className="text-gray-300 text-xl font-bold text-center">
-                  DETAIL DAS ONUS EM LOS
+                  DETAIL LOS
                 </h1>
                 <div className="flex flex-col gap-1 m-4">
                   {onuLos?.map((onu: any) => (
@@ -300,7 +308,7 @@ const PonVerificationForm = ({
               </div>
               <div className="my-2">
                 <h1 className="text-gray-300 text-xl font-bold text-center">
-                  DETAIL DAS ONUS EM DYINGGASP
+                  DETAIL DYINGGASP
                 </h1>
                 <div className="flex flex-col gap-1 m-4">
                   {onuDyingGasp?.map((onu: any) => (
@@ -314,7 +322,10 @@ const PonVerificationForm = ({
                       </button>
                     </>
                   ))}
-                  <button className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md">
+                  <button
+                    onClick={() => onDetail(onuDyingGasp, true)}
+                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                  >
                     TODOS
                   </button>
                 </div>
@@ -336,8 +347,11 @@ const PonVerificationForm = ({
           )}
         </div>
       </div>
-      <div className="container mt-2 p-4 text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl whitespace-pre-line">
-        {text}
+      <div className="flex justify-center">
+        <textarea
+          value={text}
+          className="container mt-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl whitespace-pre-line"
+        />
       </div>
     </>
   );

@@ -242,6 +242,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                 href={item.href}
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
                                 target="_blank"
+                                rel="noreferrer"
                               >
                                 <item.icon
                                   className="h-6 w-6 flex-shrink-0 text-indigo-200"
@@ -528,6 +529,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     href={item.href}
                                     className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
                                     target="_blank"
+                                    rel="noreferrer"
                                   >
                                     <item.icon
                                       className="h-6 w-6 flex-shrink-0 text-white"
@@ -615,6 +617,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     href={item.link}
                                     className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
                                     target="_blank"
+                                    rel="noreferrer"
                                   >
                                     <TableCellsIcon
                                       className="h-6 w-6 flex-shrink-0 text-white"
