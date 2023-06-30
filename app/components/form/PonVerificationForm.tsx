@@ -56,7 +56,7 @@ const PonVerificationForm = ({
 
   const onDetail = (ont: any, todos?: boolean) => {
     setText("");
-    const socket = io("http://127.0.0.1:3001");
+    const socket = io("http://localhost:3001");
 
     // Handle connection event
     socket.on("connect", () => {
