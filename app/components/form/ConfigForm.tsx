@@ -513,7 +513,7 @@ function ConfigForm({
                   <ControlledInputConfig
                     name="intelbrasModel"
                     control={control}
-                    array={ontType}
+                    array={intelbrasModel}
                   />
                 </div>
               )}

@@ -32,7 +32,7 @@ interface gpon-olt_${pon}
 onu ${id} type ZTE-F601 sn ${sn}
 !
 interface gpon-onu_${pon}:${id}
-description ${name}
+description ${client}
 tcont 2 name Tcont100M profile OT
 gemport 1 name Gemport1 unicast tcont 2 dir both queue 1
 switchport mode trunk vport 1

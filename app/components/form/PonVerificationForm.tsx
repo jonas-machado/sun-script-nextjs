@@ -25,8 +25,8 @@ const PonVerificationForm = ({
   oltDatacomData,
 }: ConfigProps) => {
   const [openTab, setOpenTab] = useState("Verificar posição livre");
-  const [text, setText] = useState<string>();
-  const [quantidadeOnu, setQuantidadeOnu] = useState<string>();
+  const [text, setText] = useState<string>("");
+  const [quantidadeOnu, setQuantidadeOnu] = useState<string>("");
   const [idLivre, setIdLivre] = useState<number[]>([]);
   const [onuDown, setOnuDown] = useState<string[]>([]);
   const [onuLos, setOnuLos] = useState<string[]>([]);
@@ -52,6 +52,8 @@ const PonVerificationForm = ({
     formState: { errors },
   } = useForm();
 
+  let i = 0;
+
   const onDetail = (ont: any, todos?: boolean) => {
     setText("");
     const socket = io("http://localhost:3001");
@@ -71,7 +73,6 @@ const PonVerificationForm = ({
       console.log(response);
       const res = response.replace(//g, "");
       setText((prev) => prev + res);
-      let i = 0;
       if (todos) {
         if (i == ont.length) {
           socket.disconnect();
@@ -134,21 +135,9 @@ const PonVerificationForm = ({
             .map((el: any) => el.split(" ").filter((str: any) => str != "")[0]);
         };
         setOnuDown(include(onuTotal, "working", true));
-        setOnuDyingGasp(
-          onuTotal
-            .filter((onu: any) => onu.includes("DyingGasp"))
-            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0])
-        );
-        setOnuOff(
-          onuTotal
-            .filter((onu: any) => onu.includes("OffLine"))
-            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0])
-        );
-        setOnuLos(
-          onuTotal
-            .filter((onu: any) => onu.includes("LOS"))
-            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0])
-        );
+        setOnuDyingGasp(include(onuTotal, "DyingGasp"));
+        setOnuOff(include(onuTotal, "OffLine"));
+        setOnuLos(include(onuTotal, "LOS"));
         setText(onuTotal);
 
         for (let i = 1; i <= 128; i++) {
@@ -160,17 +149,12 @@ const PonVerificationForm = ({
           }
         }
         socket.disconnect();
-
-        // Do something with the received data in the frontend
       });
 
       socket.emit("connectTelnet", {
         ip: selected.ip,
         command: `show gpon onu state gpon-olt_${pon}`,
-        //command: `show clock`,
       });
-
-      // Disconnect from the server
     }
     if (openTab == "Aferir CTO") {
       setText("");
