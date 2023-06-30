@@ -52,11 +52,11 @@ const PonVerificationForm = ({
     formState: { errors },
   } = useForm();
 
-  let i = 0;
+  let i = 1;
 
   const onDetail = (ont: any, todos?: boolean) => {
     setText("");
-    const socket = io("http://localhost:3001");
+    const socket = io("http://127.0.0.1:3001");
 
     // Handle connection event
     socket.on("connect", () => {
@@ -69,7 +69,7 @@ const PonVerificationForm = ({
     });
 
     // Handle "chat message" event
-    socket.on("multipleResponses", (response) => {
+    socket.on("telnet response", (response) => {
       console.log(response);
       const res = response.replace(//g, "");
       setText((prev) => prev + res);
@@ -138,7 +138,7 @@ const PonVerificationForm = ({
         setOnuDyingGasp(include(onuTotal, "DyingGasp"));
         setOnuOff(include(onuTotal, "OffLine"));
         setOnuLos(include(onuTotal, "LOS"));
-        setText(onuTotal);
+        setText(onuTotal.join("\n"));
 
         for (let i = 1; i <= 128; i++) {
           const idToCheck = `${pon}:${i} `;
