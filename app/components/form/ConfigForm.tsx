@@ -43,6 +43,7 @@ interface selectedType {
   olt: string;
   updatedAt: any;
   vlan: number;
+  brand: string;
 }
 
 interface ConfigProps {
