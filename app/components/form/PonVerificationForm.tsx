@@ -38,7 +38,7 @@ const PonVerificationForm = ({
   const session = useSession();
   const router = useRouter();
 
-  const olts = oltZteChimaData.concat(oltIntelbrasData, oltDatacomData);
+  const olts = oltZteChimaData.concat(oltDatacomData);
 
   useEffect(() => {
     if (session?.status == "unauthenticated") {
@@ -127,12 +127,37 @@ const PonVerificationForm = ({
           const capturedSubstring = match[1];
           setQuantidadeOnu(capturedSubstring);
         }
+
+        const exception = [
+          "BS02",
+          "ITAPOA",
+          "ITINGA",
+          "MIRANDA",
+          "ITACOLOMI",
+          "VILA NOVA",
+        ];
         const include = (value: any, find: any, not?: boolean) => {
-          return value
-            .filter((onu: any) =>
-              not ? !onu.includes(find) : onu.includes(find)
-            )
-            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0]);
+          if (exception.includes(selected.olt)) {
+            return value
+              .filter((onu: any) =>
+                not ? !onu.includes(find) : onu.includes(find)
+              )
+              .map(
+                (el: any) =>
+                  el
+                    .split(" ")
+                    .filter((str: any) => str != "")[0]
+                    .split("_")[1]
+              );
+          } else {
+            return value
+              .filter((onu: any) =>
+                not ? !onu.includes(find) : onu.includes(find)
+              )
+              .map(
+                (el: any) => el.split(" ").filter((str: any) => str != "")[0]
+              );
+          }
         };
         setOnuDown(include(onuTotal, "working", true));
         setOnuDyingGasp(include(onuTotal, "DyingGasp"));
@@ -333,6 +358,7 @@ const PonVerificationForm = ({
       </div>
       <div className="flex justify-center">
         <textarea
+          readOnly
           value={text}
           className="container mt-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl whitespace-pre-line"
         />

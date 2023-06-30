@@ -60,29 +60,12 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model OltZteChima {
+model Olt {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   olt       String
   vlan      Int?
   ip        String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model OltIntelbras {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  olt       String
-  vlan      Int?
-  ip        String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model OltDatacom {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  olt       String
-  vlan      Int?
-  ip        String   @unique
+  brand     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

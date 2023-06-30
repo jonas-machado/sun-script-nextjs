@@ -47,17 +47,10 @@ interface selectedType {
 
 interface ConfigProps {
   currentUser?: User | null;
-  oltZteChimaData: any;
-  oltIntelbrasData: any;
-  oltDatacomData: any;
+  olt: any;
 }
 
-function ConfigForm({
-  currentUser,
-  oltZteChimaData,
-  oltIntelbrasData,
-  oltDatacomData,
-}: ConfigProps) {
+function ConfigForm({ currentUser, olt }: ConfigProps) {
   const session = useSession();
   const router = useRouter();
 
@@ -104,18 +97,20 @@ function ConfigForm({
   useEffect(() => {
     if (selectedRadio.name == "ZTE/ITBS" && sn) {
       if (sn.length > 8) {
-        setOltCompanyArray(oltZteChimaData);
+        setOltCompanyArray(olt.filter((olt: any) => olt.brand == "ZTE"));
         setOltCompany("ZTE");
       } else {
-        setOltCompanyArray(oltIntelbrasData);
+        setOltCompanyArray(
+          olt.filter((olt: any) => olt.brand.includes("INTELBRAS"))
+        );
         setOltCompany("Intelbras");
       }
     }
     if (selectedRadio.name == "Datacom" && sn) {
-      setOltCompanyArray(oltDatacomData);
+      setOltCompanyArray(olt.filter((olt: any) => olt.brand == "DATACOM"));
       setOltCompany("Datacom");
     }
-  }, [sn, selectedRadio, oltDatacomData, oltIntelbrasData, oltZteChimaData]);
+  }, [sn, selectedRadio, olt]);
 
   const handleVlan = (pon: string, vlan?: number, customVlan?: number) => {
     if (vlan && !customVlan) {
@@ -250,7 +245,7 @@ function ConfigForm({
 
     setpppoeText(pppoeText(clientPPPoE).join("\n"));
     setpppoeText2(pppoeText2(clientPPPoE).join("\n"));
-    if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "ZTE") {
+    if (selectedRadio.name == "ZTE/ITBS" && olt.brand == "ZTE") {
       setCadastroText(
         cadastro(comando(pon, idLivre, "ZTE"), currentUser, selected, sn)
       );
@@ -387,8 +382,10 @@ function ConfigForm({
           );
       }
     }
-
-    if (selectedRadio.name == "ZTE/ITBS" && oltCompany == "Intelbras") {
+    if (
+      selectedRadio.name == "ZTE/ITBS" &&
+      selected?.brand.includes("INTELBRAS")
+    ) {
       switch (selected?.olt) {
         case "ERVINO":
           setCadastroText(
@@ -434,7 +431,7 @@ function ConfigForm({
       }
     }
 
-    if (selectedRadio.name == "Datacom" && oltCompany == "Datacom") {
+    if (selectedRadio.name == "Datacom" && selected?.brand == "DATACOM") {
       setCadastroText(
         cadastro(comando(pon, idLivre, "Datacom"), currentUser, selected, sn)
       );
@@ -462,6 +459,7 @@ function ConfigForm({
       }
     }
   };
+  console.log(selected);
 
   return (
     <div>
@@ -503,24 +501,25 @@ function ConfigForm({
                 placeHolder="Selecione a OLT"
                 oltCompanyArray={oltCompanyArray}
                 className={
-                  oltCompany == "Intelbras" &&
-                  selected?.olt != "ERVINO" &&
-                  "lg:rounded-r-none"
+                  selected?.brand == "INTELBRAS I" && "lg:rounded-r-none"
                 }
               />
-              {oltCompany == "Intelbras" && selected?.olt != "ERVINO" && (
-                <div className="flex w-full lg:w-[8rem]">
-                  <ControlledInputConfig
-                    name="intelbrasModel"
-                    control={control}
-                    array={intelbrasModel}
-                  />
-                </div>
-              )}
+              {oltCompany == "Intelbras" &&
+                selected?.brand != "INTELBRAS I" && (
+                  <div className="flex w-full lg:w-[8rem]">
+                    <ControlledInputConfig
+                      name="intelbrasModel"
+                      control={control}
+                      array={intelbrasModel}
+                    />
+                  </div>
+                )}
             </div>
             <Input
               label="PON"
-              placeholder={oltCompany == "Intelbras" ? "0" : "0/0/0"}
+              placeholder={
+                selected?.brand.includes("INTELBRAS") ? "0" : "0/0/0"
+              }
               id="pon"
               register={register}
               required
@@ -532,7 +531,7 @@ function ConfigForm({
               register={register}
               required
             />
-            {selected?.olt == "ERVINO" && oltCompany == "Intelbras" && (
+            {selected?.brand == "INTELBRAS I" && (
               <>
                 <Input
                   label="ID Onu"

@@ -10,16 +10,11 @@ import MotionPage from "@/app/lib/motionPage";
 
 export default async function ConfigPage() {
   const currentUser = await getCurrentUser();
-  const { oltZteChimaData, oltIntelbrasData, oltDatacomData } = await getOlt();
+  const { olt } = await getOlt();
   return (
     <MotionPage>
       <div id="config" className="mx-auto w-11/12">
-        <ConfigForm
-          oltZteChimaData={oltZteChimaData}
-          oltIntelbrasData={oltIntelbrasData}
-          oltDatacomData={oltDatacomData}
-          currentUser={currentUser}
-        />
+        <ConfigForm olt={olt} currentUser={currentUser} />
       </div>
     </MotionPage>
   );
