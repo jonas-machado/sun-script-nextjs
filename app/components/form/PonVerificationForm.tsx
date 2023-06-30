@@ -14,16 +14,10 @@ import ComboboxInput from "../inputs/comboboxInput";
 const tabNames = ["Verificar posição livre", "Aferir CTO"];
 
 interface ConfigProps {
-  oltZteChimaData: any;
-  oltIntelbrasData: any;
-  oltDatacomData: any;
+  olt: any;
 }
 
-const PonVerificationForm = ({
-  oltZteChimaData,
-  oltIntelbrasData,
-  oltDatacomData,
-}: ConfigProps) => {
+const PonVerificationForm = ({ olt }: ConfigProps) => {
   const [openTab, setOpenTab] = useState("Verificar posição livre");
   const [text, setText] = useState<string>("");
   const [quantidadeOnu, setQuantidadeOnu] = useState<string>("");
@@ -38,7 +32,7 @@ const PonVerificationForm = ({
   const session = useSession();
   const router = useRouter();
 
-  const olts = oltZteChimaData.concat(oltDatacomData);
+  const olts = olt;
 
   useEffect(() => {
     if (session?.status == "unauthenticated") {
