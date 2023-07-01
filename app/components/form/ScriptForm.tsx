@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import TabBody from "@/app/components/tab/TabBody";
 import TabHead from "@/app/components/tab/TabHead";
-import { RadioGroup } from "@headlessui/react";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import TextAreaUseForm from "../inputs/textAreaLabelUseForm";
 import ControlledInput from "../inputs/controlledInput";
@@ -16,8 +15,6 @@ import { User } from "@prisma/client";
 import { tabScript } from "@/app/constants/tabScript";
 import { bases } from "@/app/constants/bases";
 import { sla } from "@/app/constants/sla";
-import PageWrapper from "@/app/lib/pageWrapper";
-import MotionPage from "@/app/lib/motionPage";
 import { AnimatePresence, motion } from "framer-motion";
 
 const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
@@ -43,17 +40,21 @@ const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
     formState: { errors },
   } = useForm();
 
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "inputs",
+  });
+
   const handleAddInput = () => {
-    setInputs([...inputs, ""]); // Add an empty input to the list
+    append({ input: "" });
   };
 
   const handleRemoveInput = (index: number) => {
-    const updatedInputs = [...inputs];
-    updatedInputs.splice(index, 1); // Remove the input at the specified index
-    setInputs(updatedInputs);
+    remove(index);
   };
 
   const onSubmit = (value: any) => {
+    console.log(value);
     if (openTab == "padraoEmail") {
       setText(`\
 Chamado aberto: ${value.base} ${value.client} - SLA ${value.sla}
@@ -78,11 +79,7 @@ ${currentUser?.name.split(" ").slice(0, 2).join(" ")}.
 Protocolo: ${value.protocol}
 Motivo: ${value.description}
 Cliente afetado: ${value.clientLost}
-${inputs.map(
-  (input, index) =>
-    `${value.cda[index]}
-${value.loc[index]}`
-)}
+${value.inputs.map((input: any) => `${input.cda}\n${input.loc}`).join("\n")}
 Chamado aberto: ${value.base} ${filtered[0].maintenance}
       `);
     }
@@ -111,8 +108,8 @@ Chamado aberto: ${value.base} ${filtered[0].maintenance}
               <motion.div
                 key={`email`}
                 className="flex flex-col gap-2"
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0.5, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
               >
                 <div>
@@ -167,8 +164,8 @@ Chamado aberto: ${value.base} ${filtered[0].maintenance}
               <motion.div
                 key={`manutencao`}
                 className="flex flex-col gap-2"
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0.5, y: -100 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
               >
                 <div>
@@ -198,20 +195,20 @@ Chamado aberto: ${value.base} ${filtered[0].maintenance}
                   register={register}
                   required
                 />
-                {inputs.map((input, index) => (
-                  <div key={index} className="flex gap-2 w-full">
+                {fields.map((field, index) => (
+                  <div key={field.id} className="flex gap-2 w-full">
                     <div className="flex flex-col gap-2 w-full">
                       <Input
                         label="CDA"
                         placeholder="PON, CDA e OLT"
-                        id={`cda${index}`}
+                        id={`inputs.${index}.cda`}
                         register={register}
                         required
                       />
                       <Input
                         label="LOCALIZAÇÃO"
                         placeholder="XX.XXXXXX,XX.XXXXXX"
-                        id={`loc${index}`}
+                        id={`inputs.${index}.loc`}
                         register={register}
                         required
                       />
