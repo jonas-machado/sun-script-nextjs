@@ -6,23 +6,23 @@ async function schedule() {
     data: [
       {
         company: "OT",
-        link: "https://docs.google.com/spreadsheets/d/1Pe0mZoDmXIAYkvECTKHY11KQflyoNFWNXGC7Ee8iA6M/edit#gid=1776649205",
-        month: 6,
+        link: "https://docs.google.com/spreadsheets/d/12C5yx6Wkj471-evPhYjHaDFTXDIyDVYyg8zKBUb1sgk/edit#gid=1776649205",
+        month: 7,
       },
       {
         company: "Atele",
-        link: "https://docs.google.com/spreadsheets/d/15ELh_dBry1yzodZL1NT2wB5dwAQY2HFTjsquJykJM-c/edit?usp=sharing",
-        month: 6,
+        link: "https://docs.google.com/spreadsheets/d/1vN-ad64X6Bs0ojh6xp9Iz7xxVRZzpaeTQh9__vUwF50/edit#gid=1776649205",
+        month: 7,
       },
       {
         company: "VOU",
-        link: "https://docs.google.com/spreadsheets/d/1JLVKJ_acu9NCiQ9PwxwTCQTvFKuedrp4m2u5mfrkOZo/edit#gid=1997288757",
-        month: 6,
+        link: "https://docs.google.com/spreadsheets/d/1wYefG6dVwKXuZFQQOlc0e6qAMHE7pG1ipM9w1xEZHqM/edit#gid=1997288757",
+        month: 7,
       },
       {
         company: "Xtele",
-        link: "https://docs.google.com/spreadsheets/d/1CXAD1PXYHQjy3ijLOn9Vr-wMX-sCNTeVo0MldhsdK74/edit#gid=676781342",
-        month: 6,
+        link: "https://docs.google.com/spreadsheets/d/1UfNm5w6qy_zdV_m9HPf7tpckQRnk48heMZlol1yU-xI/edit#gid=1444777065",
+        month: 7,
       },
     ],
   });
@@ -104,7 +104,7 @@ const update = async () => {
   });
 };
 
-update()
+schedule()
   .then(async () => {
     await prismadb.$disconnect();
   })
