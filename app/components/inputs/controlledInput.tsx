@@ -47,11 +47,6 @@ const ControlledInput = ({ name, control, array }: input) => {
                         <div className="w-full text-center">
                           <span className={`text-gray-300`}>{arr.name}</span>
                         </div>
-                        {checked && (
-                          <div className="shrink-0 absolute right-3 text-white">
-                            <CheckIcon className="h-6 w-6" />
-                          </div>
-                        )}
                       </div>
                     )}
                   </RadioGroup.Option>

@@ -246,7 +246,7 @@ function ConfigForm({ currentUser, olt }: ConfigProps) {
 
     setpppoeText(pppoeText(clientPPPoE).join("\n"));
     setpppoeText2(pppoeText2(clientPPPoE).join("\n"));
-    if (selectedRadio.name == "ZTE/ITBS" && olt.brand == "ZTE") {
+    if (selectedRadio.name == "ZTE/ITBS" && selected?.brand == "ZTE") {
       setCadastroText(
         cadastro(comando(pon, idLivre, "ZTE"), currentUser, selected, sn)
       );

@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import TabBody from "@/app/components/tab/TabBody";
 import TabHead from "@/app/components/tab/TabHead";
 import { RadioGroup } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import TextAreaUseForm from "../inputs/textAreaLabelUseForm";
 import ControlledInput from "../inputs/controlledInput";
 import Input from "@/app/components/inputs/inputLabelUseForm";
@@ -22,6 +22,8 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
+
+  const [inputs, setInputs] = useState([""]); // Initial input list with an empty input
 
   const [text, setText] = useState("");
 
@@ -40,28 +42,27 @@ const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = ({
-    base,
-    client,
-    protocol,
-    addres,
-    sla,
-    name,
-    tel,
-    description,
-    cda,
-    loc,
-    clientLost,
-  }: any) => {
+
+  const handleAddInput = () => {
+    setInputs([...inputs, ""]); // Add an empty input to the list
+  };
+
+  const handleRemoveInput = (index: number) => {
+    const updatedInputs = [...inputs];
+    updatedInputs.splice(index, 1); // Remove the input at the specified index
+    setInputs(updatedInputs);
+  };
+
+  const onSubmit = (value: any) => {
     if (openTab == "padraoEmail") {
       setText(`\
-Chamado aberto: ${base} ${client} - SLA ${sla}
+Chamado aberto: ${value.base} ${value.client} - SLA ${value.sla}
 
-Cliente: ${client}
-Protocolo: ${protocol}
-Endereço: ${addres}
-SLA: ${sla}
-Responsável pelo atendimmento: ${name} // ${tel}
+Cliente: ${value.client}
+Protocolo: ${value.protocol}
+Endereço: ${value.addres}
+SLA: ${value.sla}
+Responsável pelo atendimmento: ${value.name} // ${value.tel}
 
 Qualquer dúvida entrar em contato.
 Mais informações na O.S.
@@ -72,14 +73,17 @@ ${currentUser?.name.split(" ").slice(0, 2).join(" ")}.
       `);
     }
     if (openTab == "padraoManutencao") {
-      const filtered = bases.filter((bs: any) => bs.name.includes(base));
+      const filtered = bases.filter((bs: any) => bs.name.includes(value.base));
       setText(`\
-Protocolo: ${protocol}
-Motivo: ${description}
-Cliente afetado: ${clientLost}
-${cda}
-${loc}
-Chamado aberto: ${base} ${filtered[0].maintenance}
+Protocolo: ${value.protocol}
+Motivo: ${value.description}
+Cliente afetado: ${value.clientLost}
+${inputs.map(
+  (input, index) =>
+    `${value.cda[index]}
+${value.loc[index]}`
+)}
+Chamado aberto: ${value.base} ${filtered[0].maintenance}
       `);
     }
   };
@@ -194,20 +198,42 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
                   register={register}
                   required
                 />
-                <Input
-                  label="CDA"
-                  placeholder="PON, CDA e OLT"
-                  id="cda"
-                  register={register}
-                  required
-                />
-                <Input
-                  label="LOCALIZAÇÃO"
-                  placeholder="XX.XXXXXX,XX.XXXXXX"
-                  id="loc"
-                  register={register}
-                  required
-                />
+                {inputs.map((input, index) => (
+                  <div key={index} className="flex gap-2 w-full">
+                    <div className="flex flex-col gap-2 w-full">
+                      <Input
+                        label="CDA"
+                        placeholder="PON, CDA e OLT"
+                        id={`cda${index}`}
+                        register={register}
+                        required
+                      />
+                      <Input
+                        label="LOCALIZAÇÃO"
+                        placeholder="XX.XXXXXX,XX.XXXXXX"
+                        id={`loc${index}`}
+                        register={register}
+                        required
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => handleRemoveInput(index)}
+                      className="text-gray-300 flex items-center"
+                    >
+                      <XMarkIcon height={40} width={40} />
+                    </button>
+                  </div>
+                ))}
+                <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
+                  <button
+                    onClick={handleAddInput}
+                    type="button"
+                    className="flex w-full justify-center "
+                  >
+                    ADICIONAR CDA
+                  </button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

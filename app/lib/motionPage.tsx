@@ -16,7 +16,7 @@ export default function MotionPage({
       <motion.div
         className={className}
         key={id}
-        initial={{ opacity: 0, y: 200 }}
+        initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
