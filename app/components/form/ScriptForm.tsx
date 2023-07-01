@@ -18,7 +18,7 @@ import { bases } from "@/app/constants/bases";
 import { sla } from "@/app/constants/sla";
 import PageWrapper from "@/app/lib/pageWrapper";
 import MotionPage from "@/app/lib/motionPage";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
@@ -102,9 +102,15 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
           className="flex flex-col gap-2 p-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <PageWrapper>
+          <AnimatePresence mode="wait">
             {openTab == "padraoEmail" && (
-              <MotionPage id={openTab} className="flex flex-col gap-2">
+              <motion.div
+                key={`email`}
+                className="flex flex-col gap-2"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+              >
                 <div>
                   <ControlledInput
                     name="base"
@@ -151,10 +157,16 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
                   register={register}
                   required
                 />
-              </MotionPage>
+              </motion.div>
             )}
             {openTab == "padraoManutencao" && (
-              <MotionPage id={openTab} className="flex flex-col gap-2">
+              <motion.div
+                key={`manutencao`}
+                className="flex flex-col gap-2"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+              >
                 <div>
                   <ControlledInput
                     name="base"
@@ -196,10 +208,9 @@ Chamado aberto: ${base} ${filtered[0].maintenance}
                   register={register}
                   required
                 />
-              </MotionPage>
+              </motion.div>
             )}
-          </PageWrapper>
-
+          </AnimatePresence>
           <div className="w-full rounded-md border border-gray-900 bg-gray-900 py-2 px-3 text-sm font-medium leading-4 text-gray-200 shadow-sm hover:bg-gray-600 focus:outline-none">
             <button type="submit" className="flex w-full justify-center ">
               GERAR
