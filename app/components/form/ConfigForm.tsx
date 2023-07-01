@@ -228,21 +228,21 @@ function ConfigForm({ currentUser, olt }: ConfigProps) {
       .trim()
       .split(" ");
 
-    // axios
-    //   .post("/api/configManual", {
-    //     onutype: ontType,
-    //     serial: sn,
-    //     olt: selected?.olt,
-    //     pon,
-    //     idLivre,
-    //     idOnu,
-    //     customVlan,
-    //     cliente: client,
-    //     id: currentUser!.id,
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .post("/api/configManual", {
+        onutype: ontType,
+        serial: sn,
+        olt: selected?.olt,
+        pon,
+        idLivre,
+        idOnu,
+        customVlan,
+        cliente: client,
+        id: currentUser!.id,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     setpppoeText(pppoeText(clientPPPoE).join("\n"));
     setpppoeText2(pppoeText2(clientPPPoE).join("\n"));
@@ -460,7 +460,6 @@ function ConfigForm({ currentUser, olt }: ConfigProps) {
       }
     }
   };
-  console.log(selected);
 
   return (
     <div>
