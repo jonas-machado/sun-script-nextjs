@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import io from "socket.io-client";
 import ComboboxInput from "../inputs/comboboxInput";
+import { AnimatePresence, motion } from "framer-motion";
 //constants
 
 const tabNames = ["Verificar posição livre", "Aferir CTO"];
@@ -43,8 +44,20 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    reset();
+    setText("");
+    setQuantidadeOnu("");
+    setIdLivre([]);
+    setOnuDown([]);
+    setOnuLos([]);
+    setOnuDyingGasp([]);
+    setOnuOff([]);
+  }, [openTab]);
 
   let i = 1;
 
@@ -92,19 +105,23 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
   const onSubmit = ({ pon }: any) => {
     setText("");
     setIdLivre([]);
+    const socket = io("http://localhost:3001");
+
+    // Handle connection event
+    socket.on("connect", () => {
+      console.log("Connected to the server");
+    });
+
+    // Handle disconnection event
+    socket.on("disconnect", () => {
+      console.log("Disconnected from the server");
+    });
+
+    socket.emit("connectTelnet", {
+      ip: selected.ip,
+      command: `show gpon onu state gpon-olt_${pon}`,
+    });
     if (openTab == "Verificar posição livre") {
-      const socket = io("http://localhost:3001");
-
-      // Handle connection event
-      socket.on("connect", () => {
-        console.log("Connected to the server");
-      });
-
-      // Handle disconnection event
-      socket.on("disconnect", () => {
-        console.log("Disconnected from the server");
-      });
-
       // Handle "chat message" event
       socket.on("telnet response", (response) => {
         const res = response.replace(//g, "").split("\n");
@@ -169,14 +186,15 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
         }
         socket.disconnect();
       });
-
-      socket.emit("connectTelnet", {
-        ip: selected.ip,
-        command: `show gpon onu state gpon-olt_${pon}`,
-      });
     }
     if (openTab == "Aferir CTO") {
-      setText("");
+      socket.on("telnet response", (response) => {
+        const res = response.replace(//g, "").split("\n");
+        const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
+
+        setText(onuTotal.join("\n"));
+        socket.disconnect();
+      });
     }
   };
 
@@ -226,118 +244,139 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
                 </button>
               </div>
             </form>
-            {openTab == "Verificar posição livre" && (
-              <div className="bg-gray-900 bg-opacity-60 rounded-xl py-2 m-4">
-                <div className="m-4 ">
-                  <h1 className="text-gray-300 text-md font-bold">
-                    INFORMAÇÕES
-                  </h1>
-                  <div className="mt-4">
-                    <p className="text-gray-300">
-                      ONTs configuradas: {quantidadeOnu}
-                    </p>
-                    <p className="text-gray-300">
-                      Quantidade DOWN: {onuDown?.length}
-                    </p>
-                    <p className="text-gray-300">
-                      Equipamentos em LOS: {onuLos?.length}
-                    </p>
-                    <p className="text-gray-300">
-                      Equipamentos em DYINGGASP: {onuDyingGasp?.length}
-                    </p>
-                    <p className="text-gray-300">
-                      Equipamentos OFFLINE: {onuOff?.length}
-                    </p>
+            <AnimatePresence mode="wait">
+              {openTab == "Verificar posição livre" && (
+                <motion.div
+                  initial={{ opacity: 0.5, y: -100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="bg-gray-900 bg-opacity-60 rounded-xl py-2 m-4 mt-0"
+                >
+                  <div className="m-4 ">
+                    <h1 className="text-gray-300 text-md font-bold">
+                      INFORMAÇÕES
+                    </h1>
+                    <div className="mt-4">
+                      <p className="text-gray-300">
+                        ONTs configuradas: {quantidadeOnu}
+                      </p>
+                      <p className="text-gray-300">
+                        Quantidade DOWN: {onuDown?.length}
+                      </p>
+                      <p className="text-gray-300">
+                        Equipamentos em LOS: {onuLos?.length}
+                      </p>
+                      <p className="text-gray-300">
+                        Equipamentos em DYINGGASP: {onuDyingGasp?.length}
+                      </p>
+                      <p className="text-gray-300">
+                        Equipamentos OFFLINE: {onuOff?.length}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="m-4">
-                  <h1 className="text-gray-300 text-xl font-bold">ID Livres</h1>
-                  <div className="mt-4">
-                    <p className="text-gray-300">{idLivre?.join(" // ")}</p>
+                  <div className="m-4">
+                    <h1 className="text-gray-300 text-xl font-bold">
+                      ID Livres
+                    </h1>
+                    <div className="mt-4">
+                      <p className="text-gray-300">{idLivre?.join(" // ")}</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          {openTab == "Verificar posição livre" && (
-            <>
-              <div className="my-2">
-                <h1 className="text-gray-300 text-xl font-bold text-center">
-                  DETAIL OFFLINE
-                </h1>
-                <div className="flex flex-col gap-1 m-4">
-                  {onuOff?.map((onu: any) => (
-                    <>
-                      <button
-                        key={onu}
-                        onClick={() => onDetail(onu)}
-                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                      >
-                        {onu}
-                      </button>
-                    </>
-                  ))}
-                  <button
-                    onClick={() => onDetail(onuOff, true)}
-                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                  >
-                    TODOS
-                  </button>
+          <AnimatePresence mode="wait">
+            {openTab == "Verificar posição livre" && (
+              <motion.div
+                key={`pon`}
+                className="grid w-full col-span-3 grid-cols-3"
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <div className="my-2">
+                  <h1 className="text-gray-300 text-xl font-bold text-center">
+                    DETAIL OFFLINE
+                  </h1>
+                  <div className="flex flex-col gap-1 m-4">
+                    {onuOff?.map((onu: any) => (
+                      <>
+                        <button
+                          key={onu}
+                          onClick={() => onDetail(onu)}
+                          className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                        >
+                          {onu}
+                        </button>
+                      </>
+                    ))}
+                    <button
+                      onClick={() => onDetail(onuOff, true)}
+                      className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                    >
+                      TODOS
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="my-2">
-                <h1 className="text-gray-300 text-xl font-bold text-center">
-                  DETAIL LOS
-                </h1>
-                <div className="flex flex-col gap-1 m-4">
-                  {onuLos?.map((onu: any) => (
-                    <>
-                      <button
-                        key={onu}
-                        onClick={() => onDetail(onu)}
-                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                      >
-                        {onu}
-                      </button>
-                    </>
-                  ))}
-                  <button
-                    onClick={() => onDetail(onuLos, true)}
-                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                  >
-                    TODOS
-                  </button>
+                <div className="my-2">
+                  <h1 className="text-gray-300 text-xl font-bold text-center">
+                    DETAIL LOS
+                  </h1>
+                  <div className="flex flex-col gap-1 m-4">
+                    {onuLos?.map((onu: any) => (
+                      <>
+                        <button
+                          key={onu}
+                          onClick={() => onDetail(onu)}
+                          className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                        >
+                          {onu}
+                        </button>
+                      </>
+                    ))}
+                    <button
+                      onClick={() => onDetail(onuLos, true)}
+                      className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                    >
+                      TODOS
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <div className="my-2">
-                <h1 className="text-gray-300 text-xl font-bold text-center">
-                  DETAIL DYINGGASP
-                </h1>
-                <div className="flex flex-col gap-1 m-4">
-                  {onuDyingGasp?.map((onu: any) => (
-                    <>
-                      <button
-                        key={onu}
-                        onClick={() => onDetail(onu)}
-                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                      >
-                        {onu}
-                      </button>
-                    </>
-                  ))}
-                  <button
-                    onClick={() => onDetail(onuDyingGasp, true)}
-                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                  >
-                    TODOS
-                  </button>
+                <div className="my-2">
+                  <h1 className="text-gray-300 text-xl font-bold text-center">
+                    DETAIL DYINGGASP
+                  </h1>
+                  <div className="flex flex-col gap-1 m-4">
+                    {onuDyingGasp?.map((onu: any) => (
+                      <>
+                        <button
+                          key={onu}
+                          onClick={() => onDetail(onu)}
+                          className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                        >
+                          {onu}
+                        </button>
+                      </>
+                    ))}
+                    <button
+                      onClick={() => onDetail(onuDyingGasp, true)}
+                      className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                    >
+                      TODOS
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
-          {openTab == "Aferir CTO" && (
-            <>
-              <div className="mt-4 col-span-2">
+              </motion.div>
+            )}
+            {openTab == "Aferir CTO" && (
+              <motion.div
+                key={`cto`}
+                className="mt-4 col-span-2"
+                initial={{ opacity: 0.5 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
                 <h1 className="text-gray-300">ONU COM QUEDA RECENTEMENTE</h1>
                 <p className="text-gray-300">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -345,9 +384,9 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
                   Dicta, libero magnam excepturi sequi, voluptatum ullam
                   quibusdam blanditiis optio eaque nulla numquam vero?
                 </p>
-              </div>
-            </>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
       <div className="flex justify-center">

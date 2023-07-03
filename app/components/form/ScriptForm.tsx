@@ -20,8 +20,6 @@ import { AnimatePresence, motion } from "framer-motion";
 const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
   const [openTab, setOpenTab] = useState("padraoEmail");
 
-  const [inputs, setInputs] = useState([""]); // Initial input list with an empty input
-
   const [text, setText] = useState("");
 
   const session = useSession();
@@ -37,6 +35,7 @@ const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -44,6 +43,11 @@ const ScriptForm = ({ currentUser }: { currentUser?: User | null }) => {
     control,
     name: "inputs",
   });
+
+  useEffect(() => {
+    reset();
+    setText("");
+  }, [openTab]);
 
   const handleAddInput = () => {
     append({ input: "" });
@@ -108,7 +112,7 @@ Chamado aberto: ${value.base} ${filtered[0].maintenance}
               <motion.div
                 key={`email`}
                 className="flex flex-col gap-2"
-                initial={{ opacity: 0.5, y: -100 }}
+                initial={{ opacity: 0, y: -100 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
               >
@@ -240,12 +244,11 @@ Chamado aberto: ${value.base} ${filtered[0].maintenance}
             </button>
           </div>
         </form>
-
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="m-4 overflow-hidden min-h-[20rem] bg-gray-900 bg-opacity-60 outline-none p-4 rounded-md text-gray-300"
-        ></textarea>
+          className="m-4 ml-0 overflow-hidden min-h-[20rem] bg-gray-900 bg-opacity-60 outline-none p-4 rounded-md text-gray-300"
+        />
       </div>
     </div>
   );
