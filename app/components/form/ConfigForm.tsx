@@ -1,9 +1,7 @@
 "use client";
 
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 //import io from "socket.io-client";
-import { Listbox, Transition, RadioGroup, Combobox } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Input from "../inputs/inputLabelUseForm";
 import InputLabel from "../inputs/InputLabel";
@@ -501,7 +499,9 @@ function ConfigForm({ currentUser, olt }: ConfigProps) {
                 placeHolder="Selecione a OLT"
                 oltCompanyArray={oltCompanyArray}
                 className={
-                  selected?.brand == "INTELBRAS I" && "lg:rounded-r-none"
+                  oltCompany == "Intelbras" &&
+                  selected?.brand != "INTELBRAS I" &&
+                  "lg:rounded-r-none"
                 }
               />
               {oltCompany == "Intelbras" &&
