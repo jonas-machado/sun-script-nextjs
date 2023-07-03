@@ -10,9 +10,20 @@ import { useSession } from "next-auth/react";
 import io from "socket.io-client";
 import ComboboxInput from "../inputs/comboboxInput";
 import { AnimatePresence, motion } from "framer-motion";
+import ControlledInputDescription from "../inputs/controlledInputDescription";
 //constants
 
 const tabNames = ["Verificar posição livre", "Aferir CTO"];
+const oltSelect = [
+  {
+    name: "ZTE",
+    description: `Aferir pon\nZTE`,
+  },
+  {
+    name: "DATACOM",
+    description: "Aferir pon\nDATACOM",
+  },
+];
 
 interface ConfigProps {
   olt: any;
@@ -102,7 +113,7 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
     }
   };
 
-  const onSubmit = ({ pon }: any) => {
+  const onSubmit = async ({ pon }: any) => {
     setText("");
     setIdLivre([]);
     const socket = io("http://localhost:3001");
@@ -117,75 +128,154 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
       console.log("Disconnected from the server");
     });
 
-    socket.emit("connectTelnet", {
-      ip: selected.ip,
-      command: `show gpon onu state gpon-olt_${pon}`,
-    });
+    if (selected.brand == "ZTE") {
+      socket.emit("connectTelnet", {
+        ip: selected.ip,
+        command: `show gpon onu state gpon-olt_${pon}`,
+        brand: selected.brand,
+      });
+    }
+    if (selected.brand == "DATACOM") {
+      socket.emit("connectTelnetDatacom", {
+        ip: selected.ip,
+        commands: [`conf t`, `do show interface gpon ${pon} onu`],
+        brand: selected.brand,
+      });
+    }
     if (openTab == "Verificar posição livre") {
       // Handle "chat message" event
-      socket.on("telnet response", (response) => {
-        const res = response.replace(//g, "").split("\n");
-        const toMatch = res.filter((el: any) => el.includes("ONU Number"));
-        const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
-        const startString = "ONU Number: ";
+      if (selected.brand == "ZTE") {
+        socket.on("telnet response", (response) => {
+          const res = response.replace(//g, "").split("\n");
+          const toMatch = res.filter((el: any) => el.includes("ONU Number"));
+          const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
+          const startString = "ONU Number: ";
 
-        // Create a regular expression pattern using the start and end strings
-        const pattern = `${startString}(.*)`;
+          // Create a regular expression pattern using the start and end strings
+          const pattern = `${startString}(.*)`;
 
-        // Execute the regular expression and retrieve the captured substring
-        const match = toMatch[0]?.match(new RegExp(pattern));
-        if (match && match.length > 1) {
-          const capturedSubstring = match[1];
-          setQuantidadeOnu(capturedSubstring);
-        }
-
-        const exception = [
-          "BS02",
-          "ITAPOA",
-          "ITINGA",
-          "MIRANDA",
-          "ITACOLOMI",
-          "VILA NOVA",
-        ];
-        const include = (value: any, find: any, not?: boolean) => {
-          if (exception.includes(selected.olt)) {
-            return value
-              .filter((onu: any) =>
-                not ? !onu.includes(find) : onu.includes(find)
-              )
-              .map(
-                (el: any) =>
-                  el
-                    .split(" ")
-                    .filter((str: any) => str != "")[0]
-                    .split("_")[1]
-              );
-          } else {
-            return value
-              .filter((onu: any) =>
-                not ? !onu.includes(find) : onu.includes(find)
-              )
-              .map(
-                (el: any) => el.split(" ").filter((str: any) => str != "")[0]
-              );
+          // Execute the regular expression and retrieve the captured substring
+          const match = toMatch[0]?.match(new RegExp(pattern));
+          if (match && match.length > 1) {
+            const capturedSubstring = match[1];
+            setQuantidadeOnu(capturedSubstring);
           }
-        };
-        setOnuDown(include(onuTotal, "working", true));
-        setOnuDyingGasp(include(onuTotal, "DyingGasp"));
-        setOnuOff(include(onuTotal, "OffLine"));
-        setOnuLos(include(onuTotal, "LOS"));
-        setText(onuTotal.join("\n"));
 
-        for (let i = 1; i <= 128; i++) {
-          const idToCheck = `${pon}:${i} `;
-          const verify = response.includes(idToCheck);
-          if (verify) {
-          } else {
-            setIdLivre((prevState) => [...prevState, i]);
+          const exception = [
+            "BS02",
+            "ITAPOA",
+            "ITINGA",
+            "MIRANDA",
+            "ITACOLOMI",
+            "VILA NOVA",
+          ];
+          const include = (value: any, find: any, not?: boolean) => {
+            if (exception.includes(selected.olt)) {
+              return value
+                .filter((onu: any) =>
+                  not ? !onu.includes(find) : onu.includes(find)
+                )
+                .map(
+                  (el: any) =>
+                    el
+                      .split(" ")
+                      .filter((str: any) => str != "")[0]
+                      .split("_")[1]
+                );
+            } else {
+              return value
+                .filter((onu: any) =>
+                  not ? !onu.includes(find) : onu.includes(find)
+                )
+                .map(
+                  (el: any) => el.split(" ").filter((str: any) => str != "")[0]
+                );
+            }
+          };
+          setOnuDown(include(onuTotal, "working", true));
+          setOnuDyingGasp(include(onuTotal, "DyingGasp"));
+          setOnuOff(include(onuTotal, "OffLine"));
+          setOnuLos(include(onuTotal, "LOS"));
+          setText(onuTotal.join("\n"));
+
+          for (let i = 1; i <= 128; i++) {
+            const idToCheck = `${pon}:${i} `;
+            const verify = response.includes(idToCheck);
+            if (verify) {
+            } else {
+              setIdLivre((prevState) => [...prevState, i]);
+            }
           }
-        }
-        socket.disconnect();
-      });
+          socket.disconnect();
+        });
+      }
+      if (selected.brand == "DATACOM") {
+        socket.on("telnet response", async (response) => {
+          console.log(response);
+          setText(response);
+          // const res = response.replace(//g, "").split("\n");
+          // const toMatch = res.filter((el: any) => el.includes("ONU Number"));
+          // const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
+          // const startString = "ONU Number: ";
+
+          // // Create a regular expression pattern using the start and end strings
+          // const pattern = `${startString}(.*)`;
+
+          // // Execute the regular expression and retrieve the captured substring
+          // const match = toMatch[0]?.match(new RegExp(pattern));
+          // if (match && match.length > 1) {
+          //   const capturedSubstring = match[1];
+          //   setQuantidadeOnu(capturedSubstring);
+          // }
+
+          // const exception = [
+          //   "BS02",
+          //   "ITAPOA",
+          //   "ITINGA",
+          //   "MIRANDA",
+          //   "ITACOLOMI",
+          //   "VILA NOVA",
+          // ];
+          // const include = (value: any, find: any, not?: boolean) => {
+          //   if (exception.includes(selected.olt)) {
+          //     return value
+          //       .filter((onu: any) =>
+          //         not ? !onu.includes(find) : onu.includes(find)
+          //       )
+          //       .map(
+          //         (el: any) =>
+          //           el
+          //             .split(" ")
+          //             .filter((str: any) => str != "")[0]
+          //             .split("_")[1]
+          //       );
+          //   } else {
+          //     return value
+          //       .filter((onu: any) =>
+          //         not ? !onu.includes(find) : onu.includes(find)
+          //       )
+          //       .map(
+          //         (el: any) => el.split(" ").filter((str: any) => str != "")[0]
+          //       );
+          //   }
+          // };
+          // setOnuDown(include(onuTotal, "working", true));
+          // setOnuDyingGasp(include(onuTotal, "DyingGasp"));
+          // setOnuOff(include(onuTotal, "OffLine"));
+          // setOnuLos(include(onuTotal, "LOS"));
+          // setText(onuTotal.join("\n"));
+
+          // for (let i = 1; i <= 128; i++) {
+          //   const idToCheck = `${pon}:${i} `;
+          //   const verify = response.includes(idToCheck);
+          //   if (verify) {
+          //   } else {
+          //     setIdLivre((prevState) => [...prevState, i]);
+          //   }
+          // }
+          socket.disconnect();
+        });
+      }
     }
     if (openTab == "Aferir CTO") {
       socket.on("telnet response", (response) => {

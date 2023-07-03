@@ -50,7 +50,7 @@ const ControlledInputDescription = ({
                         </RadioGroup.Label>
                         <RadioGroup.Description
                           as="span"
-                          className={`inline ${
+                          className={` whitespace-pre-line ${
                             checked ? "text-sky-100" : "text-gray-400"
                           }`}
                         >
