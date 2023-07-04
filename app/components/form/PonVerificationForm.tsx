@@ -85,31 +85,34 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
     socket.on("disconnect", () => {
       console.log("Disconnected from the server");
     });
-
-    // Handle "chat message" event
-    socket.on("telnet response", (response) => {
-      console.log(response);
-      const res = response.replace(//g, "");
-      setText((prev) => prev + res);
-      if (todos) {
-        if (i == ont.length) {
-          socket.disconnect();
+    if (selected?.brand == "ZTE") {
+      // Handle "chat message" event
+      socket.on("telnet response", (response) => {
+        console.log(response);
+        const res = response.replace(//g, "");
+        setText((prev) => prev + res);
+        if (todos) {
+          if (i == ont.length) {
+            socket.disconnect();
+          }
+          i++;
         }
-        i++;
+      });
+      if (!todos) {
+        socket.emit("connectTelnet", {
+          ip: selected.ip,
+          command: `show gpon onu detail-info gpon-onu_${ont}`,
+        });
+      } else {
+        socket.emit("multipleCommands", {
+          ip: selected.ip,
+          commands: ont.map(
+            (el: any) => `show gpon onu detail-info gpon-onu_${el}`
+          ),
+        });
       }
-    });
-    if (!todos) {
-      socket.emit("connectTelnet", {
-        ip: selected.ip,
-        command: `show gpon onu detail-info gpon-onu_${ont}`,
-      });
-    } else {
-      socket.emit("multipleCommands", {
-        ip: selected.ip,
-        commands: ont.map(
-          (el: any) => `show gpon onu detail-info gpon-onu_${el}`
-        ),
-      });
+    }
+    if (selected?.brand == "DATACOM") {
     }
   };
 
@@ -138,7 +141,7 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
     if (selected.brand == "DATACOM") {
       socket.emit("connectTelnetDatacom", {
         ip: selected.ip,
-        commands: [`conf t`, `do show interface gpon ${pon} onu`],
+        command: `do show interface gpon ${pon} onu`,
         brand: selected.brand,
       });
     }
@@ -213,66 +216,32 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
         socket.on("telnet response", async (response) => {
           console.log(response);
           setText(response);
-          // const res = response.replace(//g, "").split("\n");
-          // const toMatch = res.filter((el: any) => el.includes("ONU Number"));
-          // const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
-          // const startString = "ONU Number: ";
+          const res = response
+            .split("\n")
+            .filter((el: any) => el.includes(`${pon}`));
 
-          // // Create a regular expression pattern using the start and end strings
-          // const pattern = `${startString}(.*)`;
+          const include = (value: any, find: any, not?: boolean) => {
+            return value
+              .filter((onu: any) =>
+                not ? !onu.includes(find) : onu.includes(find)
+              )
+              .map(
+                (el: any) => el.split(" ").filter((str: any) => str != "")[1]
+              );
+          };
+          setQuantidadeOnu(res.length);
 
-          // // Execute the regular expression and retrieve the captured substring
-          // const match = toMatch[0]?.match(new RegExp(pattern));
-          // if (match && match.length > 1) {
-          //   const capturedSubstring = match[1];
-          //   setQuantidadeOnu(capturedSubstring);
-          // }
+          setOnuDown(include(res, "Down"));
+          setText(res.join("\n"));
 
-          // const exception = [
-          //   "BS02",
-          //   "ITAPOA",
-          //   "ITINGA",
-          //   "MIRANDA",
-          //   "ITACOLOMI",
-          //   "VILA NOVA",
-          // ];
-          // const include = (value: any, find: any, not?: boolean) => {
-          //   if (exception.includes(selected.olt)) {
-          //     return value
-          //       .filter((onu: any) =>
-          //         not ? !onu.includes(find) : onu.includes(find)
-          //       )
-          //       .map(
-          //         (el: any) =>
-          //           el
-          //             .split(" ")
-          //             .filter((str: any) => str != "")[0]
-          //             .split("_")[1]
-          //       );
-          //   } else {
-          //     return value
-          //       .filter((onu: any) =>
-          //         not ? !onu.includes(find) : onu.includes(find)
-          //       )
-          //       .map(
-          //         (el: any) => el.split(" ").filter((str: any) => str != "")[0]
-          //       );
-          //   }
-          // };
-          // setOnuDown(include(onuTotal, "working", true));
-          // setOnuDyingGasp(include(onuTotal, "DyingGasp"));
-          // setOnuOff(include(onuTotal, "OffLine"));
-          // setOnuLos(include(onuTotal, "LOS"));
-          // setText(onuTotal.join("\n"));
-
-          // for (let i = 1; i <= 128; i++) {
-          //   const idToCheck = `${pon}:${i} `;
-          //   const verify = response.includes(idToCheck);
-          //   if (verify) {
-          //   } else {
-          //     setIdLivre((prevState) => [...prevState, i]);
-          //   }
-          // }
+          for (let i = 1; i <= 128; i++) {
+            const idToCheck = ` ${i} `;
+            const verify: any = response.includes(idToCheck);
+            console.log(verify);
+            if (!verify) {
+              setIdLivre((prevState) => [...prevState, i]);
+            }
+          }
           socket.disconnect();
         });
       }
@@ -353,15 +322,19 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
                       <p className="text-gray-300">
                         Quantidade DOWN: {onuDown?.length}
                       </p>
-                      <p className="text-gray-300">
-                        Equipamentos em LOS: {onuLos?.length}
-                      </p>
-                      <p className="text-gray-300">
-                        Equipamentos em DYINGGASP: {onuDyingGasp?.length}
-                      </p>
-                      <p className="text-gray-300">
-                        Equipamentos OFFLINE: {onuOff?.length}
-                      </p>
+                      {selected?.brand == "ZTE" && (
+                        <>
+                          <p className="text-gray-300">
+                            Equipamentos em LOS: {onuLos?.length}
+                          </p>
+                          <p className="text-gray-300">
+                            Equipamentos em DYINGGASP: {onuDyingGasp?.length}
+                          </p>
+                          <p className="text-gray-300">
+                            Equipamentos OFFLINE: {onuOff?.length}
+                          </p>
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="m-4">
@@ -385,78 +358,107 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
               >
-                <div className="my-2">
-                  <h1 className="text-gray-300 text-xl font-bold text-center">
-                    DETAIL OFFLINE
-                  </h1>
-                  <div className="flex flex-col gap-1 m-4">
-                    {onuOff?.map((onu: any) => (
-                      <>
+                {selected?.brand == "ZTE" ? (
+                  <>
+                    <div className="my-2">
+                      <h1 className="text-gray-300 text-xl font-bold text-center">
+                        DETAIL OFFLINE
+                      </h1>
+                      <div className="flex flex-col gap-1 m-4">
+                        {onuOff?.map((onu: any) => (
+                          <>
+                            <button
+                              key={onu}
+                              onClick={() => onDetail(onu)}
+                              className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                            >
+                              {onu}
+                            </button>
+                          </>
+                        ))}
                         <button
-                          key={onu}
-                          onClick={() => onDetail(onu)}
+                          onClick={() => onDetail(onuOff, true)}
                           className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
                         >
-                          {onu}
+                          TODOS
                         </button>
-                      </>
-                    ))}
-                    <button
-                      onClick={() => onDetail(onuOff, true)}
-                      className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                    >
-                      TODOS
-                    </button>
-                  </div>
-                </div>
-                <div className="my-2">
-                  <h1 className="text-gray-300 text-xl font-bold text-center">
-                    DETAIL LOS
-                  </h1>
-                  <div className="flex flex-col gap-1 m-4">
-                    {onuLos?.map((onu: any) => (
-                      <>
+                      </div>
+                    </div>
+                    <div className="my-2">
+                      <h1 className="text-gray-300 text-xl font-bold text-center">
+                        DETAIL LOS
+                      </h1>
+                      <div className="flex flex-col gap-1 m-4">
+                        {onuLos?.map((onu: any) => (
+                          <>
+                            <button
+                              key={onu}
+                              onClick={() => onDetail(onu)}
+                              className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                            >
+                              {onu}
+                            </button>
+                          </>
+                        ))}
                         <button
-                          key={onu}
-                          onClick={() => onDetail(onu)}
+                          onClick={() => onDetail(onuLos, true)}
                           className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
                         >
-                          {onu}
+                          TODOS
                         </button>
-                      </>
-                    ))}
-                    <button
-                      onClick={() => onDetail(onuLos, true)}
-                      className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                    >
-                      TODOS
-                    </button>
-                  </div>
-                </div>
-                <div className="my-2">
-                  <h1 className="text-gray-300 text-xl font-bold text-center">
-                    DETAIL DYINGGASP
-                  </h1>
-                  <div className="flex flex-col gap-1 m-4">
-                    {onuDyingGasp?.map((onu: any) => (
-                      <>
+                      </div>
+                    </div>
+                    <div className="my-2">
+                      <h1 className="text-gray-300 text-xl font-bold text-center">
+                        DETAIL DYINGGASP
+                      </h1>
+                      <div className="flex flex-col gap-1 m-4">
+                        {onuDyingGasp?.map((onu: any) => (
+                          <>
+                            <button
+                              key={onu}
+                              onClick={() => onDetail(onu)}
+                              className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                            >
+                              {onu}
+                            </button>
+                          </>
+                        ))}
                         <button
-                          key={onu}
-                          onClick={() => onDetail(onu)}
+                          onClick={() => onDetail(onuDyingGasp, true)}
                           className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
                         >
-                          {onu}
+                          TODOS
                         </button>
-                      </>
-                    ))}
-                    <button
-                      onClick={() => onDetail(onuDyingGasp, true)}
-                      className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
-                    >
-                      TODOS
-                    </button>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="my-2">
+                    <h1 className="text-gray-300 text-xl font-bold text-center">
+                      DETAIL DOWN
+                    </h1>
+                    <div className="flex flex-col gap-1 m-4">
+                      {onuDown?.map((onu: any) => (
+                        <>
+                          <button
+                            key={onu}
+                            onClick={() => onDetail(onu)}
+                            className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                          >
+                            {onu}
+                          </button>
+                        </>
+                      ))}
+                      <button
+                        onClick={() => onDetail(onuDyingGasp, true)}
+                        className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                      >
+                        TODOS
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
               </motion.div>
             )}
             {openTab == "Aferir CTO" && (
