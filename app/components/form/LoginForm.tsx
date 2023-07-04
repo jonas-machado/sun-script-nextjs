@@ -3,8 +3,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -24,7 +22,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (session?.status == "authenticated") {
-      router.push("/ss/config/manual");
+      router.push("/config/manual");
     }
   }, [session?.status, router]);
 
@@ -61,13 +59,13 @@ export default function LoginForm() {
       email: email,
       password: password,
       redirect: false,
-      callbackUrl: "/ss/config/manual",
+      callbackUrl: "/config/manual",
     }).then((callback) => {
       setIsLoading(false);
       if (callback?.error) {
         return notify(callback.error);
       }
-      router.push("/ss/config/manual");
+      router.push("/config/manual");
     });
   };
 

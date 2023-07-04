@@ -1,5 +1,4 @@
 "use client";
-
 import { Fragment, useState } from "react";
 import { Popover, Transition, Menu, Disclosure } from "@headlessui/react";
 import {
@@ -20,7 +19,6 @@ import { User } from "@prisma/client";
 import Modal from "../modals/Modal";
 
 //constants
-
 import { mapas } from "@/app/constants/mapas";
 import { utilitarios } from "@/app/constants/utilitarios";
 import { empresasParceiras } from "@/app/constants/empresasParceiras";
@@ -67,7 +65,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                 height={40}
                 priority={true}
                 onClick={() => {
-                  router.push("/ss/config/manual");
+                  router.push("/config/manual");
                 }}
               />
             </div>
@@ -446,7 +444,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                   <div className="mt-6">
                     <nav className="grid gap-y-8 border-b-2 border-gray-900 pb-6">
                       <Link
-                        href="/ss/solutionBank"
+                        href="/solutionBank"
                         className="px-2 text-base font-medium text-gray-300 hover:text-white"
                       >
                         Banco de soluções
