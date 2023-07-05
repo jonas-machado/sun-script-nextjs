@@ -1,6 +1,6 @@
-import { getSolutions } from "@/app/actions/getSolutions";
-import SolutionForm from "@/app/components/form/SolutionForm";
-import MotionPage from "@/app/lib/motionPage";
+import { getSolutions } from "@/actions/getSolutions";
+import SolutionForm from "@/components/form/SolutionForm";
+import MotionPage from "@/lib/motionPage";
 
 const SolutionBank = async () => {
   const solutions = await getSolutions();

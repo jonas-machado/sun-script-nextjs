@@ -1,6 +1,6 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import ScriptForm from "@/app/components/form/ScriptForm";
-import MotionPage from "@/app/lib/motionPage";
+import getCurrentUser from "@/actions/getCurrentUser";
+import ScriptForm from "@/components/form/ScriptForm";
+import MotionPage from "@/lib/motionPage";
 
 const script = async () => {
   const currentUser = await getCurrentUser();

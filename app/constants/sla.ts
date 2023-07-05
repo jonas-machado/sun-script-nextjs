@@ -1,1 +1,0 @@
-export const sla = [{name: "24h"},{name: "12h"}, {name: "6h"}, {name: "3h"}];

@@ -1,9 +1,10 @@
-import prisma from "../../lib/prismadb";
+import prisma from "../../../lib/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { customVlan, onuType, serial, olt, pon, idLivre, idOnu, cliente, id } = body;
+  const { customVlan, onuType, serial, olt, pon, idLivre, idOnu, cliente, id } =
+    body;
   console.log(body);
   const onu = await prisma.configured.upsert({
     where: {

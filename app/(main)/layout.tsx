@@ -1,9 +1,9 @@
-import Navbar from "../components/navbar/Navbar";
-import getCurrentUser from "../actions/getCurrentUser";
-import PageWrapper from "../lib/pageWrapper";
+import Navbar from "@/components/navbar/Navbar";
+import getCurrentUser from "@/actions/getCurrentUser";
+import PageWrapper from "@/lib/pageWrapper";
 import NextTopLoader from "nextjs-toploader";
-import { getSchedule } from "../actions/getSchedule";
-import MotionPage from "../lib/motionPage";
+import { getSchedule } from "@/actions/getSchedule";
+import MotionPage from "@/lib/motionPage";
 
 export default async function RootLayout({
   children,

@@ -1,4 +1,4 @@
-import AutomaticForm from "@/app/components/form/AutomaticForm";
+import AutomaticForm from "@/components/form/AutomaticForm";
 
 const automatic = () => {
   return (

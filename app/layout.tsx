@@ -2,9 +2,9 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 const font = Nunito({ subsets: ["latin"] });
 import { AnimatePresence } from "framer-motion";
-import PageWrapper from "./lib/pageWrapper";
-import MotionPage from "./lib/motionPage";
-import AuthContext from "./lib/AuthContext";
+import PageWrapper from "../lib/pageWrapper";
+import MotionPage from "../lib/motionPage";
+import AuthContext from "../lib/AuthContext";
 
 export const metadata = {
   title: "Sun Script",
