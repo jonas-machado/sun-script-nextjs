@@ -85,9 +85,11 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
       console.log("Disconnected from the server");
     });
 
-    function onTelnetResponse(value) {
-      setFooEvents((previous) => [...previous, value]);
+    function onTelnetResponse(value: any) {
+      setResponse(value);
     }
+
+    socket.on("telnet response", onTelnetResponse);
 
     return () => {
       second;
@@ -98,15 +100,6 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
     setText("");
     const socket = io("http://localhost:3001");
 
-    // Handle connection event
-    socket.on("connect", () => {
-      console.log("Connected to the server");
-    });
-
-    // Handle disconnection event
-    socket.on("disconnect", () => {
-      console.log("Disconnected from the server");
-    });
     if (selected?.brand == "ZTE") {
       // Handle "chat message" event
       socket.on("telnet response", (response) => {
