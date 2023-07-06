@@ -13,7 +13,7 @@ export default async function ConfigPage() {
   const { olt } = await getOlt();
   return (
     <MotionPage>
-      <div id="config" className="mx-auto w-11/12">
+      <div id="manualConfig" className="mx-auto w-11/12">
         <ConfigForm olt={olt} currentUser={currentUser} />
       </div>
     </MotionPage>

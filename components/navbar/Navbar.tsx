@@ -77,7 +77,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
             </div>
             <Popover.Group className="hidden lg:gap-x-12 pr-10 lg:flex">
               <Link
-                href="/ss/solutionBank"
+                href="/solutionBank"
                 className="text-base font-medium text-gray-300 hover:text-white"
               >
                 Banco de soluções

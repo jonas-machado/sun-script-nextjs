@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function MotionPage({
   id,
@@ -11,14 +12,16 @@ export default function MotionPage({
   className?: string;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <>
       <motion.div
         className={className}
-        key={id}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        key={pathname}
+        initial={{ opacity: 0.5, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -100 }}
       >
         {children}
       </motion.div>
