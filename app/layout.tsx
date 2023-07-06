@@ -25,9 +25,7 @@ export default async function RootLayout({
         }
       >
         <AuthContext>
-          <PageWrapper>
-            <MotionPage>{children}</MotionPage>
-          </PageWrapper>
+          <PageWrapper>{children}</PageWrapper>
         </AuthContext>
       </body>
     </html>
