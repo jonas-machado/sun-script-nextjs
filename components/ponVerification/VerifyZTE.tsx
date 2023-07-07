@@ -33,7 +33,6 @@ const VerifyPon = ({ olt, response }: any) => {
   } = useForm();
 
   const notify = (text: any) => {
-    console.log("toast running");
     toast.error(text, {
       theme: "dark",
       pauseOnFocusLoss: false,
@@ -60,7 +59,6 @@ const VerifyPon = ({ olt, response }: any) => {
 
     if (selected?.brand == "ZTE") {
       // Handle "chat message" event
-      console.log(response);
       const res = response.replace(//g, "");
       setText((prev) => prev + res);
     }
@@ -182,103 +180,6 @@ const VerifyPon = ({ olt, response }: any) => {
       }
     }
   }, [response]);
-
-  // const onResponse = async ({ pon }: any) => {
-  //   // Handle "chat message" event
-  //   if (selected.brand == "ZTE") {
-  //     console.log(response);
-  //     if (response?.includes("Error")) {
-  //       return notify("Pon vazia");
-  //     }
-  //     const res = response.replace(//g, "").split("\n");
-  //     const toMatch = res.filter((el: any) => el.includes("ONU Number"));
-  //     const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
-  //     const startString = "ONU Number: ";
-
-  //     // Create a regular expression pattern using the start and end strings
-  //     const pattern = `${startString}(.*)`;
-
-  //     // Execute the regular expression and retrieve the captured substring
-  //     const match = toMatch[0]?.match(new RegExp(pattern));
-  //     if (match && match.length > 1) {
-  //       const capturedSubstring = match[1];
-  //       setQuantidadeOnu(capturedSubstring);
-  //     }
-
-  //     const exception = [
-  //       "BS02",
-  //       "ITAPOA",
-  //       "ITINGA",
-  //       "MIRANDA",
-  //       "ITACOLOMI",
-  //       "VILA NOVA",
-  //     ];
-  //     const include = (value: any, find: any, not?: boolean) => {
-  //       if (exception.includes(selected.olt)) {
-  //         return value
-  //           .filter((onu: any) =>
-  //             not ? !onu.includes(find) : onu.includes(find)
-  //           )
-  //           .map(
-  //             (el: any) =>
-  //               el
-  //                 .split(" ")
-  //                 .filter((str: any) => str != "")[0]
-  //                 .split("_")[1]
-  //           );
-  //       } else {
-  //         return value
-  //           .filter((onu: any) =>
-  //             not ? !onu.includes(find) : onu.includes(find)
-  //           )
-  //           .map((el: any) => el.split(" ").filter((str: any) => str != "")[0]);
-  //       }
-  //     };
-  //     setOnuDown(include(onuTotal, "working", true));
-  //     setOnuDyingGasp(include(onuTotal, "DyingGasp"));
-  //     setOnuOff(include(onuTotal, "OffLine"));
-  //     setOnuLos(include(onuTotal, "LOS"));
-  //     setText(onuTotal.join("\n"));
-
-  //     for (let i = 1; i <= 128; i++) {
-  //       const idToCheck = `${pon}:${i} `;
-  //       const verify = response.includes(idToCheck);
-  //       if (verify) {
-  //       } else {
-  //         setIdLivre((prevState) => [...prevState, i]);
-  //       }
-  //     }
-
-  //     if (selected.brand == "DATACOM") {
-  //       console.log(response);
-  //       setText(response);
-  //       const res = response
-  //         .split("\n")
-  //         .filter((el: any) => el.includes(`${pon}`));
-
-  //       const include = (value: any, find: any, not?: boolean) => {
-  //         return value
-  //           .filter((onu: any) =>
-  //             not ? !onu.includes(find) : onu.includes(find)
-  //           )
-  //           .map((el: any) => el.split(" ").filter((str: any) => str != "")[1]);
-  //       };
-  //       setQuantidadeOnu(res.length);
-
-  //       setOnuDown(include(res, "Down"));
-  //       setText(res.join("\n"));
-
-  //       for (let i = 1; i <= 128; i++) {
-  //         const idToCheck = ` ${i} `;
-  //         const verify: any = response.includes(idToCheck);
-  //         console.log(verify);
-  //         if (!verify) {
-  //           setIdLivre((prevState) => [...prevState, i]);
-  //         }
-  //       }
-  //     }
-  //   }
-  // };
 
   return (
     <div>
