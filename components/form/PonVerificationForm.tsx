@@ -37,7 +37,7 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
   const [onuDyingGasp, setOnuDyingGasp] = useState<string[]>([]);
   const [onuOff, setOnuOff] = useState<string[]>([]);
   const [response, setResponse] = useState<any>();
-  const [selected, setSelected] = useState<any>();
+  const [detail, setDetail] = useState<any>();
 
   const session = useSession();
   const router = useRouter();
@@ -88,6 +88,11 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
 
     function onTelnetResponse(value: any) {
       setResponse(value);
+    }
+
+    function onDetailResponse(value: any) {
+      setDetail(value);
+      console.log(value);
     }
 
     socket.on("telnet response", onTelnetResponse);

@@ -41,34 +41,23 @@ const VerifyPon = ({ olt, response }: any) => {
   };
 
   const onDetail = (ont: any, todos?: boolean) => {
-    setText("");
-
     if (!todos) {
       socket.emit("connectTelnet", {
         ip: selected.ip,
         command: `show gpon onu detail-info gpon-onu_${ont}`,
+        commandType: "detail",
       });
     } else {
-      socket.emit("multipleCommands", {
+      socket.emit("multipleDetailTelnet", {
         ip: selected.ip,
         commands: ont.map(
           (el: any) => `show gpon onu detail-info gpon-onu_${el}`
         ),
       });
     }
-
-    if (selected?.brand == "ZTE") {
-      // Handle "chat message" event
-      const res = response.replace(//g, "");
-      setText((prev) => prev + res);
-    }
-    if (selected?.brand == "DATACOM") {
-    }
   };
 
   const onSubmit = async ({ pon }: any) => {
-    setText("");
-    setIdLivre([]);
     setPon(pon);
 
     if (selected.brand == "ZTE") {
@@ -86,11 +75,17 @@ const VerifyPon = ({ olt, response }: any) => {
       });
     }
   };
+
   useEffect(() => {
+    setIdLivre([]);
+    setText("");
     if (selected?.brand == "ZTE") {
       console.log(response);
       if (response?.includes("Error")) {
         return notify("Pon vazia");
+      }
+      if (response.commandType == "detail") {
+        setText(response);
       }
       const res = response.replace(//g, "").split("\n");
       const toMatch = res.filter((el: any) => el.includes("ONU Number"));
@@ -179,6 +174,8 @@ const VerifyPon = ({ olt, response }: any) => {
         }
       }
     }
+
+    //detail
   }, [response]);
 
   return (
