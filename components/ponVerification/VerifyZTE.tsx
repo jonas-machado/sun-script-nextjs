@@ -12,8 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const VerifyPon = ({ olt, response }: any) => {
-  console.log(response);
+const VerifyPon = ({ olt, response, multipleResponse }: any) => {
   const [text, setText] = useState<string>("");
   const [quantidadeOnu, setQuantidadeOnu] = useState<string>("");
   const [idLivre, setIdLivre] = useState<number[]>([]);
@@ -41,30 +40,50 @@ const VerifyPon = ({ olt, response }: any) => {
   };
 
   const onDetail = (ont: any, todos?: boolean) => {
-    if (!todos) {
-      socket.emit("connectTelnet", {
-        ip: selected.ip,
-        command: `show gpon onu detail-info gpon-onu_${ont}`,
-        commandType: "detail",
-      });
-    } else {
-      socket.emit("multipleDetailTelnet", {
-        ip: selected.ip,
-        commands: ont.map(
-          (el: any) => `show gpon onu detail-info gpon-onu_${el}`
-        ),
-      });
+    socket.connect();
+    if (selected?.brand == "ZTE") {
+      if (!todos) {
+        socket.emit("connectTelnet", {
+          ip: selected.ip,
+          command: `show gpon onu detail-info gpon-onu_${ont}`,
+          commandType: "detail",
+        });
+      } else {
+        socket.emit("multipleTelnet", {
+          ip: selected.ip,
+          commands: ont.map(
+            (el: any) => `show gpon onu detail-info gpon-onu_${el}`
+          ),
+          commandType: "detail",
+        });
+      }
+    }
+    if (selected?.brand == "DATACOM") {
+      if (!todos) {
+        socket.emit("connectTelnetDatacom", {
+          ip: selected.ip,
+          command: `do show inter gpon ${pon} onu ${ont}`,
+          commandType: "detail",
+        });
+      } else {
+        socket.emit("multipleDatacomTelnet", {
+          ip: selected.ip,
+          commands: ont.map((el: any) => `do show inter gpon ${pon} onu ${el}`),
+          commandType: "detail",
+        });
+      }
     }
   };
 
   const onSubmit = async ({ pon }: any) => {
     setPon(pon);
-
+    socket.connect();
     if (selected.brand == "ZTE") {
       socket.emit("connectTelnet", {
         ip: selected.ip,
         command: `show gpon onu state gpon-olt_${pon}`,
         brand: selected.brand,
+        commandType: "state",
       });
     }
     if (selected.brand == "DATACOM") {
@@ -72,110 +91,123 @@ const VerifyPon = ({ olt, response }: any) => {
         ip: selected.ip,
         command: `do show interface gpon ${pon} onu`,
         brand: selected.brand,
+        commandType: "state",
       });
     }
   };
 
   useEffect(() => {
-    setIdLivre([]);
-    setText("");
-    if (selected?.brand == "ZTE") {
-      console.log(response);
-      if (response?.includes("Error")) {
-        return notify("Pon vazia");
-      }
-      if (response.commandType == "detail") {
-        setText(response);
-      }
-      const res = response.replace(//g, "").split("\n");
-      const toMatch = res.filter((el: any) => el.includes("ONU Number"));
-      const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
-      const startString = "ONU Number: ";
+    const res = multipleResponse.data?.map((res: any) =>
+      res.replace(/.*/g, "")
+    );
+    console.log(res);
+    setText(res?.join("\n"));
+  }, [multipleResponse]);
 
-      // Create a regular expression pattern using the start and end strings
-      const pattern = `${startString}(.*)`;
+  useEffect(() => {
+    if (response?.commandType == "detail") {
+      const res = response.data.replace(/.*/g, "");
+      setText(res);
+    }
+    if (response?.commandType == "state") {
+      setIdLivre([]);
+      setText("");
+      if (selected?.brand == "ZTE") {
+        console.log(response);
+        if (response.res?.includes("Error")) {
+          return notify("Pon vazia");
+        }
 
-      // Execute the regular expression and retrieve the captured substring
-      const match = toMatch[0]?.match(new RegExp(pattern));
-      if (match && match.length > 1) {
-        const capturedSubstring = match[1];
-        setQuantidadeOnu(capturedSubstring);
+        const res = response.data.replace(//g, "").split("\n");
+        const toMatch = res.filter((el: any) => el.includes("ONU Number"));
+        const onuTotal = res.filter((el: any) => el.includes(`${pon}:`));
+        const startString = "ONU Number: ";
+
+        // Create a regular expression pattern using the start and end strings
+        const pattern = `${startString}(.*)`;
+
+        // Execute the regular expression and retrieve the captured substring
+        const match = toMatch[0]?.match(new RegExp(pattern));
+        if (match && match.length > 1) {
+          const capturedSubstring = match[1];
+          setQuantidadeOnu(capturedSubstring);
+        }
+
+        const exception = [
+          "BS02",
+          "ITAPOA",
+          "ITINGA",
+          "MIRANDA",
+          "ITACOLOMI",
+          "VILA NOVA",
+        ];
+        const include = (value: any, find: any, not?: boolean) => {
+          if (exception.includes(selected.olt)) {
+            return value
+              .filter((onu: any) =>
+                not ? !onu.includes(find) : onu.includes(find)
+              )
+              .map(
+                (el: any) =>
+                  el
+                    .split(" ")
+                    .filter((str: any) => str != "")[0]
+                    .split("_")[1]
+              );
+          } else {
+            return value
+              .filter((onu: any) =>
+                not ? !onu.includes(find) : onu.includes(find)
+              )
+              .map(
+                (el: any) => el.split(" ").filter((str: any) => str != "")[0]
+              );
+          }
+        };
+        setOnuDown(include(onuTotal, "working", true));
+        setOnuDyingGasp(include(onuTotal, "DyingGasp"));
+        setOnuOff(include(onuTotal, "OffLine"));
+        setOnuLos(include(onuTotal, "LOS"));
+        setText(onuTotal.join("\n"));
+
+        for (let i = 1; i <= 128; i++) {
+          const idToCheck = `${pon}:${i} `;
+          const verify = response.data.includes(idToCheck);
+          if (verify) {
+          } else {
+            setIdLivre((prevState) => [...prevState, i]);
+          }
+        }
       }
+      if (selected?.brand == "DATACOM") {
+        console.log(response);
+        setText(response.data);
+        const res = response.data
+          .split("\n")
+          .filter((el: any) => el.includes(`${pon}`));
 
-      const exception = [
-        "BS02",
-        "ITAPOA",
-        "ITINGA",
-        "MIRANDA",
-        "ITACOLOMI",
-        "VILA NOVA",
-      ];
-      const include = (value: any, find: any, not?: boolean) => {
-        if (exception.includes(selected.olt)) {
+        const include = (value: any, find: any, not?: boolean) => {
           return value
             .filter((onu: any) =>
               not ? !onu.includes(find) : onu.includes(find)
             )
-            .map(
-              (el: any) =>
-                el
-                  .split(" ")
-                  .filter((str: any) => str != "")[0]
-                  .split("_")[1]
-            );
-        } else {
-          return value
-            .filter((onu: any) =>
-              not ? !onu.includes(find) : onu.includes(find)
-            )
-            .map((el: any) => el.split(" ").filter((str: any) => str != "")[0]);
-        }
-      };
-      setOnuDown(include(onuTotal, "working", true));
-      setOnuDyingGasp(include(onuTotal, "DyingGasp"));
-      setOnuOff(include(onuTotal, "OffLine"));
-      setOnuLos(include(onuTotal, "LOS"));
-      setText(onuTotal.join("\n"));
+            .map((el: any) => el.split(" ").filter((str: any) => str != "")[1]);
+        };
+        setQuantidadeOnu(res.length);
 
-      for (let i = 1; i <= 128; i++) {
-        const idToCheck = `${pon}:${i} `;
-        const verify = response.includes(idToCheck);
-        if (verify) {
-        } else {
-          setIdLivre((prevState) => [...prevState, i]);
+        setOnuDown(include(res, "Down"));
+        setText(res.join("\n"));
+        console.log(res);
+        for (let i = 1; i <= 128; i++) {
+          const idToCheck = ` ${i} `;
+          const verify: any = response.data.includes(idToCheck);
+          console.log(verify);
+          if (!verify) {
+            setIdLivre((prevState) => [...prevState, i]);
+          }
         }
       }
     }
-    if (selected?.brand == "DATACOM") {
-      console.log(response);
-      setText(response);
-      const res = response
-        .split("\n")
-        .filter((el: any) => el.includes(`${pon}`));
-
-      const include = (value: any, find: any, not?: boolean) => {
-        return value
-          .filter((onu: any) =>
-            not ? !onu.includes(find) : onu.includes(find)
-          )
-          .map((el: any) => el.split(" ").filter((str: any) => str != "")[1]);
-      };
-      setQuantidadeOnu(res.length);
-
-      setOnuDown(include(res, "Down"));
-      setText(res.join("\n"));
-
-      for (let i = 1; i <= 128; i++) {
-        const idToCheck = ` ${i} `;
-        const verify: any = response.includes(idToCheck);
-        console.log(verify);
-        if (!verify) {
-          setIdLivre((prevState) => [...prevState, i]);
-        }
-      }
-    }
-
-    //detail
   }, [response]);
 
   return (
@@ -339,7 +371,7 @@ const VerifyPon = ({ olt, response }: any) => {
                   </>
                 ))}
                 <button
-                  onClick={() => onDetail(onuDyingGasp, true)}
+                  onClick={() => onDetail(onuDown, true)}
                   className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
                 >
                   TODOS
@@ -354,7 +386,7 @@ const VerifyPon = ({ olt, response }: any) => {
         <textarea
           readOnly
           value={text}
-          className="container mt-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black backdrop-blur bg-opacity-80 w-11/12 mx-auto rounded-xl whitespace-pre-line"
+          className="container m-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black bg-opacity-60 rounded-xl whitespace-pre-line"
         />
       </div>
     </div>

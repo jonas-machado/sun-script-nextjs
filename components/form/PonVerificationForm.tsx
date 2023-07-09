@@ -37,8 +37,8 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
   const [onuDyingGasp, setOnuDyingGasp] = useState<string[]>([]);
   const [onuOff, setOnuOff] = useState<string[]>([]);
   const [response, setResponse] = useState<any>();
-  const [detail, setDetail] = useState<any>();
-
+  const [multipleResponse, setMultipleResponse] = useState<string[]>([]);
+  console.log(response);
   const session = useSession();
   const router = useRouter();
 
@@ -88,17 +88,20 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
 
     function onTelnetResponse(value: any) {
       setResponse(value);
+      socket.disconnect();
     }
 
-    function onDetailResponse(value: any) {
-      setDetail(value);
-      console.log(value);
+    function onMultipleResponse(value: any) {
+      setMultipleResponse(value);
+      socket.disconnect();
     }
 
     socket.on("telnet response", onTelnetResponse);
+    socket.on("multipleResponse", onMultipleResponse);
 
     return () => {
       socket.off("telnet response", onTelnetResponse);
+      socket.off("multipleResponse", onMultipleResponse);
     };
   }, []);
 
@@ -126,7 +129,11 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
               >
-                <VerifyPon olt={olt} response={response} />
+                <VerifyPon
+                  olt={olt}
+                  response={response}
+                  multipleResponse={multipleResponse}
+                />
               </motion.div>
             )}
             {openTab == "Aferir CTO" && (
