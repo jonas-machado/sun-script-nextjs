@@ -88,12 +88,10 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
 
     function onTelnetResponse(value: any) {
       setResponse(value);
-      socket.disconnect();
     }
 
     function onMultipleResponse(value: any) {
       setMultipleResponse(value);
-      socket.disconnect();
     }
 
     socket.on("telnet response", onTelnetResponse);

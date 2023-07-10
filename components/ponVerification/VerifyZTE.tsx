@@ -40,7 +40,6 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
   };
 
   const onDetail = (ont: any, todos?: boolean) => {
-    socket.connect();
     if (selected?.brand == "ZTE") {
       if (!todos) {
         socket.emit("connectTelnet", {
@@ -77,7 +76,6 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
 
   const onSubmit = async ({ pon }: any) => {
     setPon(pon);
-    socket.connect();
     if (selected.brand == "ZTE") {
       socket.emit("connectTelnet", {
         ip: selected.ip,
