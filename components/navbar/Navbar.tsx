@@ -231,11 +231,11 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <Popover.Panel className="absolute z-50 -ml-4 mt-3 w-screen max-w-[13rem] transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
+                      <Popover.Panel className="absolute z-50 -ml-4 mt-3 transform px-2 sm:px-0 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2">
                         <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                           <div className="relative grid gap-6 bg-black opacity-90 border-gray-900 border-2 rounded-lg px-5 py-6 sm:gap-8 sm:p-8">
                             {utilitarios.map((item) => (
-                              <a
+                              <Link
                                 key={item.name}
                                 href={item.href}
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
@@ -251,7 +251,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     {item.name}
                                   </p>
                                 </div>
-                              </a>
+                              </Link>
                             ))}
                           </div>
                         </div>
