@@ -1,14 +1,13 @@
 "use client";
+
 import { Fragment, useState } from "react";
 import { Popover, Transition, Menu, Disclosure } from "@headlessui/react";
 import {
-  MapIcon,
   BellIcon,
   Bars3Icon,
   CalendarIcon,
   XMarkIcon,
   TableCellsIcon,
-  DocumentDuplicateIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
@@ -16,23 +15,24 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { User } from "@prisma/client";
-import Modal from "../modals/Modal";
 
 //constants
 import { mapas } from "@/constants/mapas";
 import { utilitarios } from "@/constants/utilitarios";
 import { empresasParceiras } from "@/constants/empresasParceiras";
+import { Session } from "next-auth";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 interface NavbarProps {
-  currentUser?: User | null;
+  currentUser?: Session | null;
   schedules: any;
 }
 
 function Navbar({ currentUser, schedules }: NavbarProps) {
+  console.log(currentUser);
   const router = useRouter();
   const pathname = usePathname();
   const date = new Date();
@@ -239,7 +239,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                 key={item.name}
                                 href={item.href}
                                 className="-m-3 flex items-start rounded-lg p-3 hover:bg-gray-900"
-                                target="_blank"
+                                target={item.target}
                                 rel="noreferrer"
                               >
                                 <item.icon
@@ -335,8 +335,8 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                     <Image
                       className="h-8 w-8 rounded-lg "
                       src={
-                        currentUser?.image
-                          ? currentUser?.image!
+                        currentUser?.user?.image
+                          ? currentUser?.user?.image!
                           : `/images/Default-user-picture.webp`
                       }
                       height={30}
@@ -422,8 +422,8 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                       <Image
                         className="h-10 w-auto rounded-lg border-2 border-gray-800"
                         src={
-                          currentUser?.image
-                            ? currentUser?.image!
+                          currentUser?.user?.image
+                            ? currentUser?.user?.image!
                             : `/images/Default-user-picture.webp`
                         }
                         height={30}
@@ -431,7 +431,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                         alt="user picture"
                       />
                       <span className="pl-3 text-xl font-bold text-white">
-                        {currentUser?.name}
+                        {currentUser?.user?.name}
                       </span>
                     </div>
                     <div className="-mr-2">
@@ -566,12 +566,10 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                             >
                               <Disclosure.Panel className="text-gray-200 bg-gray-900 px-2 rounded-md mr-2 ">
                                 {utilitarios.map((item) => (
-                                  <a
+                                  <Link
                                     key={item.name}
                                     href={item.href}
                                     className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-700"
-                                    target="_blank"
-                                    rel="noreferrer"
                                   >
                                     <item.icon
                                       className="h-6 w-6 flex-shrink-0 text-white"
@@ -580,7 +578,7 @@ function Navbar({ currentUser, schedules }: NavbarProps) {
                                     <span className="ml-3 text-base font-medium text-gray-200">
                                       {item.name}
                                     </span>
-                                  </a>
+                                  </Link>
                                 ))}
                               </Disclosure.Panel>
                             </Transition>

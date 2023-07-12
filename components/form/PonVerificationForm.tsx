@@ -4,7 +4,6 @@ import { useState, useEffect, Fragment } from "react";
 import { useForm, Controller } from "react-hook-form";
 import TabBody from "@/components/tab/TabBody";
 import TabHead from "@/components/tab/TabHead";
-import Input from "@/components/inputs/inputLabelUseForm";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { socket } from "@/lib/socket";
@@ -29,13 +28,6 @@ interface ConfigProps {
 
 const PonVerificationForm = ({ olt }: ConfigProps) => {
   const [openTab, setOpenTab] = useState("Verificar posição livre");
-  const [text, setText] = useState<string>("");
-  const [quantidadeOnu, setQuantidadeOnu] = useState<string>("");
-  const [idLivre, setIdLivre] = useState<number[]>([]);
-  const [onuDown, setOnuDown] = useState<string[]>([]);
-  const [onuLos, setOnuLos] = useState<string[]>([]);
-  const [onuDyingGasp, setOnuDyingGasp] = useState<string[]>([]);
-  const [onuOff, setOnuOff] = useState<string[]>([]);
   const [response, setResponse] = useState<any>();
   const [multipleResponse, setMultipleResponse] = useState<string[]>([]);
   console.log(response);
@@ -63,17 +55,6 @@ const PonVerificationForm = ({ olt }: ConfigProps) => {
       pauseOnHover: false,
     });
   };
-
-  useEffect(() => {
-    reset();
-    setText("");
-    setQuantidadeOnu("");
-    setIdLivre([]);
-    setOnuDown([]);
-    setOnuLos([]);
-    setOnuDyingGasp([]);
-    setOnuOff([]);
-  }, [openTab]);
 
   useEffect(() => {
     // Handle connection event

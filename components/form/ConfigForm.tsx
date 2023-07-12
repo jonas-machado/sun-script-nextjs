@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 //import io from "socket.io-client";
-import Image from "next/image";
 import Input from "../inputs/inputLabelUseForm";
 import InputLabel from "../inputs/InputLabel";
 import { User } from "@prisma/client";
@@ -27,10 +26,7 @@ import { datacom } from "@/lib/text/datacom";
 //constants
 import { plans } from "@/constants/plans";
 import { brv04, viapiana } from "@/constants/ponException";
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
+import { Session } from "next-auth";
 
 const ontType = [{ name: "ONU" }, { name: "ONT" }];
 const intelbrasModel = [{ name: "ITBS" }, { name: "ZNTS" }];

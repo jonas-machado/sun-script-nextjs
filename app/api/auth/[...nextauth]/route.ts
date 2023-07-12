@@ -57,6 +57,10 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
+export async function getCurrentUser() {
+  return await getServerSession(authOptions);
+}
+
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

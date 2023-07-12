@@ -1,8 +1,9 @@
 import { io } from "socket.io-client";
 
 // "undefined" means the URL will be computed from the `window.location` object
-const URL: any = "http://177.200.131.54:3001";
+const URL: any =
+  process.env.NODE_ENV === "production"
+    ? "http://localhost:3001"
+    : "http://localhost:3001";
 
-export const socket = io(URL, {
-  transports: ["websocket"],
-});
+export const socket = io(URL);

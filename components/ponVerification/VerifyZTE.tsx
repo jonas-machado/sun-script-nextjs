@@ -1,14 +1,9 @@
 import React from "react";
 import { useState, useEffect, Fragment } from "react";
 import { useForm, Controller } from "react-hook-form";
-import TabBody from "@/components/tab/TabBody";
-import TabHead from "@/components/tab/TabHead";
 import Input from "@/components/inputs/inputLabelUseForm";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { socket } from "@/lib/socket";
 import ComboboxInput from "../inputs/comboboxInput";
-import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -384,7 +379,7 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
         <textarea
           readOnly
           value={text}
-          className="container m-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black bg-opacity-60 rounded-xl whitespace-pre-line"
+          className="container mt-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black bg-opacity-60 rounded-xl whitespace-pre-line"
         />
       </div>
     </div>
