@@ -19,6 +19,7 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
 
   const [selected, setSelected] = useState<any>();
 
+  console.log(selected);
   const {
     register,
     handleSubmit,
@@ -80,6 +81,7 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
       });
     }
     if (selected.brand == "DATACOM") {
+      console.log(selected);
       socket.emit("connectTelnetDatacom", {
         ip: selected.ip,
         command: `do show interface gpon ${pon} onu`,

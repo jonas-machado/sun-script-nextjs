@@ -67,7 +67,7 @@ Cliente: ${value.client}
 Protocolo: ${value.protocol}
 Endereço: ${value.addres}
 SLA: ${value.sla}
-Responsável pelo atendimmento: ${value.name} // ${value.tel}
+Responsável pelo atendimento: ${value.name} // ${value.tel}
 
 Qualquer dúvida entrar em contato.
 Mais informações na O.S.
