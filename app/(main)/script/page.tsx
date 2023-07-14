@@ -1,4 +1,4 @@
-import getCurrentUser from "@/actions/getCurrentUser";
+import getCurrentUser from "@/lib/actions/getCurrentUser";
 import ScriptForm from "@/components/form/ScriptForm";
 import MotionPage from "@/lib/motionPage";
 

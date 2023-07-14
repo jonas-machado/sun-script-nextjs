@@ -58,7 +58,8 @@ export const authOptions: AuthOptions = {
 };
 
 export async function getCurrentUser() {
-  return await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
+  return session;
 }
 
 const handler = NextAuth(authOptions);

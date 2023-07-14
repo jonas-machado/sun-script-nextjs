@@ -19,6 +19,8 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
 
   const [selected, setSelected] = useState<any>();
 
+  const [exclude, setExclude] = useState<boolean>(false);
+
   console.log(selected);
   const {
     register,
@@ -377,12 +379,57 @@ const VerifyPon = ({ olt, response, multipleResponse }: any) => {
         </div>
       </div>
 
-      <div className="flex justify-center">
+      <div className="grid grid-cols-[70%,29%] gap-2">
         <textarea
           readOnly
           value={text}
-          className="container mt-2 p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black bg-opacity-60 rounded-xl whitespace-pre-line"
+          className="container p-4 h-screen scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black bg-opacity-60 rounded-xl whitespace-pre-line"
         />
+        <div className="w-full h-full">
+          {exclude ? (
+            <>
+              <textarea
+                readOnly
+                value={text}
+                className="container p-4 h-[94%] scrollbar-corner-transparent resize-none scrollbar-thumb-rounded-md scrollbar-thin scrollbar-thumb-gray-800 outline-none scrollbar-track-transparent text-gray-300 bg-black bg-opacity-60 rounded-xl whitespace-pre-line"
+              />
+            </>
+          ) : selected?.brand == "ZTE" ? (
+            <>
+              {onuOff?.concat(onuLos, onuDyingGasp).map((onu: any) => (
+                <>
+                  <button
+                    key={onu}
+                    onClick={() => onDetail(onu)}
+                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                  >
+                    {onu}
+                  </button>
+                </>
+              ))}
+            </>
+          ) : (
+            <>
+              {onuDown?.map((onu: any) => (
+                <>
+                  <button
+                    key={onu}
+                    onClick={() => onDetail(onu)}
+                    className="text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+                  >
+                    {onu}
+                  </button>
+                </>
+              ))}
+            </>
+          )}
+          <button
+            onClick={(e) => setExclude(!exclude)}
+            className="w-full text-gray-300 bg-gray-900 bg-opacity-80 p-1 hover:bg-gray-700 transition-all rounded-md"
+          >
+            {exclude ? "Editar" : "Gerar"}
+          </button>
+        </div>
       </div>
     </div>
   );

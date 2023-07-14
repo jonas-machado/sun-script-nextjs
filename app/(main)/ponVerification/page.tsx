@@ -1,5 +1,5 @@
 import React from "react";
-import { getOlt } from "@/actions/getOlt";
+import { getOlt } from "@/lib/actions/getOlt";
 import PonVerificationForm from "@/components/form/PonVerificationForm";
 
 const ponVerification = async () => {

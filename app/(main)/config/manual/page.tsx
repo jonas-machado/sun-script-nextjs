@@ -1,7 +1,7 @@
 //import io from "socket.io-client";
-import { getOlt } from "@/actions/getOlt";
+import { getOlt } from "@/lib/actions/getOlt";
 import ConfigForm from "@/components/form/ConfigForm";
-import getCurrentUser from "@/actions/getCurrentUser";
+import getCurrentUser from "@/lib/actions/getCurrentUser";
 import MotionPage from "@/lib/motionPage";
 
 export default async function ConfigPage() {

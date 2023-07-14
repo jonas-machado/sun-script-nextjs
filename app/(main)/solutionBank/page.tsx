@@ -1,4 +1,4 @@
-import { getSolutions } from "@/actions/getSolutions";
+import { getSolutions } from "@/lib/actions/getSolutions";
 import SolutionForm from "@/components/form/SolutionForm";
 import MotionPage from "@/lib/motionPage";
 
